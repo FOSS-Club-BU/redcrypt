@@ -7,7 +7,7 @@ from hunt.models import AdditionalHint, Question
 from hunt.models import LevelTracking, AnswerAttempt, SampleQuestion
 from accounts.models import Profile
 from hunt.utils import match_answer, get_rank, update_rank_all
-from sentry_sdk import capture_exception
+# from sentry_sdk import capture_exception
 import os
 import requests
 from datetime import datetime
@@ -59,13 +59,15 @@ def check_ans(request):
                 level=profile.current_level,
                 answer=answer)
         except Exception as e:
-            capture_exception(e)
+            # capture_exception(e)
+            print(e)
         try:
             profile.stats[str(question.level)] += 1
         except KeyError:
             profile.stats[str(question.level)] = 1
         except Exception as e:
-            capture_exception(e)
+            # capture_exception(e)
+            print(e)
         if match_answer(question.answer, answer):
             profile.current_level += 1
             profile.score += question.points
@@ -76,7 +78,8 @@ def check_ans(request):
                     user=request.user,
                     level=profile.current_level)
             except Exception as e:
-                capture_exception(e)
+                # capture_exception(e)
+                print(e)
             url = f"{os.getenv('BOT_HOST')}/level/complete/{profile.discord_id}/{int(profile.current_level)-1}"
             headers = {"Authorization": os.getenv("API_Authorization")}
             request = requests.post(url, headers=headers)

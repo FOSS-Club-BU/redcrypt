@@ -8,7 +8,7 @@ from hunt.decorators import not_banned
 from allauth.account.utils import send_email_confirmation
 from django.core.exceptions import ObjectDoesNotExist
 from hunt.utils import get_rank
-from sentry_sdk import capture_exception
+# from sentry_sdk import capture_exception
 from accounts.forms import ContactForm
 
 
@@ -77,7 +77,7 @@ def save_profile(request):
             profile.save()
             return JsonResponse({'saved': True}, status=200)
         except Exception as e:
-            capture_exception(e)
+            # capture_exception(e)
             return JsonResponse({'saved': False}, status=400)
 
 
@@ -137,7 +137,7 @@ def submit_contact_form(request):
                 form_model.save()
                 return JsonResponse({'saved': True}, status=200)
         except Exception as e:
-            capture_exception(e)
+            # capture_exception(e)
             return JsonResponse(
                 {'saved': False, 'message': str(e)},
                 status=400)

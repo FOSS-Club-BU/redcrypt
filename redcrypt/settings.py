@@ -13,8 +13,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
+from django.core.management.utils import get_random_secret_key;
+# import sentry_sdk
+# from sentry_sdk.integrations.django import DjangoIntegration
 
 
 load_dotenv()
@@ -26,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 try:
@@ -59,7 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
-    'django.contrib.contenttypes',
+    'django.contrib.contenttypes',  # Add this line
     'django.contrib.sessions',
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
@@ -75,8 +76,7 @@ INSTALLED_APPS = [
     'url_shortner',
     'hcaptcha',
     'maintenance_mode',
-    'pwa',
-    'debug_toolbar',
+    'pwa'
 ]
 
 MIDDLEWARE = [
@@ -90,7 +90,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'redcrypt.middleware.CustomMiddleware',
     'maintenance_mode.middleware.MaintenanceModeMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'redcrypt.urls'
@@ -126,19 +125,19 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-sentry_sdk.init(
-    dsn=os.getenv('SENTRY_DSN'),
-    integrations=[DjangoIntegration()],
+# sentry_sdk.init(
+#     dsn=os.getenv('SENTRY_DSN'),
+#     integrations=[DjangoIntegration()],
 
-    # Set traces_sample_rate to 1.0 to capture 100%
-    # of transactions for performance monitoring.
-    # We recommend adjusting this value in production.
-    traces_sample_rate=1.0,
+#     # Set traces_sample_rate to 1.0 to capture 100%
+#     # of transactions for performance monitoring.
+#     # We recommend adjusting this value in production.
+#     traces_sample_rate=1.0,
 
-    # If you wish to associate users to errors (assuming you are using
-    # django.contrib.auth) you may enable sending PII data.
-    send_default_pii=True
-)
+#     # If you wish to associate users to errors (assuming you are using
+#     # django.contrib.auth) you may enable sending PII data.
+#     send_default_pii=True
+# )
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

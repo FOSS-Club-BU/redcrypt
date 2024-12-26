@@ -7,7 +7,7 @@ from accounts.models import Profile
 from hunt.models import EasterEgg
 from django.core.exceptions import ObjectDoesNotExist
 from hunt.utils import get_rank, update_rank_all, backup_db
-from sentry_sdk import capture_exception
+# from sentry_sdk import capture_exception
 from django.views.decorators.csrf import csrf_exempt
 from extra_settings.models import Setting
 
@@ -54,7 +54,7 @@ def verify_discord_id(request, discord_id):
     except ObjectDoesNotExist:
         return HttpResponse(status=404)
     except Exception as e:
-        capture_exception(e)
+        # capture_exception(e)
         return HttpResponse(status=500)
 
 
@@ -85,7 +85,7 @@ def leaderboard(request):
                     'score': user.score, 'rank': rank})
         return HttpResponse(json.dumps(data_dict))
     except Exception as e:
-        capture_exception(e)
+        # capture_exception(e)
         return HttpResponse(status=500)
 
 
@@ -105,7 +105,7 @@ def stats(request, discord_id):
     except ObjectDoesNotExist:
         return HttpResponse(status=404)
     except Exception as e:
-        capture_exception(e)
+        # capture_exception(e)
         return HttpResponse(status=500)
 
 
@@ -123,7 +123,7 @@ def ban(request, discord_id, reason):
     except ObjectDoesNotExist:
         return HttpResponse(status=404)
     except Exception as e:
-        capture_exception(e)
+        # capture_exception(e)
         return HttpResponse(status=500)
 
 
@@ -140,7 +140,7 @@ def unban(request, discord_id):
     except ObjectDoesNotExist:
         return HttpResponse(status=404)
     except Exception as e:
-        capture_exception(e)
+        # capture_exception(e)
         return HttpResponse(status=500)
 
 
@@ -174,12 +174,12 @@ def easteregg(request, discord_id, egg):
                 'code': 'not_found',
                 'response': 'Wrong! Try again!'})
         except Exception as e:
-            capture_exception(e)
+            # capture_exception(e)
             return HttpResponse(status=500)
     except ObjectDoesNotExist:
         return HttpResponse(status=404)
     except Exception as e:
-        capture_exception(e)
+        # capture_exception(e)
         return HttpResponse(status=500)
 
 
