@@ -21,37 +21,37 @@
 
 <div class="container justify-center flex">
 
-    <div class="rounded lg:w-3/4  md:w-3/4 w-[98%] p-10 mt-16 bg-clip-padding bg-nblue-800 backdrop-filter backdrop-blur-xl bg-opacity-60 border border-nblue mb-10 z-0" style="z-index:0">
+    <div class="rounded lg:w-3/4  md:w-3/4 w-[98%] p-10 mt-16 bg-clip-padding bg-green-800 backdrop-filter backdrop-blur-xl bg-opacity-60 border border-green-600 mb-10 z-0" style="z-index:0">
         
-            <img src="{% avatar user %}" alt="dp" class="rounded-full border border-nblue border-3" style="width:80px;height:80px;margin-top:-80px;">
-            <h1 class="text-nblue text-3xl font-bold mt-4 mb-6">Edit Profile</h1>
+            <img src="{% avatar user %}" alt="dp" class="rounded-full border border-green-600 border-3" style="width:80px;height:80px;margin-top:-80px;">
+            <h1 class="text-green-600 text-3xl font-bold mt-4 mb-6">Edit Profile</h1>
             <form id="answer_form" action="{% url 'save_profile' %}" method="post" class="justify-start">
                 {% csrf_token %}
             <!--<div class="relative flex justify-center items-center group p-2 ">-->
-            <label for="username" class="text-nblue mr-6 justify-start">Username:</label>
-            <input type="text" id="username" class="mb-2 bg-nblue-700 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 cursor-not-allowed" value="{{user.username}}" disabled>
+            <label for="username" class="text-green-600 mr-6 justify-start">Username:</label>
+            <input type="text" id="username" class="mb-2 bg-green-600 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 cursor-not-allowed" value="{{user.username}}" disabled>
             <!--</div>-->
             <br>
-            <label for="email" class="text-nblue mr-6 justify-start">Email:</label>
-            <input type="text" id="email" class="mb-2 bg-nblue-700 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 cursor-not-allowed" value="{{user.email}}" disabled>
+            <label for="email" class="text-green-600 mr-6 justify-start">Email:</label>
+            <input type="text" id="email" class="mb-2 bg-green-600 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 cursor-not-allowed" value="{{user.email}}" disabled>
            <br>
 
-                <label for="name" class="p-2 text-nblue mr-3 place-self-start mb-6"><b>Name:</b></label>
-                <input type="text" id="name" class="mb-2 bg-nblue-700 border border-nblue text-nblue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="name" value="{{profile.name}}">
+                <label for="name" class="p-2 text-green-600 mr-3 place-self-start mb-6"><b>Name:</b></label>
+                <input type="text" id="name" class="mb-2 bg-green-600 border border-green-600 text-green-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="name" value="{{profile.name}}">
                 <br>
-                <span class="relative inline-flex flex justify-between items-center group p-2 text-nblue ml-2"> Make it public </span>
+                <span class="relative inline-flex flex justify-between items-center group p-2 text-green-600 ml-2"> Make it public </span>
                 <label for="is_name_public" class="ml-3 content-center inline-flex relative items-center cursor-pointer">
                 <input type="checkbox" id="is_name_public" class="inline-flex sr-only peer" name="is_name_public" {% if profile.is_public_name %}checked{% endif %}>
-                <div class="w-11 h-6 inline-flex relative content-center items-center text-nblue bg-nblue-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-nblue"></div>
+                <div class="w-11 h-6 inline-flex relative content-center items-center text-green-600 bg-green-600 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
                 </label><br>                  
 
-                    <label for="organization" class="p-2 text-nblue mr-3 place-self-start"><b>School/Organization:</b></label>
-                    <input type="text" id="organization" class="mb-2 bg-nblue-700 border border-nblue text-nblue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="organization" value="{{profile.organization}}">
+                    <label for="organization" class="p-2 text-green-600 mr-3 place-self-start"><b>School/Organization:</b></label>
+                    <input type="text" id="organization" class="mb-2 bg-green-600 border border-green-600 text-green-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="organization" value="{{profile.organization}}">
                     <br>
-                    <span class="relative flex inline-flex justify-between items-center group p-2 text-nblue ml-2"> Make it public </span>
+                    <span class="relative flex inline-flex justify-between items-center group p-2 text-green-600 ml-2"> Make it public </span>
                         <label for="is_organization_public" class="ml-3 content-center inline-flex relative items-center cursor-pointer">
                         <input type="checkbox" id="is_organization_public" class="sr-only peer" name="is_organization_public" {% if profile.is_public_organization %}checked{% endif %}>
-                        <div class="mb-6 w-11 h-6 inline-flex relative content-center items-center text-nblue bg-nblue-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-nblue"></div>
+                        <div class="mb-6 w-11 h-6 inline-flex relative content-center items-center text-green-600 bg-green-600 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
                         </label>                  
                     
                     </tr>

@@ -17,7 +17,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=150, blank=True)
     score = models.IntegerField(default=0)
-    last_completed_time = models.DateTimeField()
+    last_completed_time = models.DateTimeField(null=True, blank=True)
     is_public_name = models.BooleanField(default=False)
     current_level = models.IntegerField(default=0)
     discord_id = models.IntegerField(default=0)
@@ -29,7 +29,7 @@ class Profile(models.Model):
     ip_address_count = models.IntegerField(default=0)
     avatar_url = models.CharField(
         max_length=150,
-        default="https://source.boringavatars.com/beam/512/redcrypt?colors=00D2D2,006D6D,002A2A,055D5D,074848&square"
+        default="https://source.boringavatars.com/beam/512/redcrypt?colors=08B74F,006D6D,002A2A,055D5D,074848&square"
     )
     stats = models.JSONField(default=dict, blank=True)
     rank = models.CharField(default='0', max_length=5, blank=True)

@@ -27,7 +27,7 @@ class MyCustomSignupForm(SignupForm):
             name=self.cleaned_data['name'],
             organization=self.cleaned_data['organization'],
             avatar_url=
-            f"https://source.boringavatars.com/beam/512/{user.username}?colors=00D2D2,006D6D,002A2A,055D5D,074848&square",
+            f"https://source.boringavatars.com/beam/512/{user.username}?colors=08B74F,006D6D,002A2A,055D5D,074848&square",
             last_completed_time=datetime.now(pytz.timezone('Asia/Kolkata')))
         profile.save()
 
@@ -45,8 +45,8 @@ class ContactForm(forms.Form):
     subject = forms.CharField(
         required=True,
         max_length=150,
-        widget=forms.TextInput(attrs={'class': 'text-nblue p-2'}))
+        widget=forms.TextInput(attrs={'class': 'text-green-600 p-2'}))
     body = forms.CharField(
         required=True,
-        widget=forms.Textarea(attrs={'class': 'text-nblue p-2'}))
+        widget=forms.Textarea(attrs={'class': 'text-green-600 p-2'}))
     hCaptcha = hCaptchaField(theme='dark')

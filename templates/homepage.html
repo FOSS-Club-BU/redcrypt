@@ -17,7 +17,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="language" content="English">
   <meta name="author" content="DiluteWater">
-  <meta name="theme-color" content="#00d2d2">
+  <meta name="theme-color" content="#08B74F">
   <meta property="og:title" content="Re-Dcrypt 2">
   <meta property="og:description"
     content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it.">
@@ -68,16 +68,33 @@
   <style>
     body {
       background-color: #0a0a0a;
-      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 800 800" opacity="0.29"><defs><filter id="bbblurry-filter" x="-100%" y="-100%" width="400%" height="400%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="105" x="0%" y="0%" width="100%" height="100%" in="SourceGraphic" edgeMode="none" result="blur"></feGaussianBlur></filter></defs><g filter="url(%23bbblurry-filter)"><ellipse rx="277.5" ry="70.5" cx="374.6263063904349" cy="152.5110438235745" fill="%2308b74fff"></ellipse><ellipse rx="277.5" ry="70.5" cx="609.3629886243975" cy="577.0143193607748" fill="%232e90faff"></ellipse><ellipse rx="277.5" ry="70.5" cx="569.708794393911" cy="421.74006583646695" fill="%23fec84bff"></ellipse><ellipse rx="277.5" ry="70.5" cx="580.3182202360631" cy="245.6796082782004" fill="%23f04438ff"></ellipse></g></svg>');
+      /* background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 800 800" opacity="0.29"><defs><filter id="bbblurry-filter" x="-100%" y="-100%" width="400%" height="400%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="105" x="0%" y="0%" width="100%" height="100%" in="SourceGraphic" edgeMode="none" result="blur"></feGaussianBlur></filter></defs><g filter="url(%23bbblurry-filter)"><ellipse rx="277.5" ry="70.5" cx="374.6263063904349" cy="152.5110438235745" fill="%2308b74fff"><animate attributeName="rx" values="277.5;297.5;277.5" dur="4s" repeatCount="indefinite"/><animate attributeName="ry" values="70.5;80.5;70.5" dur="3s" repeatCount="indefinite"/></ellipse><ellipse rx="277.5" ry="70.5" cx="609.3629886243975" cy="577.0143193607748" fill="%232e90faff"><animate attributeName="rx" values="277.5;257.5;277.5" dur="5s" repeatCount="indefinite"/><animate attributeName="ry" values="70.5;90.5;70.5" dur="4s" repeatCount="indefinite"/></ellipse><ellipse rx="277.5" ry="70.5" cx="569.708794393911" cy="421.74006583646695" fill="%2308B74F"><animate attributeName="rx" values="277.5;297.5;277.5" dur="6s" repeatCount="indefinite"/><animate attributeName="ry" values="70.5;60.5;70.5" dur="5s" repeatCount="indefinite"/></ellipse><ellipse rx="277.5" ry="70.5" cx="580.3182202360631" cy="245.6796082782004" fill="%2308B74F"><animate attributeName="rx" values="277.5;267.5;277.5" dur="4s" repeatCount="indefinite"/><animate attributeName="ry" values="70.5;85.5;70.5" dur="6s" repeatCount="indefinite"/></ellipse></g></svg>'); */
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
+      animation: backgroundPan 10s ease infinite;
     }
 
-    @media (max-width: 768px) {
-      body {
-        background-position: top;
+    @keyframes backgroundPan {
+      0% {
+        background-position: 0% 50%;
       }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
     }
 
     .install {
@@ -124,12 +141,12 @@
 
     .promptPopup-show {
       background-color: rgba(0, 41, 41, 1);
-      border: 1px solid #00D2D2;
+      border: 1px solid #08B74F;
     }
 
     .webpushrOnBtn,
     .webpushrUnknownBtn {
-      color: #00D2D2;
+      color: #08B74F;
     }
 
     #webpushrUnknownBtn {
@@ -147,17 +164,17 @@
     }
 
     .webpushr-notification:hover {
-      background-color: #00d2d2;
+      background-color: #08B74F;
       color: #002a2a;
     }
 
     popup_heading.popup-button-heading {
-      border-top: 1px solid #00d2d2;
+      border-top: 1px solid #08B74F;
     }
 
     webpushrwppromptbox2_wrapper {
       border-width: 2px;
-      border-color: #00d2d2;
+      border-color: #08B74F;
     }
 
     #webpushr-subscription-button {
@@ -166,7 +183,7 @@
       padding-bottom: 1rem;
       padding-left: 0.5rem;
       padding-right: 0.5rem;
-      color: #00d2d2;
+      color: #08B74F;
       background-color: transparent;
     }
 
@@ -193,6 +210,34 @@
 </head>
 
 <body class="font-Inter">
+    <div class="animated-bg">
+<svg width="100%" height="100%" viewBox="0 0 800 800">
+  <defs>
+    <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">
+      <feGaussianBlur stdDeviation="105" in="SourceGraphic" result="blur"></feGaussianBlur>
+    </filter>
+  </defs>
+  <g filter="url(#bb-filter)">
+    <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f">
+      <animate attributeName="cx" values="374;400;350;374" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="152;200;120;152" dur="3.5s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse rx="277.5" ry="70.5" cx="609" cy="577" fill="#2e90fa">
+      <animate attributeName="cx" values="609;650;580;609" dur="5s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="577;600;550;577" dur="4.5s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse rx="277.5" ry="70.5" cx="569" cy="421" fill="#08B74F">
+      <animate attributeName="cx" values="569;590;530;569" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="421;450;390;421" dur="5s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse rx="277.5" ry="70.5" cx="580" cy="245" fill="#08B74F">
+      <animate attributeName="cx" values="580;600;550;580" dur="3.5s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="245;280;210;245" dur="4s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+</svg>
+
+    </div>
     {% if user.is_authenticated %}
         {% include 'auth_header.html' %}
     {% else %}
@@ -201,7 +246,7 @@
   <center>
     <div
       class="rounded lg:w-3/4 md:w-3/4 w-[98%] p-5 mt-24 bg-clip-padding mb-10"
-      <p tabindex="0" class="text-nblue focus:outline-none text-2xl font-extrabold leading-6">
+      <p tabindex="0" class="text-green-600 focus:outline-none text-2xl font-extrabold leading-6">
       <img src="{% static 'foss-bu-dark.png' %}" alt="FOSS BU Logo" class="py-6 w-2/3 md:w-1/4 px-6 h-auto" data-aos="fade-up" data-aos-once="true" data-aos-duration="800" data-aos-offset="50">
       <p class="text-neutral-400 text-xl font-bold" data-aos="fade-up" data-aos-once="true" data-aos-duration="800" data-aos-offset="50">Presents</p>
       <img src="{% static 'logo_banner.svg' %}" alt="Re-Dcrypt Logo" class="pt-12 md:w-2/3 px-4 h-auto" data-aos="fade-up" data-aos-once="true" data-aos-duration="800" data-aos-offset="50">
