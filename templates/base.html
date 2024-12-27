@@ -127,20 +127,6 @@
         background-attachment: fixed;
       }
 
-      .animated-bg {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: -1;
-      }
-
-      @keyframes backgroundPan {
-        /* ...same keyframes... */
-      }
-
       .install {
         display: none;
       }
@@ -246,11 +232,6 @@
   </head>
 
   <body class="font-Inter mt-24">
-    <div class="animated-bg">
-      <svg width="100%" height="100%" viewBox="0 0 800 800">
-        <!-- ...same animated ellipses... -->
-      </svg>
-    </div>
     {% if user.is_authenticated %} {% include 'auth_header.html' %} {% else %}
     {% include 'no_auth_header.html' %} {% endif %}
     <center>
