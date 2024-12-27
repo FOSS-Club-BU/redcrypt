@@ -1,147 +1,131 @@
-{% load static %} {% load profile_tags %}
+{% load static %}
+{% load profile_tags %}
 <!-- Mobile Navbar -->
 <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-neutral-900/80 backdrop-blur-md md:hidden shadow-inset-white rounded-full m-3">
   <a href="{% url 'index' %}">
-    <img src="{% static 'logo_banner.svg' %}" class="h-6" />
+    <img src="{% static 'logo_banner.svg' %}" alt="Re-Decrypt Logo" width="auto" height="auto" class="h-6" />
   </a>
-  <button id="mobile-menu-button" class="p-2 rounded-lg flex flex-col justify-between h-6">
+  <button id="mobile-menu-button"
+          class="p-2 rounded-lg flex flex-col justify-between h-6">
     <span class="block w-6 h-0.5 bg-green-600 transition-transform origin-center"></span>
     <span class="block w-6 h-0.5 bg-green-600 transition-transform origin-center"></span>
   </button>
 </nav>
-
 <!-- Mobile Menu Dropdown -->
-<div id="mobile-menu" class="fixed inset-x-0 top-[76px] bg-neutral-900/80 transform -translate-y-[150%] transition-transform duration-300 ease-in-out backdrop-blur-md z-40 md:hidden rounded-3xl m-4 shadow-inset-white">
+<div id="mobile-menu"
+     class="fixed inset-x-0 top-[76px] bg-neutral-900/80 transform -translate-y-[150%] transition-transform duration-300 ease-in-out backdrop-blur-md z-40 md:hidden rounded-3xl m-4 shadow-inset-white">
   <div class="flex flex-col px-6 py-6">
     <nav class="flex flex-col space-y-4">
-      <a href="{% url 'play' %}" class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">Play</a>
-      <a href="{% url 'leaderboard' %}" class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">Leaderboard</a>
-      <a href="{% url 'rules' %}" class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">Rules</a>
-      <a href="{% url 'about' %}" class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">About</a>
+      <a href="{% url 'play' %}"
+         class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">Play</a>
+      <a href="{% url 'leaderboard' %}"
+         class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">Leaderboard</a>
+      <a href="{% url 'rules' %}"
+         class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">Rules</a>
+      <a href="{% url 'about' %}"
+         class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">About</a>
     </nav>
-    
     <div class="flex items-center my-4 space-x-3">
-      <img src="{% avatar user %}" alt="avatar" class="w-10 h-10 rounded-full border-2 border-green-600"/>
-      <span class="text-neutral-100 font-bold">{{user.username}}</span>
+      <img src="{% avatar user %}"
+           alt="avatar"
+           class="w-10 h-10 rounded-full border-2 border-green-600" width="auto" height="auto"/>
+      <span class="text-neutral-100 font-bold">{{ user.username }}</span>
     </div>
-
     <div class="flex flex-col space-y-2">
       {% if user.is_staff %}
-      <a href="/honeypot/" class="text-center text-neutral-100 font-bold hover:bg-neutral-700 rounded px-4 py-2">Admin Panel</a>
+        <a href="/honeypot/"
+           class="text-center text-neutral-100 font-bold hover:bg-neutral-700 rounded px-4 py-2">Admin Panel</a>
       {% endif %}
-      <a href="{% url 'profile' %}" class="text-center text-neutral-100 font-bold hover:bg-neutral-700 rounded px-4 py-2">Profile</a>
-      <form action="{% url 'account_logout' %}" method="POST" class="contents">
+      <a href="{% url 'profile' %}"
+         class="text-center text-neutral-100 font-bold hover:bg-neutral-700 rounded px-4 py-2">Profile</a>
+      <form action="{% url 'account_logout' %}" method="post" class="contents">
         {% csrf_token %}
-        <button type="submit" class="text-center text-neutral-100 font-bold hover:bg-neutral-700 rounded px-4 py-2 w-full">Sign Out</button>
+        <button type="submit"
+                class="text-center text-neutral-100 font-bold hover:bg-neutral-700 rounded px-4 py-2 w-full">
+          Sign Out
+        </button>
       </form>
       <div id="install">
-        <button type="submit" id="installapp" class="text-center text-neutral-100 font-bold hover:bg-neutral-700 rounded px-4 py-2 w-full">Install App</button>
+        <button type="submit"
+                id="installapp"
+                class="text-center text-neutral-100 font-bold hover:bg-neutral-700 rounded px-4 py-2 w-full">
+          Install App
+        </button>
       </div>
     </div>
   </div>
 </div>
-
 <!-- Desktop Navigation -->
 <div class="w-full fixed top-0 flex items-start justify-center z-30 md:flex">
   <header class="text-neutral-400 body-font w-2/3 bg-neutral-950/60 mx-auto mt-4 rounded-full backdrop-blur-lg shadow-inset-white px-3 py-1">
     <div class="container mx-auto flex p-4 items-center justify-between">
       <nav class="flex-1 flex justify-start items-center gap-5">
-        <a
-          href="{% url 'play' %}"
-          class="{% if url_name == 'play' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold"
-          >Play</a
-        >
-        <a
-          href="{% url 'leaderboard' %}"
-          class="{% if url_name == 'leaderboard' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold"
-          >Leaderboard</a
-        >
-        <a
-          href="{% url 'rules' %}"
-          class="{% if url_name == 'rules' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold"
-          >Rules</a
-        >
-        <a
-          href="{% url 'about' %}"
-          class="{% if url_name == 'about' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold"
-          >About</a
-        >
+        <a href="{% url 'play' %}"
+           class="{% if url_name == 'play' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold">Play</a>
+        <a href="{% url 'leaderboard' %}"
+           class="{% if url_name == 'leaderboard' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold">Leaderboard</a>
+        <a href="{% url 'rules' %}"
+           class="{% if url_name == 'rules' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold">Rules</a>
+        <a href="{% url 'about' %}"
+           class="{% if url_name == 'about' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold">About</a>
       </nav>
-
       <!-- Center Logo -->
       <div class="flex-none flex justify-center">
         <a href="{% url 'index' %}">
-          <img src="{% static 'logo_banner.svg' %}" class="h-6" />
+          <img src="{% static 'logo_banner.svg' %}" alt="Re-Dcrypt Logo" width="auto" height="auto" class="h-6" />
         </a>
       </div>
-
       <!-- Right Side -->
       <div class="flex-1 flex justify-end items-center gap-3">
-        <span class="text-neutral-100 font-bold">{{user.username}}</span>
+        <span class="text-neutral-100 font-bold">{{ user.username }}</span>
         <div class="group relative">
           <button class="text-neutral-100">
-            <img
-              src="{% avatar user %}"
-              alt="avatar"
-              class="w-11 h-11 rounded-full border-2 border-green-600"
-            />
+            <img src="{% avatar user %}"
+                 alt="avatar"
+                 class="w-11 h-11 rounded-full border-2 border-green-600" width="auto" height="auto"/>
           </button>
-
           <!-- Dropdown Menu -->
-          <nav
-            tabindex="0"
-            class="border bg-neutral-900/80 invisible border-green-600 rounded-lg w-60 absolute right-0 top-full transition-all opacity-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-1 backdrop-blur-lg"
-            style="z-index: 5"
-          >
+          <nav tabindex="0"
+               class="border bg-neutral-900/80 invisible border-green-600 rounded-lg w-60 absolute right-0 top-full transition-all opacity-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-1 backdrop-blur-lg"
+               style="z-index: 5">
             <ul class="py-1">
               {% if user.is_staff %}
-              <li>
-                <a
-                  href="/honeypot/"
-                  class="block px-4 py-2 text-neutral-100 font-bold hover:bg-neutral-700 text-center"
-                  >Admin Panel</a
-                >
-              </li>
+                <li>
+                  <a href="/honeypot/"
+                     class="block px-4 py-2 text-neutral-100 font-bold hover:bg-neutral-700 text-center">Admin Panel</a>
+                </li>
               {% endif %}
               <li>
-                <a
-                  href="{% url 'profile' %}"
-                  class="block px-4 py-2 text-neutral-100 font-bold hover:bg-neutral-700"
-                >
+                <a href="{% url 'profile' %}"
+                   class="block px-4 py-2 text-neutral-100 font-bold hover:bg-neutral-700">
                   <center>Profile</center>
                 </a>
               </li>
               <li>
-                <form action="{% url 'account_logout' %}" method="POST">
+                <form action="{% url 'account_logout' %}" method="post">
                   {% csrf_token %}
-                  <button
-                    type="submit"
-                    class="block px-4 py-2 text-neutral-100 font-bold hover:bg-neutral-700 w-full text-center"
-                  >
+                  <button type="submit"
+                          class="block px-4 py-2 text-neutral-100 font-bold hover:bg-neutral-700 w-full text-center">
                     Sign Out
                   </button>
                 </form>
               </li>
               <li>
                 <div id="install">
-                  <button
-                    type="submit"
-                    id="installapp"
-                    class="block px-4 py-2 text-neutral-100 font-bold hover:bg-neutral-700 w-full text-center"
-                  >
+                  <button type="submit"
+                          id="installapp"
+                          class="block px-4 py-2 text-neutral-100 font-bold hover:bg-neutral-700 w-full text-center">
                     Install App
                   </button>
                 </div>
               </li>
               {% if user.is_superuser %}
-              <li>
-                <a
-                  href="{% url 'update_rank' %}"
-                  class="block px-4 py-2 text-neutral-100 font-bold hover:bg-neutral-700 w-full text-center"
-                >
-                  Update Ranks
-                </a>
-              </li>
+                <li>
+                  <a href="{% url 'update_rank' %}"
+                     class="block px-4 py-2 text-neutral-100 font-bold hover:bg-neutral-700 w-full text-center">
+                    Update Ranks
+                  </a>
+                </li>
               {% endif %}
             </ul>
           </nav>
@@ -150,33 +134,3 @@
     </div>
   </header>
 </div>
-
-<script>
-  const mobileMenuButton = document.getElementById("mobile-menu-button");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const menuIconLines = mobileMenuButton.querySelectorAll("span");
-  let isOpen = false;
-
-  mobileMenuButton.addEventListener("click", () => {
-    isOpen = !isOpen;
-    if (isOpen) {
-      mobileMenu.classList.remove("-translate-y-[150%]");
-      menuIconLines[0].classList.add("rotate-45", "translate-y-1.5");
-      menuIconLines[1].classList.add("-rotate-45", "-translate-y-1.5");
-    } else {
-      mobileMenu.classList.add("-translate-y-[150%]");
-      menuIconLines[0].classList.remove("rotate-45", "translate-y-1.5");
-      menuIconLines[1].classList.remove("-rotate-45", "-translate-y-1.5");
-    }
-  });
-
-  // Close menu when clicking outside
-  document.addEventListener("click", (e) => {
-    if (isOpen && !mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
-      isOpen = false;
-      mobileMenu.classList.add("-translate-y-[150%]");
-      menuIconLines[0].classList.remove("rotate-45", "translate-y-1.5");
-      menuIconLines[1].classList.remove("-rotate-45", "-translate-y-1.5");
-    }
-  });
-</script>

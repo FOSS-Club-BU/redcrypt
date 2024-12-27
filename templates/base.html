@@ -1,32 +1,27 @@
-{% load static %} {% load pwa %}
+{% load static %}
+{% load pwa %}
 <!DOCTYPE html>
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>{% block head_title %}{% endblock %} | Re-Dcrypt</title>
+    <title>
+      {% block head_title %}
+      {% endblock head_title %}
+    | Re-Dcrypt</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="content-language" content="en-IN" />
     <meta name="title" content="Re-Dcrypt 2" />
-    <meta
-      name="description"
-      content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it."
-    />
-    <meta
-      name="keywords"
-      content="cryptic hunt, hunt, cryptic, steg, redcrypt"
-    />
+    <meta name="description"
+          content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it." />
+    <meta name="keywords" content="cryptic hunt, hunt, cryptic, steg, redcrypt" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="language" content="English" />
     <meta name="author" content="DiluteWater" />
     <meta name="theme-color" content="#08B74F" />
     <meta property="og:title" content="Re-Dcrypt 2" />
-    <meta
-      property="og:description"
-      content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it."
-    />
+    <meta property="og:description"
+          content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it." />
     <meta property="og:image" content="/icons/maskable_icon_x192.png" />
-
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
     {% progressive_web_app_meta %}
     <script src="https://cdn.tailwindcss.com"></script>
@@ -60,7 +55,6 @@
         },
       };
     </script>
-    <script src="https://cdn.blobity.dev/by.js?noAutoStart"></script>
     <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
     <script>
       (function (w, d, s, id) {
@@ -84,18 +78,11 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-79MBGTX27V"
-    ></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-79MBGTX27V"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -121,11 +108,35 @@
     </script>
     <style>
       body {
-        background-color: #0a0a0a;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 304 304' width='304' height='304'%3E%3Cpath fill='%23155229' fill-opacity='1' d='M44.1 224a5 5 0 1 1 0 2H0v-2h44.1zm160 48a5 5 0 1 1 0 2H82v-2h122.1zm57.8-46a5 5 0 1 1 0-2H304v2h-42.1zm0 16a5 5 0 1 1 0-2H304v2h-42.1zm6.2-114a5 5 0 1 1 0 2h-86.2a5 5 0 1 1 0-2h86.2zm-256-48a5 5 0 1 1 0 2H0v-2h12.1zm185.8 34a5 5 0 1 1 0-2h86.2a5 5 0 1 1 0 2h-86.2zM258 12.1a5 5 0 1 1-2 0V0h2v12.1zm-64 208a5 5 0 1 1-2 0v-54.2a5 5 0 1 1 2 0v54.2zm48-198.2V80h62v2h-64V21.9a5 5 0 1 1 2 0zm16 16V64h46v2h-48V37.9a5 5 0 1 1 2 0zm-128 96V208h16v12.1a5 5 0 1 1-2 0V210h-16v-76.1a5 5 0 1 1 2 0zm-5.9-21.9a5 5 0 1 1 0 2H114v48H85.9a5 5 0 1 1 0-2H112v-48h12.1zm-6.2 130a5 5 0 1 1 0-2H176v-74.1a5 5 0 1 1 2 0V242h-60.1zm-16-64a5 5 0 1 1 0-2H114v48h10.1a5 5 0 1 1 0 2H112v-48h-10.1zM66 284.1a5 5 0 1 1-2 0V274H50v30h-2v-32h18v12.1zM236.1 176a5 5 0 1 1 0 2H226v94h48v32h-2v-30h-48v-98h12.1zm25.8-30a5 5 0 1 1 0-2H274v44.1a5 5 0 1 1-2 0V146h-10.1zm-64 96a5 5 0 1 1 0-2H208v-80h16v-14h-42.1a5 5 0 1 1 0-2H226v18h-16v80h-12.1zm86.2-210a5 5 0 1 1 0 2H272V0h2v32h10.1zM98 101.9V146H53.9a5 5 0 1 1 0-2H96v-42.1a5 5 0 1 1 2 0zM53.9 34a5 5 0 1 1 0-2H80V0h2v34H53.9zm60.1 3.9V66H82v64H69.9a5 5 0 1 1 0-2H80V64h32V37.9a5 5 0 1 1 2 0zM101.9 82a5 5 0 1 1 0-2H128V37.9a5 5 0 1 1 2 0V82h-28.1zm16-64a5 5 0 1 1 0-2H146v44.1a5 5 0 1 1-2 0V18h-26.1zm102.2 270a5 5 0 1 1 0 2H98v14h-2v-16h124.1zM242 149.9V160h16v34h-16v62h48v48h-2v-46h-48v-66h16v-30h-16v-12.1a5 5 0 1 1 2 0zM53.9 18a5 5 0 1 1 0-2H64V2H48V0h18v18H53.9zm112 32a5 5 0 1 1 0-2H192V0h50v2h-48v48h-28.1zm-48-48a5 5 0 0 1-9.8-2h2.07a3 3 0 1 0 5.66 0H178v34h-18V21.9a5 5 0 1 1 2 0V32h14V2h-58.1zm0 96a5 5 0 1 1 0-2H137l32-32h39V21.9a5 5 0 1 1 2 0V66h-40.17l-32 32H117.9zm28.1 90.1a5 5 0 1 1-2 0v-76.51L175.59 80H224V21.9a5 5 0 1 1 2 0V82h-49.59L146 112.41v75.69zm16 32a5 5 0 1 1-2 0v-99.51L184.59 96H300.1a5 5 0 0 1 3.9-3.9v2.07a3 3 0 0 0 0 5.66v2.07a5 5 0 0 1-3.9-3.9H185.41L162 121.41v98.69zm-144-64a5 5 0 1 1-2 0v-3.51l48-48V48h32V0h2v50H66v55.41l-48 48v2.69zM50 53.9v43.51l-48 48V208h26.1a5 5 0 1 1 0 2H0v-65.41l48-48V53.9a5 5 0 1 1 2 0zm-16 16V89.41l-34 34v-2.82l32-32V69.9a5 5 0 1 1 2 0zM12.1 32a5 5 0 1 1 0 2H9.41L0 43.41V40.6L8.59 32h3.51zm265.8 18a5 5 0 1 1 0-2h18.69l7.41-7.41v2.82L297.41 50H277.9zm-16 160a5 5 0 1 1 0-2H288v-71.41l16-16v2.82l-14 14V210h-28.1zm-208 32a5 5 0 1 1 0-2H64v-22.59L40.59 194H21.9a5 5 0 1 1 0-2H41.41L66 216.59V242H53.9zm150.2 14a5 5 0 1 1 0 2H96v-56.6L56.6 162H37.9a5 5 0 1 1 0-2h19.5L98 200.6V256h106.1zm-150.2 2a5 5 0 1 1 0-2H80v-46.59L48.59 178H21.9a5 5 0 1 1 0-2H49.41L82 208.59V258H53.9zM34 39.8v1.61L9.41 66H0v-2h8.59L32 40.59V0h2v39.8zM2 300.1a5 5 0 0 1 3.9 3.9H3.83A3 3 0 0 0 0 302.17V256h18v48h-2v-46H2v42.1zM34 241v63h-2v-62H0v-2h34v1zM17 18H0v-2h16V0h2v18h-1zm273-2h14v2h-16V0h2v16zm-32 273v15h-2v-14h-14v14h-2v-16h18v1zM0 92.1A5.02 5.02 0 0 1 6 97a5 5 0 0 1-6 4.9v-2.07a3 3 0 1 0 0-5.66V92.1zM80 272h2v32h-2v-32zm37.9 32h-2.07a3 3 0 0 0-5.66 0h-2.07a5 5 0 0 1 9.8 0zM5.9 0A5.02 5.02 0 0 1 0 5.9V3.83A3 3 0 0 0 3.83 0H5.9zm294.2 0h2.07A3 3 0 0 0 304 3.83V5.9a5 5 0 0 1-3.9-5.9zm3.9 300.1v2.07a3 3 0 0 0-1.83 1.83h-2.07a5 5 0 0 1 3.9-3.9zM97 100a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-48 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 48a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 96a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-144a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-96 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm96 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-32 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM49 36a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-32 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM33 68a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-48a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 240a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm80-176a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 48a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm112 176a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-16 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM17 180a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0-32a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM17 84a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm32 64a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16-16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'%3E%3C/path%3E%3C/svg%3E");
-        background-repeat: repeat;
-        background-attachment: fixed;
+      background-color: #0a0a0a;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      animation: backgroundPan 10s ease infinite;
       }
+
+          @keyframes backgroundPan {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
 
       .install {
         display: none;
@@ -137,26 +148,60 @@
         }
       }
 
-      #custom_toast {
-        visibility: hidden;
-        opacity: 0;
-        transition: all 0.5s;
-        position: fixed;
-        bottom: -999px;
-        left: 25%;
-      }
+    #custom_toast {
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.5s;
+      position: fixed;
+      bottom: -999px;
+      width: calc(100% - 2rem);
+      max-width: 1200px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      justify-content: center;
+      padding: 1rem;
+    }
 
-      #custom_toast.show {
-        visibility: visible;
-        opacity: 1;
-        transition: all 0.5s;
-        bottom: 10px;
+    #custom_toast.show {
+      visibility: visible;
+      opacity: 1;
+      transition: all 0.5s;
+      bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      #custom_toast {
+        width: calc(100% - 0.625rem);
+        margin: 0 0.3125rem;
+        flex-direction: column;
+        text-align: center;
+        padding: 0.75rem;
       }
+    }
 
       .promptPopup-show {
         background-color: rgba(0, 41, 41, 1);
         border: 1px solid #08b74f;
       }
+
+          .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      .button-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .button-container button {
+        width: 100%;
+      }
+    }
 
       .webpushrOnBtn,
       .webpushrUnknownBtn {
@@ -227,46 +272,77 @@
         -moz-osx-font-smoothing: grayscale;
       }
     </style>
-    <link rel="stylesheet" href="https://static.redcrypt.ml/scrollbar.css" />
-    {% block head %}{% endblock head %}
+    {% block head %}
+    {% endblock head %}
   </head>
-
   <body class="font-Inter mt-24">
-    {% if user.is_authenticated %} {% include 'auth_header.html' %} {% else %}
-    {% include 'no_auth_header.html' %} {% endif %}
+    <div class="animated-bg">
+      <svg width="100%" height="100%" viewBox="0 0 800 800">
+        <defs>
+        <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">
+        <feGaussianBlur stdDeviation="105" in="SourceGraphic" result="blur"></feGaussianBlur>
+        </filter>
+        </defs>
+        <g filter="url(#bb-filter)">
+        <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f">
+        <animate attributeName="cx" values="374;400;350;374" dur="4s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="152;200;120;152" dur="3.5s" repeatCount="indefinite" />
+        </ellipse>
+        <ellipse rx="277.5" ry="70.5" cx="609" cy="577" fill="#2e90fa">
+        <animate attributeName="cx" values="609;650;580;609" dur="5s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="577;600;550;577" dur="4.5s" repeatCount="indefinite" />
+        </ellipse>
+        <ellipse rx="277.5" ry="70.5" cx="569" cy="421" fill="#08B74F">
+        <animate attributeName="cx" values="569;590;530;569" dur="6s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="421;450;390;421" dur="5s" repeatCount="indefinite" />
+        </ellipse>
+        <ellipse rx="277.5" ry="70.5" cx="580" cy="245" fill="#08B74F">
+        <animate attributeName="cx" values="580;600;550;580" dur="3.5s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="245;280;210;245" dur="4s" repeatCount="indefinite" />
+        </ellipse>
+        </g>
+      </svg>
+    </div>
+    {% if user.is_authenticated %}
+      {% include "auth_header.html" %}
+    {% else %}
+      {% include "no_auth_header.html" %}
+    {% endif %}
     <center>
-      {% block content %}{% endblock content %}
-
-      <div
-        id="custom_toast"
-        class="fixed bottom-0 left-1/4 p-4 mb-4 text-sm rounded-lg bg-green-800 text-green-600 border border-green-600 w-1/2"
-      ></div>
+      {% block content %}
+      {% endblock content %}
+        <div id="custom_toast"
+             class="fixed bottom-0 text-sm rounded-2xl bg-neutral-900/70 backdrop-blur-xl shadow-inset-white text-neutral-100">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               fill="none"
+               viewBox="0 0 24 24"
+               stroke-width="1.5"
+               stroke="currentColor"
+               class="w-6 h-6 text-amber-400">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+          </svg>
+          <span></span>
+        </div>
     </center>
     <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
     <script>
-      function showToast(message, time) {
-        let toast = document.getElementById("custom_toast");
-        toast.innerHTML = message;
-        toast.classList.add("show");
+    function showToast(message, time) {
+      let toast = document.getElementById('custom_toast');
+      toast.querySelector('span').innerHTML = message;
+      toast.classList.add('show');
 
-        setTimeout(function () {
-          toast.classList.remove("show");
-        }, time);
-      }
+      setTimeout(function () {
+        toast.classList.remove('show');
+      }, time);
+    }
 
-      let userAgent = navigator.userAgent;
-      if (
-        navigator.userAgent.indexOf("Safari") != -1 &&
-        navigator.userAgent.indexOf("Chrome") == -1
-      ) {
-        showToast(
-          "Please use a chromium based browser or Firefox. You may experience some issues while using safari.",
-          5000
-        );
-      }
+    let userAgent = navigator.userAgent;
+    if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+      showToast('Please use a chromium based browser or Firefox. You may experience some issues while using safari.', 5000)
+    }
     </script>
     {% if user.is_authenticated %}
-    <script>
+      <script>
       let deferredPrompt;
       const addBtn = document.getElementById('installapp');
       addBtn.classList.add("hidden")
@@ -293,16 +369,16 @@
         }
       });
       {% endif %}
-    </script>
-    {% block scripts %}{% endblock scripts %}
-    <script>
+      </script>
+      {% block scripts %}
+      {% endblock scripts %}
+      <script>
       const options = { color: 'rgb(0, 210, 210)', zIndex: '-1' };
-      new Blobity(options);
       {% if user.is_authenticated %}
       webpushr('attributes', { "username": "{{user.username}}" });
       {% endif %}
-    </script>
-    <script type="text/javascript">
+      </script>
+      <script type="text/javascript">
       window.$crisp = [];
       window.CRISP_WEBSITE_ID = "73cba040-9174-41dd-a9f8-77bbd9c90366";
       (function () {
@@ -312,14 +388,14 @@
         s.async = 1;
         d.getElementsByTagName("head")[0].appendChild(s);
       })();
-    </script>
-    {% if user.is_authenticated %}
-    <script type="text/javascript">
+      </script>
+      {% if user.is_authenticated %}
+        <script type="text/javascript">
       $crisp.push(["set", "user:nickname", ["{{user.username}}"]]);
       $crisp.push(["set", "user:email", ["{{user.email}}"]]);
-    </script>
-    {% endif %}
-    <script>
+        </script>
+      {% endif %}
+      <script>
       const mobileMenuButton = document.getElementById("mobile-menu-button");
       const mobileMenu = document.getElementById("mobile-menu");
       const menuIconLines = mobileMenuButton.querySelectorAll("span");
@@ -351,6 +427,6 @@
           menuIconLines[1].classList.remove("-rotate-45", "-translate-y-1.5");
         }
       });
-    </script>
-  </body>
-</html>
+      </script>
+    </body>
+  </html>

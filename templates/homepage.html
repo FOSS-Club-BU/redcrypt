@@ -2,30 +2,28 @@
 {% load pwa %}
 {% load profile_tags %}
 <!DOCTYPE html>
-
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <title>Re-Dcrypt</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="content-language" content="en-IN">
-  <meta name="title" content="Re-Dcrypt 2">
-  <meta name="description"
-    content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it.">
-  <meta name="keywords" content="cryptic hunt, hunt, cryptic, steg, redcrypt">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="English">
-  <meta name="author" content="DiluteWater">
-  <meta name="theme-color" content="#08B74F">
-  <meta property="og:title" content="Re-Dcrypt 2">
-  <meta property="og:description"
-    content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it.">
-  <meta property="og:image" content="/icons/maskable_icon_x192.png" />
-  <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
-  {% progressive_web_app_meta %}
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
+  <head>
+    <meta charset="UTF-8">
+    <title>Re-Dcrypt</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-language" content="en-IN">
+    <meta name="title" content="Re-Dcrypt 2">
+    <meta name="description"
+          content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it.">
+    <meta name="keywords" content="cryptic hunt, hunt, cryptic, steg, redcrypt">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="author" content="DiluteWater">
+    <meta name="theme-color" content="#08B74F">
+    <meta property="og:title" content="Re-Dcrypt 2">
+    <meta property="og:description"
+          content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it.">
+    <meta property="og:image" content="/icons/maskable_icon_x192.png" />
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
+    {% progressive_web_app_meta %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
     tailwind.config = {
       theme: {
         extend: {
@@ -38,37 +36,38 @@
         }
       }
     }
-  </script>
-  <script src="https://cdn.blobity.dev/by.js?noAutoStart"></script>
-  <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
-  <script>(function (w, d, s, id) {
+    </script>
+    <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
+    <script>(function (w, d, s, id) {
         if (typeof (w.webpushr) !== 'undefined') return; w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments) }; var js, fjs = d.getElementsByTagName(s)[0]; js = d.createElement(s); js.id = id; js.async = 1; js.src = "https://cdn.webpushr.com/app.min.js";
         fjs.parentNode.appendChild(js);
       }(window, document, 'script', 'webpushr-jssdk'));
-    webpushr('setup', { 'key': 'BDV_66hjFZ-UmAPoFewcLdDHu3i2pPxgc-ZtBcDPesJqWM-SmAPBExtw1EhE1zzG7EuSuJje6Z42xAQqflvoFL4' });</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-79MBGTX27V"></script>
-  <script>
+    webpushr('setup', { 'key': 'BDV_66hjFZ-UmAPoFewcLdDHu3i2pPxgc-ZtBcDPesJqWM-SmAPBExtw1EhE1zzG7EuSuJje6Z42xAQqflvoFL4' });
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-79MBGTX27V"></script>
+    <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'G-79MBGTX27V');
-  </script>
-  <script type="text/javascript">
+    </script>
+    <script type="text/javascript">
     (function (c, l, a, r, i, t, y) {
       c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
       t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
       y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
     })(window, document, "clarity", "script", "di6ycvwqv4");
-  </script>
-  <style>
+    </script>
+    <style>
     body {
       background-color: #0a0a0a;
-      /* background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 800 800" opacity="0.29"><defs><filter id="bbblurry-filter" x="-100%" y="-100%" width="400%" height="400%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="105" x="0%" y="0%" width="100%" height="100%" in="SourceGraphic" edgeMode="none" result="blur"></feGaussianBlur></filter></defs><g filter="url(%23bbblurry-filter)"><ellipse rx="277.5" ry="70.5" cx="374.6263063904349" cy="152.5110438235745" fill="%2308b74fff"><animate attributeName="rx" values="277.5;297.5;277.5" dur="4s" repeatCount="indefinite"/><animate attributeName="ry" values="70.5;80.5;70.5" dur="3s" repeatCount="indefinite"/></ellipse><ellipse rx="277.5" ry="70.5" cx="609.3629886243975" cy="577.0143193607748" fill="%232e90faff"><animate attributeName="rx" values="277.5;257.5;277.5" dur="5s" repeatCount="indefinite"/><animate attributeName="ry" values="70.5;90.5;70.5" dur="4s" repeatCount="indefinite"/></ellipse><ellipse rx="277.5" ry="70.5" cx="569.708794393911" cy="421.74006583646695" fill="%2308B74F"><animate attributeName="rx" values="277.5;297.5;277.5" dur="6s" repeatCount="indefinite"/><animate attributeName="ry" values="70.5;60.5;70.5" dur="5s" repeatCount="indefinite"/></ellipse><ellipse rx="277.5" ry="70.5" cx="580.3182202360631" cy="245.6796082782004" fill="%2308B74F"><animate attributeName="rx" values="277.5;267.5;277.5" dur="4s" repeatCount="indefinite"/><animate attributeName="ry" values="70.5;85.5;70.5" dur="6s" repeatCount="indefinite"/></ellipse></g></svg>'); */
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -204,223 +203,261 @@
         width: 100%;
       }
     }
-  </style>
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-  {% block head %}{% endblock head %}
-</head>
-
-<body class="font-Inter">
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    {% block head %}
+    {% endblock head %}
+  </head>
+  <body class="font-Inter">
     <div class="animated-bg">
-<svg width="100%" height="100%" viewBox="0 0 800 800">
-  <defs>
-    <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">
-      <feGaussianBlur stdDeviation="105" in="SourceGraphic" result="blur"></feGaussianBlur>
-    </filter>
-  </defs>
-  <g filter="url(#bb-filter)">
-    <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f">
-      <animate attributeName="cx" values="374;400;350;374" dur="4s" repeatCount="indefinite"/>
-      <animate attributeName="cy" values="152;200;120;152" dur="3.5s" repeatCount="indefinite"/>
-    </ellipse>
-    <ellipse rx="277.5" ry="70.5" cx="609" cy="577" fill="#2e90fa">
-      <animate attributeName="cx" values="609;650;580;609" dur="5s" repeatCount="indefinite"/>
-      <animate attributeName="cy" values="577;600;550;577" dur="4.5s" repeatCount="indefinite"/>
-    </ellipse>
-    <ellipse rx="277.5" ry="70.5" cx="569" cy="421" fill="#08B74F">
-      <animate attributeName="cx" values="569;590;530;569" dur="6s" repeatCount="indefinite"/>
-      <animate attributeName="cy" values="421;450;390;421" dur="5s" repeatCount="indefinite"/>
-    </ellipse>
-    <ellipse rx="277.5" ry="70.5" cx="580" cy="245" fill="#08B74F">
-      <animate attributeName="cx" values="580;600;550;580" dur="3.5s" repeatCount="indefinite"/>
-      <animate attributeName="cy" values="245;280;210;245" dur="4s" repeatCount="indefinite"/>
-    </ellipse>
-  </g>
-</svg>
-
+      <svg width="100%" height="100%" viewBox="0 0 800 800">
+        <defs>
+        <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">
+        <feGaussianBlur stdDeviation="105" in="SourceGraphic" result="blur"></feGaussianBlur>
+        </filter>
+        </defs>
+        <g filter="url(#bb-filter)">
+        <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f">
+        <animate attributeName="cx" values="374;400;350;374" dur="4s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="152;200;120;152" dur="3.5s" repeatCount="indefinite" />
+        </ellipse>
+        <ellipse rx="277.5" ry="70.5" cx="609" cy="577" fill="#2e90fa">
+        <animate attributeName="cx" values="609;650;580;609" dur="5s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="577;600;550;577" dur="4.5s" repeatCount="indefinite" />
+        </ellipse>
+        <ellipse rx="277.5" ry="70.5" cx="569" cy="421" fill="#08B74F">
+        <animate attributeName="cx" values="569;590;530;569" dur="6s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="421;450;390;421" dur="5s" repeatCount="indefinite" />
+        </ellipse>
+        <ellipse rx="277.5" ry="70.5" cx="580" cy="245" fill="#08B74F">
+        <animate attributeName="cx" values="580;600;550;580" dur="3.5s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="245;280;210;245" dur="4s" repeatCount="indefinite" />
+        </ellipse>
+        </g>
+      </svg>
     </div>
     {% if user.is_authenticated %}
-        {% include 'auth_header.html' %}
+      {% include "auth_header.html" %}
     {% else %}
-        {% include 'no_auth_header.html' %}
+      {% include "no_auth_header.html" %}
     {% endif %}
-  <center>
-    <div
-      class="rounded lg:w-3/4 md:w-3/4 w-[98%] p-5 mt-24 bg-clip-padding mb-10"
-      <p tabindex="0" class="text-green-600 focus:outline-none text-2xl font-extrabold leading-6">
-      <img src="{% static 'foss-bu-dark.png' %}" alt="FOSS BU Logo" class="py-6 w-2/3 md:w-1/4 px-6 h-auto" data-aos="fade-up" data-aos-once="true" data-aos-duration="800" data-aos-offset="50">
-      <p class="text-neutral-400 text-xl font-bold" data-aos="fade-up" data-aos-once="true" data-aos-duration="800" data-aos-offset="50">Presents</p>
-      <img src="{% static 'logo_banner.svg' %}" alt="Re-Dcrypt Logo" class="pt-12 md:w-2/3 px-4 h-auto" data-aos="fade-up" data-aos-once="true" data-aos-duration="800" data-aos-offset="50">
-    </div>
-    <div data-aos="fade-up" data-aos-once="true" data-aos-duration="800" data-aos-offset="50"
-      class="rounded lg:w-3/4 md:w-3/4 w-[98%] p-5 mt-11 bg-clip-padding text-neutral-100 text-base">
-      <p tabindex="0" class="text-neutral-100 focus:outline-none text-2xl font-extrabold ">
-        <span class="text-5xl font-black text-neutral-100 ">2nd & 3rd January</span><br>
-        <p class="text-xl text-neutral-300 pt-4">
-          Re-Dcrypt Cryptic Hunt <br>Are you the one who can solve the cryptic questions? <br>
-        </p>
-        <br>
-        <div class="button-container">
-          <button
-            class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
-            onclick="window.location.href={% url 'rules' %}">
-            Rules
-          </button>
-          <button
-            class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
-            onclick="window.location.href={% url 'faqs' %}">
-            FAQs
-          </button>
-          <button
-            class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
-            onclick="window.location.href={% url 'about' %}">
-            About
-          </button>
-          <button
-            class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
-            onclick="window.location.href={% url 'guidelines' %}">
-            Guidelines
-          </button>
-          <a href="/discord">
-            <button
-              class="bg-neutral-900/70  shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300">
-              Discord Server
-            </button>
-          </a>
+    <center>
+      <div class="rounded lg:w-3/4 md:w-3/4 w-[98%] p-5 mt-24 bg-clip-padding mb-10">
+        <p tabindex="0"
+           class="text-green-600 focus:outline-none text-2xl font-extrabold leading-6"/>
+          <img src="{% static 'foss-bu-dark.png' %}"
+               alt="FOSS BU Logo"
+               class="py-6 w-2/3 md:w-1/4 px-6 h-auto"
+               data-aos="fade-up"
+               data-aos-once="true"
+               data-aos-duration="800"
+               data-aos-offset="50"
+               height="auto"
+               width="auto">
+          <p class="text-neutral-400 text-xl font-bold"
+             data-aos="fade-up"
+             data-aos-once="true"
+             data-aos-duration="800"
+             data-aos-offset="50">Presents</p>
+          <img src="{% static 'logo_banner.svg' %}"
+               alt="Re-Dcrypt Logo"
+               class="pt-12 md:w-2/3 px-4 h-auto"
+               data-aos="fade-up"
+               data-aos-once="true"
+               data-aos-duration="800"
+               data-aos-offset="50"
+               height="auto"
+               width="auto">
         </div>
-      </p>
-    </div>
-
-    <div data-aos="fade-up" data-aos-once="true" data-aos-duration="800" data-aos-offset="50"
-      class="rounded lg:w-3/4 md:w-3/4 w-[98%] p-5 mt-11 text-neutral-100 bg-clip-padding mb-10">
-      <span class="text-5xl font-black text-neutral-100 block mb-8">Prizes</span>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Top 3 Card -->
-        <div class="bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800 transition-all duration-300 border border-transparent hover:border-green-600 text-left">
-          <div class="text-2xl font-bold mb-4 text-green-500">Top 3</div>
-          <ul class="space-y-3 text-neutral-300">
-            <li class="flex items-center">
-              <svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              Taskade Unlimited for Lifetime
-            </li>
-            <li class="flex items-center">
-              <svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              1 year <code class="text-green-400 px-1">.xyz</code> domain
-            </li>
-            <li class="flex items-center">
-              <svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              Certificate of appreciation
-            </li>
-          </ul>
+        <div data-aos="fade-up"
+             data-aos-once="true"
+             data-aos-duration="800"
+             data-aos-offset="50"
+             class="rounded lg:w-3/4 md:w-3/4 w-[98%] p-5 mt-11 bg-clip-padding text-neutral-100 text-base">
+          <p tabindex="0"
+             class="text-neutral-100 focus:outline-none text-2xl font-extrabold ">
+            <span class="text-5xl font-black text-neutral-100 ">2nd & 3rd January</span>
+            <br>
+            <p class="text-xl text-neutral-300 pt-4">
+              Re-Dcrypt Cryptic Hunt
+              <br>
+              Are you the one who can solve the cryptic questions?
+              <br>
+            </p>
+            <br>
+            <div class="button-container">
+              <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
+                      onclick="window.location.href={% url 'rules' %}">Rules</button>
+              <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
+                      onclick="window.location.href={% url 'faqs' %}">FAQs</button>
+              <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
+                      onclick="window.location.href={% url 'about' %}">About</button>
+              <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
+                      onclick="window.location.href={% url 'guidelines' %}">Guidelines</button>
+              <a href="/discord">
+                <button class="bg-neutral-900/70  shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300">
+                  Discord Server
+                </button>
+              </a>
+            </div>
+          </p>
         </div>
-
-        <!-- Top 10 Card -->
-        <div class="bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800 transition-all duration-300 border border-transparent hover:border-green-600 text-left">
-          <div class="text-2xl font-bold mb-4 text-blue-500">Top 10</div>
-          <ul class="space-y-3 text-neutral-300">
-            <li class="flex items-center">
-              <svg class="w-4 h-4 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              Taskade Unlimited for Lifetime
-            </li>
-            <li class="flex items-center">
-              <svg class="w-4 h-4 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              1 year <code class="text-blue-400 px-1">.xyz</code> domain
-            </li>
-            <li class="flex items-center">
-              <svg class="w-4 h-4 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              Certificate of participation
-            </li>
-          </ul>
+        <div data-aos="fade-up"
+             data-aos-once="true"
+             data-aos-duration="800"
+             data-aos-offset="50"
+             class="rounded lg:w-3/4 md:w-3/4 w-[98%] p-5 mt-11 text-neutral-100 bg-clip-padding mb-10">
+          <span class="text-5xl font-black text-neutral-100 block mb-8">Prizes</span>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Top 3 Card -->
+            <div class="bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800 transition-all duration-300 border border-transparent hover:border-green-600 text-left">
+              <div class="text-2xl font-bold mb-4 text-green-500">Top 3</div>
+              <ul class="space-y-3 text-neutral-300">
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 mr-2 text-green-500"
+                       fill="currentColor"
+                       viewBox="0 0 20 20">
+                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                  </svg>
+                  Taskade Unlimited for Lifetime
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 mr-2 text-green-500"
+                       fill="currentColor"
+                       viewBox="0 0 20 20">
+                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                  </svg>
+                  1 year <code class="text-green-400 px-1">.xyz</code> domain
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 mr-2 text-green-500"
+                       fill="currentColor"
+                       viewBox="0 0 20 20">
+                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                  </svg>
+                  Certificate of appreciation
+                </li>
+              </ul>
+            </div>
+            <!-- Top 10 Card -->
+            <div class="bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800 transition-all duration-300 border border-transparent hover:border-green-600 text-left">
+              <div class="text-2xl font-bold mb-4 text-blue-500">Top 10</div>
+              <ul class="space-y-3 text-neutral-300">
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 mr-2 text-blue-500"
+                       fill="currentColor"
+                       viewBox="0 0 20 20">
+                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                  </svg>
+                  Taskade Unlimited for Lifetime
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 mr-2 text-blue-500"
+                       fill="currentColor"
+                       viewBox="0 0 20 20">
+                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                  </svg>
+                  1 year <code class="text-blue-400 px-1">.xyz</code> domain
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 mr-2 text-blue-500"
+                       fill="currentColor"
+                       viewBox="0 0 20 20">
+                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                  </svg>
+                  Certificate of participation
+                </li>
+              </ul>
+            </div>
+            <!-- Top 40 Card -->
+            <div class="bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800 transition-all duration-300 border border-transparent hover:border-green-600 text-left">
+              <div class="text-2xl font-bold mb-4 text-purple-500">Top 40</div>
+              <ul class="space-y-3 text-neutral-300">
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 mr-2 text-purple-500"
+                       fill="currentColor"
+                       viewBox="0 0 20 20">
+                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                  </svg>
+                  Taskade Unlimited for 5 years
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 mr-2 text-purple-500"
+                       fill="currentColor"
+                       viewBox="0 0 20 20">
+                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                  </svg>
+                  1 year <code class="text-purple-400 px-1">.xyz</code> domain
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 mr-2 text-purple-500"
+                       fill="currentColor"
+                       viewBox="0 0 20 20">
+                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                  </svg>
+                  Certificate of participation
+                </li>
+              </ul>
+            </div>
+            <!-- Everyone Card -->
+            <div class="bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800 transition-all duration-300 border border-transparent hover:border-green-600 text-left">
+              <div class="text-2xl font-bold mb-4 text-amber-500">Everyone</div>
+              <ul class="space-y-3 text-neutral-300">
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 mr-2 text-amber-500"
+                       fill="currentColor"
+                       viewBox="0 0 20 20">
+                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                  </svg>
+                  Taskade Unlimited for 5 years
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-4 h-4 mr-2 text-amber-500"
+                       fill="currentColor"
+                       viewBox="0 0 20 20">
+                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                  </svg>
+                  Certificate of participation
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-
-        <!-- Top 40 Card -->
-        <div class="bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800 transition-all duration-300 border border-transparent hover:border-green-600 text-left">
-          <div class="text-2xl font-bold mb-4 text-purple-500">Top 40</div>
-          <ul class="space-y-3 text-neutral-300">
-            <li class="flex items-center">
-              <svg class="w-4 h-4 mr-2 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              Taskade Unlimited for 5 years
-            </li>
-            <li class="flex items-center">
-              <svg class="w-4 h-4 mr-2 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              1 year <code class="text-purple-400 px-1">.xyz</code> domain
-            </li>
-            <li class="flex items-center">
-              <svg class="w-4 h-4 mr-2 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              Certificate of participation
-            </li>
-          </ul>
+        <div data-aos="fade-up"
+             data-aos-once="true"
+             data-aos-duration="800"
+             data-aos-offset="50"
+             class="rounded lg:w-3/4 md:w-3/4 w-[98%] p-5 mt-11 text-neutral-100 bg-clip-padding mb-10">
+          <span class="text-5xl font-black text-neutral-100 block mb-8">Sponsors</span>
+          <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+            <a href="https://www.taskade.com/"
+               class="transform transition-all duration-300 hover:scale-105">
+              <img src="/sponsors/logo_taskade_white.png"
+                   alt="taskade"
+                   class="max-h-24 filter grayscale hover:grayscale-0 transition-all duration-300 p-4 rounded-xl opacity-75 hover:opacity-100" width="auto" height="auto"/>
+            </a>
+            <a href="https://gen.xyz/"
+               class="transform transition-all duration-300 hover:scale-105">
+              <img src="/sponsors/xyz-logo-white.svg"
+                   alt="gen.xyz"
+                   class="max-h-24 filter grayscale hover:grayscale-0 transition-all duration-300 p-4 rounded-xl opacity-75 hover:opacity-100" width="auto" height="auto"/>
+            </a>
+          </div>
         </div>
-
-        <!-- Everyone Card -->
-        <div class="bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800 transition-all duration-300 border border-transparent hover:border-green-600 text-left">
-          <div class="text-2xl font-bold mb-4 text-amber-500">Everyone</div>
-          <ul class="space-y-3 text-neutral-300">
-            <li class="flex items-center">
-              <svg class="w-4 h-4 mr-2 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              Taskade Unlimited for 5 years
-            </li>
-            <li class="flex items-center">
-              <svg class="w-4 h-4 mr-2 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
-              </svg>
-              Certificate of participation
-            </li>
-          </ul>
+        <div id="custom_toast"
+             class="fixed bottom-0 text-sm rounded-2xl bg-neutral-900/70 backdrop-blur-xl shadow-inset-white text-neutral-100">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               fill="none"
+               viewBox="0 0 24 24"
+               stroke-width="1.5"
+               stroke="currentColor"
+               class="w-6 h-6 text-amber-400">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+          </svg>
+          <span></span>
         </div>
-      </div>
-    </div>
-
-    <div data-aos="fade-up" data-aos-once="true" data-aos-duration="800" data-aos-offset="50"
-      class="rounded lg:w-3/4 md:w-3/4 w-[98%] p-5 mt-11 text-neutral-100 bg-clip-padding mb-10">
-      <span class="text-5xl font-black text-neutral-100 block mb-8">Sponsors</span>
-      <div class="flex flex-col md:flex-row items-center justify-center gap-8">
-        <a href="https://www.taskade.com/" 
-           class="transform transition-all duration-300 hover:scale-105">
-          <img src="/sponsors/logo_taskade_white.png" 
-               alt="taskade" 
-               class="max-h-24 filter grayscale hover:grayscale-0 transition-all duration-300 p-4 rounded-xl opacity-75 hover:opacity-100" />
-        </a>
-        <a href="https://gen.xyz/"
-           class="transform transition-all duration-300 hover:scale-105">
-          <img src="/sponsors/xyz-logo-white.svg" 
-               alt="gen.xyz" 
-               class="max-h-24 filter grayscale hover:grayscale-0 transition-all duration-300 p-4 rounded-xl opacity-75 hover:opacity-100" />
-        </a>
-      </div>
-    </div>
-
-
-    <div id="custom_toast"
-      class="fixed bottom-0 text-sm rounded-2xl bg-neutral-900/70 backdrop-blur-xl shadow-inset-white text-neutral-100">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-amber-400">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-      </svg>
-      <span></span>
-    </div>
-
-  </center>
-  <script>
+      </center>
+      <script>
     function showToast(message, time) {
       let toast = document.getElementById('custom_toast');
       toast.querySelector('span').innerHTML = message;
@@ -435,9 +472,9 @@
     if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
       showToast('Please use a chromium based browser or Firefox. You may experience some issues while using safari.', 5000)
     }
-  </script>
-  {% if user.is_authenticated %}
-  <script>
+      </script>
+      {% if user.is_authenticated %}
+        <script>
     let deferredPrompt;
     const addBtn = document.getElementById('installapp');
     addBtn.classList.add("hidden")
@@ -465,9 +502,9 @@
     });
     {% endif %}
 
-  </script>
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
+        </script>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
     AOS.init({
       // Global settings for AOS
       offset: 50, // offset (in px) from the original trigger point
@@ -477,20 +514,18 @@
       once: true, // animation should happen only once
     });
     const options = { color: 'rgb(0, 210, 210)', zIndex: '-1' };
-    new Blobity(options);
     {% if user.is_authenticated %}
     webpushr('attributes', { "username": "{{user.username}}" });
     {% endif %}
-  </script>
-  <script
-    type="text/javascript">window.$crisp = []; window.CRISP_WEBSITE_ID = "73cba040-9174-41dd-a9f8-77bbd9c90366"; (function () { d = document; s = d.createElement("script"); s.src = "https://client.crisp.chat/l.js"; s.async = 1; d.getElementsByTagName("head")[0].appendChild(s); })();</script>
-  {% if user.is_authenticated %}
-  <script type="text/javascript">
+        </script>
+        <script type="text/javascript">window.$crisp = []; window.CRISP_WEBSITE_ID = "73cba040-9174-41dd-a9f8-77bbd9c90366"; (function () { d = document; s = d.createElement("script"); s.src = "https://client.crisp.chat/l.js"; s.async = 1; d.getElementsByTagName("head")[0].appendChild(s); })();</script>
+        {% if user.is_authenticated %}
+          <script type="text/javascript">
     $crisp.push(["set", "user:nickname", ["{{user.username}}"]])
     $crisp.push(["set", "user:email", ["{{user.email}}"]])
-  </script>
-  {% endif %}
-<script>
+          </script>
+        {% endif %}
+        <script>
   const mobileMenuButton = document.getElementById("mobile-menu-button");
   const mobileMenu = document.getElementById("mobile-menu");
   const menuIconLines = mobileMenuButton.querySelectorAll("span");
@@ -518,7 +553,6 @@
       menuIconLines[1].classList.remove("-rotate-45", "-translate-y-1.5");
     }
   });
-</script>
-</body>
-
-</html>
+        </script>
+      </body>
+    </html>

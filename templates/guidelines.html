@@ -7,44 +7,131 @@
 
 {% block content %}
 <div class="justify-center">
-    <div class="rounded lg:w-1/3 md:w-1/2 w-[98%] p-5 mt-16 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 bg-color-green-600 border border-green-600 mb-10" style="background-color: rgba(0, 42, 42, .6);"><i><p tabindex="0" class="text-green-600 focus:outline-none text-2xl font-extrabold leading-6">
-        <span class="text-2xl"><a href="https://redcrypt.xyz/engine">General Guidelines</a></span></i>
+  <!-- Header Section -->
+  <div class="lg:w-1/3 md:w-1/2 p-5 bg-clip-padding mx-auto">
+    <div class="flex flex-col items-center gap-4">
+      <div class="w-20 h-20 rounded-full bg-green-600/20 flex items-center justify-center">
+        <span class="material-symbols-outlined text-4xl text-green-500">fact_check</span>
+      </div>
+      <h1 class="text-6xl font-black text-neutral-100">Guidelines</h1>
     </div>
-    <div class="rounded lg:w-1/2 md:w-1/2 w-[98%] p-5 mt-16 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 bg-color-green-600 border border-green-600 mb-10 text-green-600" style="background-color: rgba(0, 42, 42, .6);"><p tabindex="0" class="text-green-600 focus:outline-none text-2xl font-extrabold leading-6">
-      <ul class="list-inside">
-        <li class="mt-5 mb-5">Answer can lie anywhere on the internet</li> <hr class="border border-green-600">
-        <li class="mt-5 mb-5">No answer will be behind any paywalled service. <br> You don't need to spend a single rupee for any answer</li><hr class="border border-green-600">
-        <li class="mt-5 mb-5">If you came across something, but have no idea how to proceed,<br>try putting it in the url after the domain(without slash `/`). The domain is also used as a url shortner.<br></li><hr class="border border-green-600">
-        <li class="mt-5 mb-5">You will be required to visit a number of different sites on the internet to find the answer</li><hr class="border border-green-600">
-        <li class="mt-5 mb-5">If you came accross any image, remeber that steganography can also be a case</li><hr class="border border-green-600 mb-5">
-        <li class="mt-5 mb-5">If a question requires some kind of decoding, its decoder will be easily available on the internet for free.</li><hr class="border border-green-600 mb-5">
-        <li class="mt-5 mb-5">Every small detail is important.</li><hr class="border border-green-600 mb-5">
-        <li class="mt-5 mb-5">Make sure to follow us everywhere, we will be dropping hints and easter eggs anywhere..</li><hr class="border border-green-600 mb-5">
-        <li class="mt-5 mb-5">We recommend you to use a chromium based browser. The site is available both on mobile and desktop. You can download it's app on all platforms as well. However, we recommend you to use your desktop for main solving.</li><hr class="border border-green-600 mb-5">
-        <li class="mt-5 mb-5">Easter Eggs can be claimed through the official bot in our discord server.</li><hr class="border border-green-600 mb-5">
-      </ul>
-    </p>
-    You can checkout an amazing learning resources by Hitarth Khurana for Coreana  <span class="material-symbols-outlined">
-      expand_circle_down
-      </span><br><a href="https://docs.google.com/document/d/1XxcwC54mz6HLrnXiPDgAb0Qzatu56Bb2nOJhRQPBGBI/edit?usp=sharing" target="_blank">
-      <button class="mt-5 bg-green-800 hover:bg-nblue-500 hover:text-black border border-green-600 hover:border-black text-green-600 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-        Learning resources
-      </button></a></p>
-    <hr class="border border-2 border-green-600 mt-5">
-    <button class="mt-5 bg-green-800 hover:bg-nblue-500 hover:text-black border border-green-600 hover:border-black text-green-600 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="window.location.href={% url 'rules' %}">
-      Rules
-    </button>     
-    <button class="mt-5 bg-green-800 hover:bg-nblue-500 hover:text-black border border-green-600 hover:border-black text-green-600 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="window.location.href={% url 'faqs' %}">
-      FAQs
-    </button>
-    <button class="mt-5 bg-green-800 hover:bg-nblue-500 hover:text-black border border-green-600 hover:border-black text-green-600 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="window.location.href={% url 'about' %}">
-      About
-    </button>
-    <a href="/discord">
-    <button class="mt-5 bg-green-800 hover:bg-nblue-500 hover:text-black border border-green-600 hover:border-black text-green-600 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-      Discord Server
-    </button>
-    </a>
+  </div>
+
+  <!-- Guidelines Section -->
+  <div class="md:w-1/2 p-5 mx-auto space-y-4">
+    <!-- Guideline Item 1 -->
+    <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl p-6 transform transition duration-300 hover:scale-[1.02] hover:bg-neutral-800/70 group">
+      <div class="flex items-start space-x-4">
+        <div class="flex-shrink-0">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-purple-600/20 text-purple-500">
+            <span class="material-symbols-outlined">public</span>
+          </span>
+        </div>
+        <div class="flex-1">
+          <p class="text-neutral-300">Answer can lie anywhere on the internet</p>
+        </div>
+      </div>
     </div>
+
+    <!-- Guideline Item 2 -->
+    <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl p-6 transform transition duration-300 hover:scale-[1.02] hover:bg-neutral-800/70 group">
+      <div class="flex items-start space-x-4">
+        <div class="flex-shrink-0">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-green-600/20 text-green-500">
+            <span class="material-symbols-outlined">payments</span>
+          </span>
+        </div>
+        <div class="flex-1">
+          <p class="text-neutral-300">No answer will be behind any paywalled service. You don't need to spend a single rupee for any answer</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guideline Item 3 -->
+    <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl p-6 transform transition duration-300 hover:scale-[1.02] hover:bg-neutral-800/70 group">
+      <div class="flex items-start space-x-4">
+        <div class="flex-shrink-0">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600/20 text-blue-500">
+            <span class="material-symbols-outlined">link</span>
+          </span>
+        </div>
+        <div class="flex-1">
+          <p class="text-neutral-300">If you came across something, but have no idea how to proceed, try putting it in the url after the domain(without slash `/`). The domain is also used as a url shortner.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Guidelines -->
+    <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl p-6 space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Grid items -->
+        <div class="p-4 bg-neutral-800/30 rounded-xl hover:bg-neutral-800/50 transition-all duration-300">
+          <span class="material-symbols-outlined text-amber-500 mb-2">travel_explore</span>
+          <p class="text-neutral-300 text-sm">You will be required to visit multiple sites on the internet to find answers</p>
+        </div>
+
+        <div class="p-4 bg-neutral-800/30 rounded-xl hover:bg-neutral-800/50 transition-all duration-300">
+          <span class="material-symbols-outlined text-green-500 mb-2">image</span>
+          <p class="text-neutral-300 text-sm">For any images, remember that steganography can be a possibility</p>
+        </div>
+
+        <div class="p-4 bg-neutral-800/30 rounded-xl hover:bg-neutral-800/50 transition-all duration-300">
+          <span class="material-symbols-outlined text-blue-500 mb-2">code</span>
+          <p class="text-neutral-300 text-sm">All required decoders will be freely available online</p>
+        </div>
+
+        <div class="p-4 bg-neutral-800/30 rounded-xl hover:bg-neutral-800/50 transition-all duration-300">
+          <span class="material-symbols-outlined text-purple-500 mb-2">tips_and_updates</span>
+          <p class="text-neutral-300 text-sm">Every small detail is important</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Important Notes -->
+    <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl p-6">
+      <h3 class="text-xl font-bold text-neutral-100 mb-4">Additional Information</h3>
+      <div class="space-y-3">
+        <p class="text-neutral-300 flex items-center gap-2">
+          <span class="material-symbols-outlined text-green-500">check_circle</span>
+          Follow us everywhere for hints and easter eggs
+        </p>
+        <p class="text-neutral-300 flex items-center gap-2">
+          <span class="material-symbols-outlined text-green-500">devices</span>
+          Use a Chromium-based browser or Firefox for the best experience
+        </p>
+        <p class="text-neutral-300 flex items-center gap-2">
+          <span class="material-symbols-outlined text-green-500">extension</span>
+          Easter Eggs can be claimed through our Discord bot
+        </p>
+      </div>
+    </div>
+
+    <!-- Learning Resources -->
+    <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl p-6">
+      <h3 class="text-xl font-bold text-neutral-100 mb-4">Learning Resources</h3>
+      <p class="text-neutral-300 mb-4">Check out amazing learning resources by Hitarth Khurana for Coreana</p>
+      <a href="https://docs.google.com/document/d/1XxcwC54mz6HLrnXiPDgAb0Qzatu56Bb2nOJhRQPBGBI/edit?usp=sharing" target="_blank" class="inline-block">
+        <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300 flex items-center gap-2">
+          <span class="material-symbols-outlined">school</span>
+          Learning Resources
+        </button>
+      </a>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="button-container mt-8">
+      <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
+              onclick="window.location.href={% url 'rules' %}">Rules</button>
+      <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
+              onclick="window.location.href={% url 'faqs' %}">FAQs</button>
+      <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
+              onclick="window.location.href={% url 'about' %}">About</button>
+      <a href="/discord">
+        <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300">
+          Discord Server
+        </button>
+      </a>
+    </div>
+  </div>
 </div>
 {% endblock content %}

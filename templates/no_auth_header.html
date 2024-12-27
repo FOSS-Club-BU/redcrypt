@@ -2,7 +2,7 @@
 <!-- Mobile Navbar -->
 <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-neutral-900/80 backdrop-blur-md md:hidden shadow-inset-white rounded-full m-3">
   <a href="{% url 'index' %}">
-    <img src="{% static 'logo_banner.svg' %}" class="h-6" />
+    <img src="{% static 'logo_banner.svg' %}" alt="Re-Dcrypt Logo" class="h-6" width="auto" height="auto"/>
   </a>
   <button id="mobile-menu-button" class="p-2 rounded-lg flex flex-col justify-between h-[1.87rem]">
     <span class="block w-6 h-0.5 bg-neutral-100 transition-transform origin-center"></span>
@@ -53,7 +53,7 @@
       <!-- Center Logo -->
       <div class="flex-none flex justify-center">
         <a href="{% url 'index' %}">
-          <img src="{% static 'logo_banner.svg' %}" class="h-6" />
+          <img src="{% static 'logo_banner.svg' %}" alt="Re-Dcrypt Logo" width="auto" height="auto" class="h-6" />
         </a>
       </div>
 
@@ -77,31 +77,3 @@
     </div>
   </header>
 </div>
-
-<script>
-  const mobileMenuButton = document.getElementById("mobile-menu-button");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const menuIconLines = mobileMenuButton.querySelectorAll("span");
-  let isOpen = false;
-
-  mobileMenuButton.addEventListener("click", () => {
-    isOpen = !isOpen;
-    if (isOpen) {
-      mobileMenu.classList.remove("-translate-y-[150%]");
-      menuIconLines[0].classList.add("rotate-45", "translate-y-1.5");
-      menuIconLines[1].classList.add("-rotate-45", "-translate-y-1.5");
-    } else {
-      mobileMenu.classList.add("-translate-y-[150%]");
-      menuIconLines[0].classList.remove("rotate-45", "translate-y-1.5");
-      menuIconLines[1].classList.remove("-rotate-45", "-translate-y-1.5");
-    }
-
-  // Close menu when clicking outside
-  document.addEventListener("click", (e) => {
-    if (isOpen && !mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
-      isOpen = false;
-      mobileMenu.classList.add("-translate-y-[150%]");
-      menuIcon.classList.remove("rotate-90");
-    }
-  });
-</script>
