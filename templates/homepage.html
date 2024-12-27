@@ -29,9 +29,6 @@
     tailwind.config = {
       theme: {
         extend: {
-          colors: {
-            'nblue': { DEFAULT: '#00D2D2', '50': '#8BFFFF', '100': '#76FFFF', '200': '#4DFFFF', '300': '#25FFFF', '400': '#00FBFB', '500': '#00D2D2', '600': '#009A9A', '700': '#006262', '800': '#002A2A', '900': '#000000' },
-          },
           fontFamily: {
             Inter: ['Inter'],
           },
@@ -99,14 +96,30 @@
       transition: all 0.5s;
       position: fixed;
       bottom: -999px;
-      left: 25%;
+      width: calc(100% - 2rem);
+      max-width: 1200px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      justify-content: center;
+      padding: 1rem;
     }
 
     #custom_toast.show {
       visibility: visible;
       opacity: 1;
       transition: all 0.5s;
-      bottom: 10px;
+      bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      #custom_toast {
+        width: calc(100% - 0.625rem);
+        margin: 0 0.3125rem;
+        flex-direction: column;
+        text-align: center;
+        padding: 0.75rem;
+      }
     }
 
     .promptPopup-show {
@@ -157,26 +170,6 @@
       background-color: transparent;
     }
 
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background-color: #002a2a;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      width: 5px;
-      background-color: #008787;
-      border-radius: 20px;
-      border: 6px solid transparent;
-      background-clip: content-box;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background-color: #00d2d2;
-    }
-
     .button-container {
       display: flex;
       flex-wrap: wrap;
@@ -196,8 +189,6 @@
     }
   </style>
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-  <link rel="stylesheet" href="https://static.redcrypt.ml/scrollbar.css">
   {% block head %}{% endblock head %}
 </head>
 
@@ -376,14 +367,18 @@
 
 
     <div id="custom_toast"
-      class="fixed bottom-0 left-1/4 p-4 mb-4 text-sm rounded-lg bg-nblue-800 text-nblue border border-nblue  w-1/2">
+      class="fixed bottom-0 text-sm rounded-2xl bg-neutral-900/70 backdrop-blur-xl shadow-inset-white text-neutral-100">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-amber-400">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+      </svg>
+      <span></span>
     </div>
 
   </center>
   <script>
     function showToast(message, time) {
       let toast = document.getElementById('custom_toast');
-      toast.innerHTML = message;
+      toast.querySelector('span').innerHTML = message;
       toast.classList.add('show');
 
       setTimeout(function () {
