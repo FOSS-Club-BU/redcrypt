@@ -1,65 +1,27 @@
 {% load static %}
-<!-- Mobile Menu Button -->
-<button
-  id="mobile-menu-button"
-  class="fixed top-4 right-4 z-50 p-2 rounded-lg bg-neutral-900 border-2 border-green-600 md:hidden"
->
-  <svg
-    class="w-6 h-6 text-green-600"
-    id="menu-icon"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path
-      class="origin-center transition-transform"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
-      d="M4 6h16M4 12h16M4 18h16"
-    />
-  </svg>
-</button>
+<!-- Mobile Navbar -->
+<nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-neutral-900/80 backdrop-blur-md md:hidden border-b border-neutral-800">
+  <a href="{% url 'index' %}">
+    <img src="{% static 'logo_banner.svg' %}" class="h-6" />
+  </a>
+  <button id="mobile-menu-button" class="p-2 rounded-lg">
+    <svg class="w-6 h-6 text-green-600" id="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path class="origin-center transition-transform" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+    </svg>
+  </button>
+</nav>
 
-<!-- Mobile Menu Drawer -->
-<div
-  id="mobile-menu"
-  class="fixed inset-y-0 right-0 w-64 bg-neutral-900/80 transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-lg z-40 md:hidden"
->
-  <div class="flex flex-col h-full p-8">
-    <div class="flex items-center justify-between mb-8">
-      <a href="{% url 'index' %}">
-        <img src="{% static 'logo_banner.svg' %}" class="h-8" />
-      </a>
-    </div>
+<!-- Mobile Menu Dropdown -->
+<div id="mobile-menu" class="fixed inset-x-0 top-[72px] bg-neutral-900/80 transform -translate-y-[150%] transition-transform duration-300 ease-in-out backdrop-blur-md z-40 md:hidden">
+  <div class="flex flex-col px-6 pt-6 pb-4">
     <nav class="flex flex-col space-y-4">
-      <a
-        href="{% url 'leaderboard' %}"
-        class="text-neutral-100 font-bold hover:text-neutral-200 py-2"
-        >Leaderboard</a
-      >
-      <a
-        href="{% url 'rules' %}"
-        class="text-neutral-100 font-bold hover:text-neutral-200 py-2"
-        >Rules</a
-      >
-      <a
-        href="{% url 'about' %}"
-        class="text-neutral-100 font-bold hover:text-neutral-200 py-2"
-        >About</a
-      >
+      <a href="{% url 'leaderboard' %}" class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">Leaderboard</a>
+      <a href="{% url 'rules' %}" class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">Rules</a>
+      <a href="{% url 'about' %}" class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">About</a>
     </nav>
-    <div class="mt-auto flex flex-col space-y-2">
-      <a
-        href="{% url 'account_login' %}"
-        class="font-black transition-all ease-in duration-75 hover:bg-neutral-300 bg-neutral-200 text-black rounded-full px-4 py-2"
-        >Login</a
-      >
-      <a
-        href="{% url 'account_signup' %}"
-        class="font-black transition-all ease-in duration-75 bg-green-600 hover:bg-green-800 text-white rounded-full px-4 py-2"
-        >Signup</a
-      >
+    <div class="flex flex-col space-y-2 mt-4">
+      <a href="{% url 'account_login' %}" class="text-center font-black transition-all ease-in duration-75 hover:bg-neutral-300 bg-neutral-200 text-black rounded-full px-4 py-2">Login</a>
+      <a href="{% url 'account_signup' %}" class="text-center font-black transition-all ease-in duration-75 bg-green-600 hover:bg-green-800 text-white rounded-full px-4 py-2">Signup</a>
     </div>
   </div>
 </div>
@@ -117,7 +79,6 @@
   </header>
 </div>
 
-<!-- Add this before </body> -->
 <script>
   const mobileMenuButton = document.getElementById("mobile-menu-button");
   const mobileMenu = document.getElementById("mobile-menu");
@@ -127,23 +88,19 @@
   mobileMenuButton.addEventListener("click", () => {
     isOpen = !isOpen;
     if (isOpen) {
-      mobileMenu.classList.remove("translate-x-full");
+      mobileMenu.classList.remove("-translate-y-[150%]");
       menuIcon.classList.add("rotate-90");
     } else {
-      mobileMenu.classList.add("translate-x-full");
+      mobileMenu.classList.add("-translate-y-[150%]");
       menuIcon.classList.remove("rotate-90");
     }
   });
 
   // Close menu when clicking outside
   document.addEventListener("click", (e) => {
-    if (
-      isOpen &&
-      !mobileMenu.contains(e.target) &&
-      !mobileMenuButton.contains(e.target)
-    ) {
+    if (isOpen && !mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
       isOpen = false;
-      mobileMenu.classList.add("translate-x-full");
+      mobileMenu.classList.add("-translate-y-[150%]");
       menuIcon.classList.remove("rotate-90");
     }
   });
