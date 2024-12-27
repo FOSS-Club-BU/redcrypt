@@ -46,6 +46,10 @@
           fontFamily: {
             Inter: ["Inter"],
           },
+          boxShadow: {
+              // inwards subtle white shadow to make it look neumorphic
+              'inset-white': 'inset 0 2px 0px -0.5px rgba(255, 255, 255, 0.1) ',
+          },
         },
       },
     };
@@ -212,7 +216,7 @@
   {% block head %}{% endblock head %}
 </head>
 
-<body class="font-Inter md:mt-32 mt-24">
+<body class="font-Inter mt-24">
   {% if user.is_authenticated %} {% include 'auth_header.html' %} {% else %}
   {% include 'no_auth_header.html' %} {% endif %}
   <center>
@@ -302,17 +306,19 @@
 <script>
   const mobileMenuButton = document.getElementById("mobile-menu-button");
   const mobileMenu = document.getElementById("mobile-menu");
-  const menuIcon = document.getElementById("menu-icon");
+  const menuIconLines = mobileMenuButton.querySelectorAll("span");
   let isOpen = false;
 
   mobileMenuButton.addEventListener("click", () => {
     isOpen = !isOpen;
     if (isOpen) {
       mobileMenu.classList.remove("-translate-y-[150%]");
-      menuIcon.classList.add("rotate-90");
+      menuIconLines[0].classList.add("rotate-45", "translate-y-1.5");
+      menuIconLines[1].classList.add("-rotate-45", "-translate-y-1.5");
     } else {
       mobileMenu.classList.add("-translate-y-[150%]");
-      menuIcon.classList.remove("rotate-90");
+      menuIconLines[0].classList.remove("rotate-45", "translate-y-1.5");
+      menuIconLines[1].classList.remove("-rotate-45", "-translate-y-1.5");
     }
   });
 
@@ -321,7 +327,8 @@
     if (isOpen && !mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
       isOpen = false;
       mobileMenu.classList.add("-translate-y-[150%]");
-      menuIcon.classList.remove("rotate-90");
+      menuIconLines[0].classList.remove("rotate-45", "translate-y-1.5");
+      menuIconLines[1].classList.remove("-rotate-45", "-translate-y-1.5");
     }
   });
 </script>

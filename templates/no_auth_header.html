@@ -1,19 +1,18 @@
 {% load static %}
 <!-- Mobile Navbar -->
-<nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-neutral-900/80 backdrop-blur-md md:hidden border-b border-neutral-800">
+<nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-neutral-900/80 backdrop-blur-md md:hidden shadow-inset-white rounded-full m-3">
   <a href="{% url 'index' %}">
     <img src="{% static 'logo_banner.svg' %}" class="h-6" />
   </a>
-  <button id="mobile-menu-button" class="p-2 rounded-lg">
-    <svg class="w-6 h-6 text-green-600" id="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path class="origin-center transition-transform" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-    </svg>
+  <button id="mobile-menu-button" class="p-2 rounded-lg flex flex-col justify-between h-[1.87rem]">
+    <span class="block w-6 h-0.5 bg-neutral-100 transition-transform origin-center"></span>
+    <span class="block w-6 h-0.5 bg-neutral-100 transition-transform origin-center"></span>
   </button>
 </nav>
 
 <!-- Mobile Menu Dropdown -->
-<div id="mobile-menu" class="fixed inset-x-0 top-[72px] bg-neutral-900/80 transform -translate-y-[150%] transition-transform duration-300 ease-in-out backdrop-blur-md z-40 md:hidden">
-  <div class="flex flex-col px-6 pt-6 pb-4">
+<div id="mobile-menu" class="fixed inset-x-0 top-[76px] bg-neutral-900/80 transform -translate-y-[150%] transition-transform duration-500 ease-in-out backdrop-blur-md z-40 md:hidden rounded-3xl m-4 shadow-inset-white">
+  <div class="flex flex-col px-6 py-6">
     <nav class="flex flex-col space-y-4">
       <a href="{% url 'leaderboard' %}" class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">Leaderboard</a>
       <a href="{% url 'rules' %}" class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">Rules</a>
@@ -29,9 +28,9 @@
 <!-- Desktop Navigation -->
 <div class="w-full fixed top-0 hidden items-start justify-center z-30 md:flex">
   <header
-    class="text-neutral-400 body-font w-2/3 bg-neutral-950/20 mx-auto mt-4 rounded-full backdrop-blur-md border border-neutral-700 px-3 py-1"
+    class="text-neutral-400 body-font w-2/3 bg-neutral-950/60 mx-auto mt-4 rounded-full backdrop-blur-lg shadow-inset-white px-3 py-1"
   >
-    <div class="container mx-auto flex p-5 items-center justify-between">
+    <div class="container mx-auto flex p-4 items-center justify-between">
       <!-- Left Nav -->
       <nav class="flex-1 flex justify-start items-center gap-5">
         <a
@@ -62,14 +61,14 @@
       <div class="flex-1 flex justify-end items-center gap-3">
         <a href="{% url 'account_login' %}">
           <span
-            class="px-5 py-1.5 transition-all ease-in duration-75 hover:bg-neutral-300 bg-neutral-200 text-black rounded-full"
+            class="px-5 py-1.5 transition-all ease-in duration-75 hover:bg-neutral-300 font-black bg-neutral-200 text-black rounded-full"
           >
             Login
           </span>
         </a>
         <a href="{% url 'account_signup' %}">
           <span
-            class="px-5 py-1.5 transition-all ease-in duration-75 bg-green-600 hover:bg-green-800 text-white rounded-full"
+            class="px-5 py-1.5 transition-all ease-in duration-75 bg-green-600 font-black hover:bg-green-800 text-white rounded-full"
           >
             Signup
           </span>
@@ -82,19 +81,20 @@
 <script>
   const mobileMenuButton = document.getElementById("mobile-menu-button");
   const mobileMenu = document.getElementById("mobile-menu");
-  const menuIcon = document.getElementById("menu-icon");
+  const menuIconLines = mobileMenuButton.querySelectorAll("span");
   let isOpen = false;
 
   mobileMenuButton.addEventListener("click", () => {
     isOpen = !isOpen;
     if (isOpen) {
       mobileMenu.classList.remove("-translate-y-[150%]");
-      menuIcon.classList.add("rotate-90");
+      menuIconLines[0].classList.add("rotate-45", "translate-y-1.5");
+      menuIconLines[1].classList.add("-rotate-45", "-translate-y-1.5");
     } else {
       mobileMenu.classList.add("-translate-y-[150%]");
-      menuIcon.classList.remove("rotate-90");
+      menuIconLines[0].classList.remove("rotate-45", "translate-y-1.5");
+      menuIconLines[1].classList.remove("-rotate-45", "-translate-y-1.5");
     }
-  });
 
   // Close menu when clicking outside
   document.addEventListener("click", (e) => {
