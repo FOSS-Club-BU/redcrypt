@@ -106,6 +106,8 @@
         y.parentNode.insertBefore(t, y);
       })(window, document, "clarity", "script", "di6ycvwqv4");
     </script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
       body {
       background-color: #0a0a0a;
@@ -161,6 +163,9 @@
       gap: 0.75rem;
       justify-content: center;
       padding: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
     }
 
     #custom_toast.show {
@@ -173,7 +178,7 @@
     @media (max-width: 768px) {
       #custom_toast {
         width: calc(100% - 0.625rem);
-        margin: 0 0.3125rem;
+        margin: 0;
         flex-direction: column;
         text-align: center;
         padding: 0.75rem;
@@ -312,7 +317,7 @@
       {% block content %}
       {% endblock content %}
         <div id="custom_toast"
-             class="fixed bottom-0 text-sm rounded-2xl bg-neutral-900/70 backdrop-blur-xl shadow-inset-white text-neutral-100">
+             class="fixed bottom-0 text-sm rounded-2xl bg-neutral-900/70 backdrop-blur-xl shadow-inset-white text-neutral-100 flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg"
                fill="none"
                viewBox="0 0 24 24"
@@ -428,5 +433,17 @@
         }
       });
       </script>
+      <script>
+      // Initialize AOS
+      AOS.init({
+        offset: 50,
+        delay: 0,
+        duration: 800,
+        easing: 'ease-out-cubic',
+        once: true,
+        mirror: false,
+        anchorPlacement: 'top-bottom'
+      });
+      </script>
     </body>
-  </html>
+</html>
