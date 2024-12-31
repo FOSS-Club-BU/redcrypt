@@ -1,0 +1,1 @@
+// This file doesnt mean anything. It is here just for the sole purpose of making visual studio code to recognize the tailwindcss classes in the html file.

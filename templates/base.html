@@ -76,10 +76,6 @@
         key: "BDV_66hjFZ-UmAPoFewcLdDHu3i2pPxgc-ZtBcDPesJqWM-SmAPBExtw1EhE1zzG7EuSuJje6Z42xAQqflvoFL4",
       });
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-79MBGTX27V"></script>
@@ -108,26 +104,17 @@
     </script>
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+          rel="stylesheet">
     <style>
       body {
       background-color: #0a0a0a;
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
-      animation: backgroundPan 10s ease infinite;
       }
-
-          @keyframes backgroundPan {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
 
     .animated-bg {
       position: fixed;
@@ -251,26 +238,6 @@
         background-color: transparent;
       }
 
-      ::-webkit-scrollbar {
-        width: 10px;
-      }
-
-      ::-webkit-scrollbar-track {
-        background-color: #002a2a;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        width: 5px;
-        background-color: #008787;
-        border-radius: 20px;
-        border: 6px solid transparent;
-        background-clip: content-box;
-      }
-
-      ::-webkit-scrollbar-thumb:hover {
-        background-color: #08b74f;
-      }
-
       .font-Inter {
         font-feature-settings: "cv02", "cv03", "cv04", "cv11";
         -webkit-font-smoothing: antialiased;
@@ -290,20 +257,12 @@
         </defs>
         <g filter="url(#bb-filter)">
         <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f">
-        <animate attributeName="cx" values="374;400;350;374" dur="4s" repeatCount="indefinite" />
-        <animate attributeName="cy" values="152;200;120;152" dur="3.5s" repeatCount="indefinite" />
         </ellipse>
         <ellipse rx="277.5" ry="70.5" cx="609" cy="577" fill="#2e90fa">
-        <animate attributeName="cx" values="609;650;580;609" dur="5s" repeatCount="indefinite" />
-        <animate attributeName="cy" values="577;600;550;577" dur="4.5s" repeatCount="indefinite" />
         </ellipse>
         <ellipse rx="277.5" ry="70.5" cx="569" cy="421" fill="#08B74F">
-        <animate attributeName="cx" values="569;590;530;569" dur="6s" repeatCount="indefinite" />
-        <animate attributeName="cy" values="421;450;390;421" dur="5s" repeatCount="indefinite" />
         </ellipse>
         <ellipse rx="277.5" ry="70.5" cx="580" cy="245" fill="#08B74F">
-        <animate attributeName="cx" values="580;600;550;580" dur="3.5s" repeatCount="indefinite" />
-        <animate attributeName="cy" values="245;280;210;245" dur="4s" repeatCount="indefinite" />
         </ellipse>
         </g>
       </svg>
@@ -316,18 +275,18 @@
     <center>
       {% block content %}
       {% endblock content %}
-        <div id="custom_toast"
-             class="fixed bottom-0 text-sm rounded-2xl bg-neutral-900/70 backdrop-blur-xl shadow-inset-white text-neutral-100 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg"
-               fill="none"
-               viewBox="0 0 24 24"
-               stroke-width="1.5"
-               stroke="currentColor"
-               class="w-6 h-6 text-amber-400">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-          </svg>
-          <span></span>
-        </div>
+      <div id="custom_toast"
+           class="fixed bottom-0 text-sm rounded-2xl bg-neutral-900/70 backdrop-blur-xl shadow-inset-white text-neutral-100 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             fill="none"
+             viewBox="0 0 24 24"
+             stroke-width="1.5"
+             stroke="currentColor"
+             class="w-6 h-6 text-amber-400">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+        </svg>
+        <span></span>
+      </div>
     </center>
     <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
     <script>
@@ -446,4 +405,4 @@
       });
       </script>
     </body>
-</html>
+  </html>
