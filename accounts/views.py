@@ -147,6 +147,5 @@ def submit_contact_form(request):
             {'saved': False, 'message': "Some Error Occured"},
             status=400)
 
-
 def e500(request):
     return render(request, '500.html', status=500)
