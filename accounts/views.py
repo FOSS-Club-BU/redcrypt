@@ -1,3 +1,5 @@
+import json
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from accounts.models import Profile, contact_form

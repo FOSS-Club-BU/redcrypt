@@ -80,6 +80,10 @@ urlpatterns = [
     path('update_rank/', update_rank, name='update_rank'),
     path('500/', accounts_views.e500, name='500'),
     path(
+        'account/check-unique/',
+        accounts_views.check_unique,
+        name='check_unique'),
+    path(
         'contact_form_submit',
         accounts_views.submit_contact_form,
         name='contact_form_submit'),
