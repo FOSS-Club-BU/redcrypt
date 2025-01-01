@@ -140,14 +140,20 @@ def submit_contact_form(request):
                 return JsonResponse({'saved': True}, status=200)
         except Exception as e:
             # capture_exception(e)
-            return JsonResponse(
-                {'saved': False, 'message': str(e)},
-                status=400)
+            return JsonResponse({'saved': False, 'message': str(e)}, status=400)
 
+def check_unique(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        email = data.get('email')
+        username = data.get('username')
+
+        email_exists = User.objects.filter(email=email).exists()
+        username_exists = User.objects.filter(username=username).exists()
+
+        return JsonResponse({'emailExists': email_exists, 'usernameExists': username_exists})
     else:
-        return JsonResponse(
-            {'saved': False, 'message': "Some Error Occured"},
-            status=400)
+        return HttpResponse(status=405)
 
 def e500(request):
     return render(request, '500.html', status=500)
