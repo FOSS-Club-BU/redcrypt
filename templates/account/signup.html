@@ -398,10 +398,12 @@
                       <div class="form-field required-field">
                         <label for="id_email">Email</label>
                         {{ form.email }}
+                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden" id="email-error"></p>
                       </div>
                       <div class="form-field required-field">
                         <label for="id_username">Username</label>
                         {{ form.username }}
+                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden" id="username-error"></p>
                       </div>
                     </div>
                   </div>
@@ -428,6 +430,7 @@
                           <span class="material-symbols-outlined cursor-pointer text-xl absolute top-3 right-3"
                                 id="togglePassword1">visibility</span>
                         </div>
+                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden" id="password1-error"></p>
                         <!-- Strength meter container -->
                         <div id="passwordStrengthContainer" class="strength-meter hidden">
                           <div class="strength-label" id="strengthLabel">Password Strength</div>
@@ -445,6 +448,7 @@
                           <span class="material-symbols-outlined cursor-pointer text-xl absolute top-3 right-3"
                                 id="togglePassword2">visibility</span>
                         </div>
+                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden" id="password2-error"></p>
                       </div>
                     </div>
                   </div>
@@ -580,61 +584,61 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Validation function
-  async function validateCurrentStep() {
-    const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
-    const inputs = currentStepEl.querySelectorAll('input[required]');
-    let isValid = true;
+  // async function validateCurrentStep() {
+  //   const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+  //   const inputs = currentStepEl.querySelectorAll('input[required]');
+  //   let isValid = true;
 
-    inputs.forEach(input => {
-      if (!input.value) {
-        isValid = false;
-        input.classList.add('border-red-500');
-      } else {
-        input.classList.remove('border-red-500');
-      }
-    });
+  //   inputs.forEach(input => {
+  //     if (!input.value) {
+  //       isValid = false;
+  //       input.classList.add('border-red-500');
+  //     } else {
+  //       input.classList.remove('border-red-500');
+  //     }
+  //   });
 
-    if (currentStep === 1) {
-      const emailVal = document.getElementById('id_email')?.value.trim();
-      const usernameVal = document.getElementById('id_username')?.value.trim();
-      if (emailVal && usernameVal) {
-        const { emailExists, usernameExists } = await checkEmailUsername(emailVal, usernameVal);
-        if (emailExists) {
-          showToast('Email already in use.', 3000);
-          isValid = false;
-        }
-        if (usernameExists) {
-          showToast('Username already taken.', 3000);
-          isValid = false;
-        }
-      }
-    }
+  //   if (currentStep === 1) {
+  //     const emailVal = document.getElementById('id_email')?.value.trim();
+  //     const usernameVal = document.getElementById('id_username')?.value.trim();
+  //     if (emailVal && usernameVal) {
+  //       const { emailExists, usernameExists } = await checkEmailUsername(emailVal, usernameVal);
+  //       if (emailExists) {
+  //         showToast('Email already in use.', 3000);
+  //         isValid = false;
+  //       }
+  //       if (usernameExists) {
+  //         showToast('Username already taken.', 3000);
+  //         isValid = false;
+  //       }
+  //     }
+  //   }
 
-    // Password validation for step 2
-    if (currentStep === 2) {
-      const password1 = document.getElementById('id_password1');
-      const password2 = document.getElementById('id_password2');
+  //   // Password validation for step 2
+  //   if (currentStep === 2) {
+  //     const password1 = document.getElementById('id_password1');
+  //     const password2 = document.getElementById('id_password2');
       
-      if (password1.value !== password2.value) {
-        isValid = false;
-        password2.classList.add('border-red-500');
-        showError('Passwords do not match');
-      }
-    }
+  //     if (password1.value !== password2.value) {
+  //       isValid = false;
+  //       password2.classList.add('border-red-500');
+  //       showError('Passwords do not match');
+  //     }
+  //   }
 
-    if (currentStep === 3) {
-      const captchaPassed = await checkCaptcha();
-      if (!captchaPassed) {
-        showToast('Captcha verification failed.', 3000);
-        isValid = false;
-      }
-    }
+  //   if (currentStep === 3) {
+  //     const captchaPassed = await checkCaptcha();
+  //     if (!captchaPassed) {
+  //       showToast('Captcha verification failed.', 3000);
+  //       isValid = false;
+  //     }
+  //   }
 
-    if (!isValid) {
-      showToast('Please ensure all required fields are properly filled.', 3000);
-    }
-    return isValid;
-  }
+  //   if (!isValid) {
+  //     showToast('Please ensure all required fields are properly filled.', 3000);
+  //   }
+  //   return isValid;
+  // }
 
   // Error display function
   function showError(message) {
@@ -735,27 +739,49 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputs = currentStepEl.querySelectorAll('input[required]');
     let isValid = true;
 
+    // Clear previous errors first
+    document.querySelectorAll('.error-message').forEach(el => {
+      el.classList.add('hidden');
+      el.textContent = '';
+    });
+    
     inputs.forEach(input => {
+      input.classList.remove('border-red-500');
       if (!input.value) {
         isValid = false;
         input.classList.add('border-red-500');
-      } else {
-        input.classList.remove('border-red-500');
+        const errorEl = document.getElementById(`${input.id}-error`);
+        if (errorEl) {
+          errorEl.textContent = 'This field is required';
+          errorEl.classList.remove('hidden');
+        }
       }
     });
 
     if (currentStep === 1) {
-      const emailVal = document.getElementById('id_email')?.value.trim();
-      const usernameVal = document.getElementById('id_username')?.value.trim();
-      if (emailVal && usernameVal) {
-        const { emailExists, usernameExists } = await checkEmailUsername(emailVal, usernameVal);
+      const emailInput = document.getElementById('id_email');
+      const usernameInput = document.getElementById('id_username');
+      const emailError = document.getElementById('email-error');
+      const usernameError = document.getElementById('username-error');
+      
+      if (emailInput.value && usernameInput.value) {
+        const { emailExists, usernameExists } = await checkEmailUsername(
+          emailInput.value.trim(),
+          usernameInput.value.trim()
+        );
+
         if (emailExists) {
-          showToast('Email already in use.', 3000);
           isValid = false;
+          emailInput.classList.add('border-red-500');
+          emailError.textContent = 'This email is already in use';
+          emailError.classList.remove('hidden');
         }
+
         if (usernameExists) {
-          showToast('Username already taken.', 3000);
           isValid = false;
+          usernameInput.classList.add('border-red-500');
+          usernameError.textContent = 'This username is already taken';
+          usernameError.classList.remove('hidden');
         }
       }
     }
@@ -764,16 +790,59 @@ document.addEventListener('DOMContentLoaded', function() {
     if (currentStep === 2) {
       const password1 = document.getElementById('id_password1');
       const password2 = document.getElementById('id_password2');
-      if (password1.value.length < 8 ||
-          !/[A-Z]/.test(password1.value) ||
-          !/[^a-zA-Z0-9]/.test(password1.value)) {
-        showToast('Password too weak. Must be 8+ chars, 1 uppercase, 1 special char.', 3000);
+      const password1Error = document.getElementById('password1-error');
+      const password2Error = document.getElementById('password2-error');
+      let isValid = true;
+      
+      // Reset previous error states
+      [password1, password2].forEach(input => {
+        input.classList.remove('border-red-500');
+      });
+      [password1Error, password2Error].forEach(error => {
+        error.classList.add('hidden');
+        error.textContent = '';
+      });
+
+      // Password requirements check
+      const requirements = {
+        length: password1.value.length >= 8,
+        uppercase: /[A-Z]/.test(password1.value),
+        special: /[^a-zA-Z0-9]/.test(password1.value),
+        numbers: /[0-9]/.test(password1.value)
+      };
+
+      const errorMessages = [];
+      if (!requirements.length) errorMessages.push('at least 8 characters');
+      if (!requirements.uppercase) errorMessages.push('one uppercase letter');
+      if (!requirements.special) errorMessages.push('one special character');
+      if (!requirements.numbers) errorMessages.push('one number');
+
+      if (errorMessages.length > 0) {
         isValid = false;
+        password1.classList.add('border-red-500');
+        password1Error.textContent = `Password must contain ${errorMessages.join(', ')}`;
+        password1Error.classList.remove('hidden');
+        
+        // Add animation to error message
+        password1Error.style.animation = 'none';
+        password1Error.offsetHeight; // Trigger reflow
+        password1Error.style.animation = 'fadeInDown 0.3s ease-out';
       }
+
+      // Password match check
       if (password1.value !== password2.value) {
-        showToast('Passwords do not match.', 3000);
         isValid = false;
+        password2.classList.add('border-red-500');
+        password2Error.textContent = 'Passwords do not match';
+        password2Error.classList.remove('hidden');
+        
+        // Add animation to error message
+        password2Error.style.animation = 'none';
+        password2Error.offsetHeight; // Trigger reflow
+        password2Error.style.animation = 'fadeInDown 0.3s ease-out';
       }
+
+      return isValid;
     }
 
     if (currentStep === 3) {
@@ -821,6 +890,33 @@ document.addEventListener('DOMContentLoaded', function() {
       return false;
     }
   }
+
+  // Add animation keyframes
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .error-message {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+
+    .error-message:not(.hidden) {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    }
+  `;
+  document.head.appendChild(style);
 });
   </script>
 {% endblock content %}

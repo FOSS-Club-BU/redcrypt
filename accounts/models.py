@@ -84,8 +84,11 @@ def user_signed_up_(request, user, **kwargs):
                 "name": "School/Organisation",
                 "value": organization
             }]}]}
-    url = os.getenv("DISCORD_LOGGING_WEBHOOK")
-    requests.post(url, json=json_data)
+    try:
+        url = os.getenv("DISCORD_LOGGING_WEBHOOK")
+        requests.post(url, json=json_data)
+    except:
+        pass
 
 
 @receiver(social_account_added)
