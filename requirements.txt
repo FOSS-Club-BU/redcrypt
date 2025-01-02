@@ -15,4 +15,5 @@ django-admin-interface==0.19.1
 pyminizip
 discord-webhook
 pytz
+djlint
 boringavatars
