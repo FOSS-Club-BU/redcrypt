@@ -398,12 +398,14 @@
                       <div class="form-field required-field">
                         <label for="id_email">Email</label>
                         {{ form.email }}
-                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden" id="email-error"></p>
+                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden"
+                           id="email-error"></p>
                       </div>
                       <div class="form-field required-field">
                         <label for="id_username">Username</label>
                         {{ form.username }}
-                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden" id="username-error"></p>
+                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden"
+                           id="username-error"></p>
                       </div>
                     </div>
                   </div>
@@ -430,7 +432,8 @@
                           <span class="material-symbols-outlined cursor-pointer text-xl absolute top-3 right-3"
                                 id="togglePassword1">visibility</span>
                         </div>
-                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden" id="password1-error"></p>
+                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden"
+                           id="password1-error"></p>
                         <!-- Strength meter container -->
                         <div id="passwordStrengthContainer" class="strength-meter hidden">
                           <div class="strength-label" id="strengthLabel">Password Strength</div>
@@ -448,7 +451,8 @@
                           <span class="material-symbols-outlined cursor-pointer text-xl absolute top-3 right-3"
                                 id="togglePassword2">visibility</span>
                         </div>
-                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden" id="password2-error"></p>
+                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden"
+                           id="password2-error"></p>
                       </div>
                     </div>
                   </div>
@@ -879,13 +883,18 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   async function checkCaptcha() {
+    const hcaptchaResponse = hcaptcha.getResponse();
+    if (!hcaptchaResponse) {
+      return false;
+    }
     try {
       const response = await fetch('/account/verify-captcha/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' }
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
+        body: JSON.stringify({ 'h-captcha-response': hcaptchaResponse })
       });
       const data = await response.json();
-      return data.captchaValid; // Expecting { captchaValid: bool }
+      return data.captchaValid;
     } catch (err) {
       return false;
     }
@@ -919,16 +928,11 @@ document.addEventListener('DOMContentLoaded', function() {
   document.head.appendChild(style);
 });
   </script>
-
-
-{% if messages %}
-<!-- <div class="z-50 w-screen text-6xl h-screen fixed top-0 left-0 flex items-center justify-center">
-  <div class="bg-green-600 text-white p-4 rounded-lg">
-    {{ messages }}
-  </div>
-
-</div> -->
-<script>
+  {% if messages %}
+    <div class="z-50 w-screen text-6xl h-screen fixed top-0 left-0 flex items-center justify-center">
+      <div class="bg-green-600 text-white p-4 rounded-lg">{{ messages }}</div>
+    </div>
+    <script>
   document.addEventListener('DOMContentLoaded', function() {
 
     console.log("messages cool")
@@ -937,7 +941,23 @@ document.addEventListener('DOMContentLoaded', function() {
       showToast("{{ msg|escapejs }}", 3000);
     {% endfor %}
   });
-</script>
-{% endif %}
 
+
+
+    </script>
+  {% endif %}
+  {% if form.errors %}
+    <script>console.log("{{ form.errors }}");</script>
+    {% for field in form %}
+      {% for error in field.errors %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+
+            console.log("{{ error|escapejs }}");
+            showToast("{{ error|escapejs }}", 3000);
+            });
+        </script>
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
 {% endblock content %}

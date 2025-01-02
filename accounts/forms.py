@@ -10,9 +10,6 @@ class MyCustomSignupForm(SignupForm):
     name = forms.CharField(required=False, label="Name [Optional]")
     organization = forms.CharField(required=False, label='School/Organization [Optional]')
     hcaptcha = hCaptchaField(theme='dark')
-    print("here")
-    print(hcaptcha)
-
 
     field_order = [
         'name', 'organization', 'username', 'email', 'password1', 'password2',
