@@ -76,9 +76,7 @@
         key: "BDV_66hjFZ-UmAPoFewcLdDHu3i2pPxgc-ZtBcDPesJqWM-SmAPBExtw1EhE1zzG7EuSuJje6Z42xAQqflvoFL4",
       });
     </script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-79MBGTX27V"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />    <script async src="https://www.googletagmanager.com/gtag/js?id=G-79MBGTX27V"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -108,24 +106,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
           rel="stylesheet">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
       body {
-      background-color: #0a0a0a;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
+        background-color: #0a0a0a;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
       }
 
-    .animated-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: -1;
-    }
-
+      .static-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1;
+      }
 
       .install {
         display: none;
@@ -248,7 +246,7 @@
     {% endblock head %}
   </head>
   <body class="font-Inter mt-24">
-    <div class="animated-bg">
+    <div class="static-bg">
       <svg width="100%" height="100%" viewBox="0 0 800 800">
         <defs>
         <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">

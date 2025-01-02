@@ -10,6 +10,7 @@ import requests
 import os
 from dotenv import load_dotenv
 load_dotenv()
+from accounts.utils import generate_avatar
 
 
 class Profile(models.Model):
@@ -27,12 +28,22 @@ class Profile(models.Model):
     banned_reason = models.CharField(max_length=150, blank=True)
     ip_address = models.JSONField(default=list)
     ip_address_count = models.IntegerField(default=0)
-    avatar_url = models.CharField(
-        max_length=150,
-        default="https://source.boringavatars.com/beam/512/redcrypt?colors=08B74F,006D6D,002A2A,055D5D,074848&square"
-    )
+    avatar = models.FileField(upload_to='avatars/', blank=True)
     stats = models.JSONField(default=dict, blank=True)
     rank = models.CharField(default='0', max_length=5, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.avatar:
+            # Generate avatar on first save
+            avatar_path = generate_avatar(self.user.username)
+            self.avatar.name = avatar_path
+        super().save(*args, **kwargs)
+
+    @property
+    def avatar_url(self):
+        if self.avatar:
+            return self.avatar.url
+        return ''
 
     def __str__(self):
         return str(self.user)

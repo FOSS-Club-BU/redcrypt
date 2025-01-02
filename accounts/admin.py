@@ -1,5 +1,6 @@
 from django.contrib import admin
 from accounts.models import Profile, IPs, contact_form
+from accounts.utils import generate_avatar
 
 
 class IPsAdmin(admin.ModelAdmin):
@@ -47,14 +48,13 @@ class ProfileAdmin(admin.ModelAdmin):
     )
 
     def reset_profile_pic(self, request, queryset):
-        for i in queryset:
-            i.avatar_url=f"https://source.boringavatars.com/beam/512/{i.user.username}?colors=08B74F,006D6D,002A2A,055D5D,074848&square"
-            i.save()
-        self.message_user(
-            request, "Updated URLs"
-            )
+        for profile in queryset:
+            avatar_path = generate_avatar(profile.user.username)
+            profile.avatar.name = avatar_path
+            profile.save()
+        self.message_user(request, "Updated avatars")
 
-    reset_profile_pic.short_description="Reset Avatar URL"
+    reset_profile_pic.short_description = "Reset Avatar"
     actions=[reset_profile_pic]
 
 

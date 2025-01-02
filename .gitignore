@@ -151,3 +151,6 @@ poetry.lock
 pyproject.toml
 db.zip
 .aider*
+
+# Avatars file
+media/avatars/*

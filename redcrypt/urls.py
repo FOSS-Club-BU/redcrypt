@@ -21,6 +21,8 @@ from hunt.views import sample_checkans, about, guidelines
 from hunt.views import privacy_policy, terms_and_conditions
 from accounts import views as accounts_views
 from allauth1.account.views import password_change
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -90,4 +92,4 @@ urlpatterns = [
     path('', include((
         'url_shortner.urls', 'url_shortner'),
         namespace='url_shortner')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

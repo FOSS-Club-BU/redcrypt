@@ -3,19 +3,25 @@
 <!-- Mobile Navbar -->
 <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-neutral-900/80 backdrop-blur-md md:hidden shadow-inset-white rounded-full m-3">
   <a href="{% url 'index' %}">
-    <img src="{% static 'logo_banner.svg' %}" alt="Re-Decrypt Logo" width="auto" height="auto" class="h-6" />
+    <img src="{% static 'logo_banner.svg' %}"
+         alt="Re-Decrypt Logo"
+         width="auto"
+         height="auto"
+         class="h-6" />
   </a>
   <button id="mobile-menu-button"
-          class="p-2 rounded-lg flex flex-col justify-between h-6">
-    <span class="block w-6 h-0.5 bg-green-600 transition-transform origin-center"></span>
-    <span class="block w-6 h-0.5 bg-green-600 transition-transform origin-center"></span>
+          class="p-2 rounded-lg flex flex-col justify-between h-[1.87rem]">
+    <span class="block w-6 h-0.5 bg-neutral-100 transition-transform origin-center"></span>
+    <span class="block w-6 h-0.5 bg-neutral-100 transition-transform origin-center"></span>
   </button>
 </nav>
 <!-- Mobile Menu Dropdown -->
 <div id="mobile-menu"
-     class="fixed inset-x-0 top-[76px] bg-neutral-900/80 transform -translate-y-[150%] transition-transform duration-300 ease-in-out backdrop-blur-md z-40 md:hidden rounded-3xl m-4 shadow-inset-white">
-  <div class="flex flex-col px-6 py-6">
-    <nav class="flex flex-col space-y-4">
+     class="fixed inset-x-0 top-[76px] bg-neutral-900/80 transform -translate-y-[150%] transition-transform duration-500 ease-in-out backdrop-blur-md z-40 md:hidden rounded-3xl m-4 shadow-inset-white">
+  <div class="flex flex-col px-6 py-4">
+    <!-- Reduced py-6 to py-4 -->
+    <nav class="flex flex-col space-y-3">
+      <!-- Reduced space-y-4 to space-y-3 -->
       <a href="{% url 'play' %}"
          class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">Play</a>
       <a href="{% url 'leaderboard' %}"
@@ -25,30 +31,35 @@
       <a href="{% url 'about' %}"
          class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">About</a>
     </nav>
-    <div class="flex items-center my-4 space-x-3">
+    <div class="flex items-center my-3 space-x-3">
+      <!-- Reduced my-4 to my-3 -->
       <img src="{% avatar user %}"
            alt="avatar"
-           class="w-10 h-10 rounded-full border-2 border-green-600" width="auto" height="auto"/>
-      <span class="text-neutral-100 font-bold">{{ user.username }}</span>
+           class="w-8 h-8 rounded-full border border-green-600"
+           width="auto"
+           height="auto" />
+      <!-- Reduced size and border -->
+      <span class="text-neutral-100 font-bold text-sm">{{ user.username }}</span> <!-- Added text-sm -->
     </div>
-    <div class="flex flex-col space-y-2">
+    <div class="flex flex-col space-y-1.5">
+      <!-- Reduced space-y-2 to space-y-1.5 -->
       {% if user.is_staff %}
         <a href="/honeypot/"
-           class="text-center text-neutral-100 font-bold hover:bg-neutral-700 rounded px-4 py-2">Admin Panel</a>
+           class="text-center font-black transition-all ease-in duration-75 hover:bg-neutral-700 text-neutral-100 rounded-full px-4 py-2">Admin Panel</a>
       {% endif %}
       <a href="{% url 'profile' %}"
-         class="text-center text-neutral-100 font-bold hover:bg-neutral-700 rounded px-4 py-2">Profile</a>
+         class="text-center font-black transition-all ease-in duration-75 hover:bg-neutral-700 text-neutral-100 rounded-full px-4 py-2">Profile</a>
       <form action="{% url 'account_logout' %}" method="post" class="contents">
         {% csrf_token %}
         <button type="submit"
-                class="text-center text-neutral-100 font-bold hover:bg-neutral-700 rounded px-4 py-2 w-full">
+                class="text-center font-black transition-all ease-in duration-75 hover:bg-neutral-700 text-neutral-100 rounded-full px-4 py-2 w-full">
           Sign Out
         </button>
       </form>
       <div id="install">
         <button type="submit"
                 id="installapp"
-                class="text-center text-neutral-100 font-bold hover:bg-neutral-700 rounded px-4 py-2 w-full">
+                class="text-center font-black transition-all ease-in duration-75 hover:bg-neutral-700 text-neutral-100 rounded-full px-4 py-2 w-full">
           Install App
         </button>
       </div>
@@ -56,78 +67,102 @@
   </div>
 </div>
 <!-- Desktop Navigation -->
-<div class="w-full fixed top-0 flex items-start justify-center z-30 md:flex">
-  <header class="text-neutral-400 body-font w-2/3 bg-neutral-950/60 mx-auto mt-4 rounded-full backdrop-blur-lg shadow-inset-white px-3 py-1">
-    <div class="container mx-auto flex p-4 items-center justify-between">
+<div class="w-full fixed top-0 hidden items-start justify-center z-30 md:flex">
+  <header class="relative text-neutral-400 body-font w-2/3 bg-neutral-950/60 mx-auto mt-4 rounded-full backdrop-blur-lg shadow-inset-white px-3 py-3.5">
+    <div class="container mx-auto flex items-center justify-between">
+      <!-- Left Nav -->
       <nav class="flex-1 flex justify-start items-center gap-5">
-        <a href="{% url 'play' %}"
-           class="{% if url_name == 'play' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold">Play</a>
         <a href="{% url 'leaderboard' %}"
-           class="{% if url_name == 'leaderboard' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold">Leaderboard</a>
+           class="text-neutral-100 hover:text-neutral-200 font-bold ml-4">Leaderboard</a>
         <a href="{% url 'rules' %}"
-           class="{% if url_name == 'rules' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold">Rules</a>
+           class="text-neutral-100 hover:text-neutral-200 font-bold">Rules</a>
         <a href="{% url 'about' %}"
-           class="{% if url_name == 'about' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold">About</a>
+           class="text-neutral-100 hover:text-neutral-200 font-bold">About</a>
       </nav>
       <!-- Center Logo -->
       <div class="flex-none flex justify-center">
         <a href="{% url 'index' %}">
-          <img src="{% static 'logo_banner.svg' %}" alt="Re-Dcrypt Logo" width="auto" height="auto" class="h-6" />
+          <img src="{% static 'logo_banner.svg' %}"
+               alt="Re-Dcrypt Logo"
+               width="auto"
+               height="auto"
+               class="h-6" />
         </a>
       </div>
-      <!-- Right Side -->
-      <div class="flex-1 flex justify-end items-center gap-3">
-        <span class="text-neutral-100 font-bold">{{ user.username }}</span>
-        <div class="group relative">
-          <button class="text-neutral-100">
+      <!-- Right Side with Avatar -->
+      <div class="flex-1 flex justify-end items-center flex-row gap-x-3">
+        <a href="{% url 'play' %}">
+          <span class="px-5 py-1.5 transition-all ease-in duration-75 bg-green-600 font-black hover:bg-green-800 text-white rounded-full">
+            Play
+          </span>
+        </a>
+        <!-- Avatar and Dropdown -->
+        <div class="group relative h-full flex items-center" x-data="{ open: false }">
+          <button class="text-neutral-100 hover:opacity-80 transition-opacity h-full px-1 flex items-center"
+                  @click="open = !open"
+                  @click.outside="open = false">
             <img src="{% avatar user %}"
                  alt="avatar"
-                 class="w-11 h-11 rounded-full border-2 border-green-600" width="auto" height="auto"/>
+                 class="w-9 h-9 rounded-full border-2 border-green-600"
+                 width="auto"
+                 height="auto" />
           </button>
           <!-- Dropdown Menu -->
-          <nav tabindex="0"
-               class="border bg-neutral-900/80 invisible border-green-600 rounded-lg w-60 absolute right-0 top-full transition-all opacity-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-1 backdrop-blur-lg"
+          <nav tabindex="0" 
+               class="shadow-inset-white bg-neutral-950 invisible rounded-2xl w-64 absolute -right-3 top-full mt-1 transition-all opacity-0 divide-y divide-green-600/20"
+               :class="{ 'invisible opacity-0 translate-y-0': !open, 'visible opacity-100 translate-y-5': open }"
                style="z-index: 5">
-            <ul class="py-1">
-              {% if user.is_staff %}
-                <li>
-                  <a href="/honeypot/"
-                     class="block px-4 py-2 text-neutral-100 font-bold hover:bg-neutral-700 text-center">Admin Panel</a>
-                </li>
-              {% endif %}
-              <li>
-                <a href="{% url 'profile' %}"
-                   class="block px-4 py-2 text-neutral-100 font-bold hover:bg-neutral-700">
-                  <center>Profile</center>
+            <!-- User Info Section -->
+            <div class="p-4">
+                <a href="{% url 'profile' %}" class="flex items-center gap-3 group/profile hover:bg-green-600/10 p-2 rounded-lg transition-all duration-200">
+                    <img src="{% avatar user %}" alt="avatar" class="w-10 h-10 rounded-full border border-green-600" width="auto" height="auto"/>
+                    <div class="flex flex-col">
+                        <span class="text-neutral-100 font-bold group-hover/profile:text-green-500 transition-colors">{{ user.username }}</span>
+                        <span class="text-neutral-400 text-sm">View profile</span>
+                    </div>
                 </a>
-              </li>
-              <li>
+            </div>
+
+            <!-- Menu Items -->
+            <div class="p-2">
+                <ul class="space-y-1">
+                    {% if user.is_staff %}
+                    <li>
+                        <a href="/honeypot/" class="flex items-center gap-3 p-2 rounded-lg text-neutral-100 hover:bg-green-600/20 transition-all duration-200 bg-neutral-800/40">
+                            <span class="material-symbols-outlined text-purple-500">admin_panel_settings</span>
+                            <span class="font-medium">Admin Panel</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <div id="install">
+                            <button type="submit" id="installapp" class="w-full flex items-center gap-3 p-2 rounded-lg text-neutral-100 hover:bg-green-600/20 transition-all duration-200 bg-neutral-800/40">
+                                <span class="material-symbols-outlined text-amber-500">download</span>
+                                <span class="font-medium">Install App</span>
+                            </button>
+                        </div>
+                    </li>
+                    {% if user.is_superuser %}
+                    <li>
+                        <a href="{% url 'update_rank' %}" class="flex items-center gap-3 p-2 rounded-lg text-neutral-100 hover:bg-green-600/20 transition-all duration-200 bg-neutral-800/40">
+                            <span class="material-symbols-outlined text-green-500">update</span>
+                            <span class="font-medium">Update Ranks</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <!-- Sign Out Section -->
+            <div class="p-2">
                 <form action="{% url 'account_logout' %}" method="post">
-                  {% csrf_token %}
-                  <button type="submit"
-                          class="block px-4 py-2 text-neutral-100 font-bold hover:bg-neutral-700 w-full text-center">
-                    Sign Out
-                  </button>
+                    {% csrf_token %}
+                    <button type="submit" class="w-full flex items-center gap-3 p-2 rounded-lg text-red-400 hover:bg-red-600/10 transition-all duration-200 bg-neutral-800/40">
+                        <span class="material-symbols-outlined">logout</span>
+                        <span class="font-medium">Sign Out</span>
+                    </button>
                 </form>
-              </li>
-              <li>
-                <div id="install">
-                  <button type="submit"
-                          id="installapp"
-                          class="block px-4 py-2 text-neutral-100 font-bold hover:bg-neutral-700 w-full text-center">
-                    Install App
-                  </button>
-                </div>
-              </li>
-              {% if user.is_superuser %}
-                <li>
-                  <a href="{% url 'update_rank' %}"
-                     class="block px-4 py-2 text-neutral-100 font-bold hover:bg-neutral-700 w-full text-center">
-                    Update Ranks
-                  </a>
-                </li>
-              {% endif %}
-            </ul>
+            </div>
           </nav>
         </div>
       </div>
