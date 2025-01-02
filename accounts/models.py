@@ -31,6 +31,8 @@ class Profile(models.Model):
     avatar = models.FileField(upload_to='avatars/', blank=True)
     stats = models.JSONField(default=dict, blank=True)
     rank = models.CharField(default='0', max_length=5, blank=True)
+    last_verification_email_sent = models.DateTimeField(null=True, blank=True)
+    verification_emails_sent = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         if not self.avatar:

@@ -18,6 +18,8 @@ from hunt.utils import get_rank
 from accounts.forms import ContactForm
 import requests
 from django.conf import settings
+from django.utils import timezone
+from .utils import can_send_verification_email, get_next_available_time
 
 
 @login_required
@@ -116,9 +118,27 @@ def connect(request):
 @login_required
 @not_banned
 def send_confirmation_email(request):
+    profile = request.user.profile
+    
+    if not can_send_verification_email(request.user):
+        next_time = get_next_available_time(request.user)
+        remaining = next_time - timezone.now()
+        hours = remaining.seconds // 3600
+        minutes = (remaining.seconds % 3600) // 60
+        
+        messages.error(
+            request, 
+            f"You've exceeded the maximum number of verification email attempts. Please wait {hours}h {minutes}m before requesting another."
+        )
+        return redirect('verification-sent')
+        
     try:
         send_email_confirmation(request, request.user, signup=False)
-        messages.success(request, "Verification email sent successfully!")
+        profile.verification_emails_sent += 1
+        profile.last_verification_email_sent = timezone.now()
+        profile.save()
+        messages.success(request, f"Verification email sent successfully!")
+            
     except Exception as e:
         logger.error(f"Failed to send verification email: {str(e)}")
         messages.error(request, "Failed to send verification email. Please try again or contact support.")
@@ -131,7 +151,17 @@ def verification_sent(request):
     if request.user.emailaddress_set.filter(verified=True).exists():
         messages.info(request, "Your email is already verified!")
         return redirect('profile')
-    return render(request, 'verification_sent.html')
+        
+    context = {}
+    if not can_send_verification_email(request.user):
+        next_time = get_next_available_time(request.user)
+        remaining = next_time - timezone.now()
+        hours = remaining.seconds // 3600
+        minutes = (remaining.seconds % 3600) // 60
+        context['cooldown'] = True
+        context['remaining_time'] = f"{hours}h {minutes}m"
+        
+    return render(request, 'verification_sent.html', context)
 
 
 def contact_form_view(request):
