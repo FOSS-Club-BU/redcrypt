@@ -10,7 +10,6 @@ import requests
 import os
 from dotenv import load_dotenv
 load_dotenv()
-from accounts.utils import generate_avatar
 
 
 class Profile(models.Model):
@@ -28,23 +27,16 @@ class Profile(models.Model):
     banned_reason = models.CharField(max_length=150, blank=True)
     ip_address = models.JSONField(default=list)
     ip_address_count = models.IntegerField(default=0)
-    avatar = models.FileField(upload_to='avatars/', blank=True)
+    avatar = models.URLField(default="https://api.dicebear.com/9.x/fun-emoji/svg?seed=Easton&backgroundColor=059ff2,71cf62,d84be5,d9915b,f6d594,fcbc34,b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf")
     stats = models.JSONField(default=dict, blank=True)
     rank = models.CharField(default='0', max_length=5, blank=True)
     last_verification_email_sent = models.DateTimeField(null=True, blank=True)
     verification_emails_sent = models.IntegerField(default=0)
 
-    def save(self, *args, **kwargs):
-        if not self.avatar:
-            # Generate avatar on first save
-            avatar_path = generate_avatar(self.user.username)
-            self.avatar.name = avatar_path
-        super().save(*args, **kwargs)
-
     @property
     def avatar_url(self):
         if self.avatar:
-            return self.avatar.url
+            return self.avatar
         return ''
 
     def __str__(self):

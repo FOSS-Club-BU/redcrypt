@@ -216,9 +216,9 @@ def verify_captcha(request):
             }
             response = requests.post('https://hcaptcha.com/siteverify', data=data)
             result = response.json()
-            
+            print(type(result.get('success')))
             return JsonResponse({
-                'captchaValid': result.get('success', False)
+                'captchaValid': result.get('success')
             })
             
         except Exception as e:

@@ -78,7 +78,8 @@ INSTALLED_APPS = [
     'url_shortner',
     'hcaptcha',
     'maintenance_mode',
-    'pwa'
+    'pwa',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
@@ -187,6 +188,7 @@ ACCOUNT_MAX_EMAIL_ADDRESSES = 1
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 
 LOGIN_REDIRECT_URL = '/profile/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 # Add custom adapter setting for AllAuth
 ACCOUNT_ADAPTER = 'accounts.adapter.CustomAccountAdapter'

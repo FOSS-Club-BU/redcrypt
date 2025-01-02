@@ -1,6 +1,5 @@
 from django.contrib import admin
 from accounts.models import Profile, IPs, contact_form
-from accounts.utils import generate_avatar
 
 
 class IPsAdmin(admin.ModelAdmin):
@@ -48,11 +47,12 @@ class ProfileAdmin(admin.ModelAdmin):
     )
 
     def reset_profile_pic(self, request, queryset):
-        for profile in queryset:
-            avatar_path = generate_avatar(profile.user.username)
-            profile.avatar.name = avatar_path
-            profile.save()
-        self.message_user(request, "Updated avatars")
+        for i in queryset:
+            i.avatar_url=f"https://api.dicebear.com/9.x/fun-emoji/svg?seed={i.user.username}&backgroundColor=059ff2,71cf62,d84be5,d9915b,f6d594,fcbc34,b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf&backgroundRotation[]"
+            i.save()
+        self.message_user(
+            request, "Updated URLs"
+            )
 
     reset_profile_pic.short_description = "Reset Avatar"
     actions=[reset_profile_pic]

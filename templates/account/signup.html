@@ -847,6 +847,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (currentStep === 3) {
       const captchaPassed = await checkCaptcha();
+      console.log(captchaPassed);
+      isValid = false;
       if (!captchaPassed) {
         showToast('Captcha verification failed.', 3000);
         isValid = false;
@@ -877,8 +879,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   async function checkCaptcha() {
-    // Example captcha check
-    // Adjust URL or request details as needed
     try {
       const response = await fetch('/account/verify-captcha/', {
         method: 'POST',
@@ -919,4 +919,25 @@ document.addEventListener('DOMContentLoaded', function() {
   document.head.appendChild(style);
 });
   </script>
+
+
+{% if messages %}
+<!-- <div class="z-50 w-screen text-6xl h-screen fixed top-0 left-0 flex items-center justify-center">
+  <div class="bg-green-600 text-white p-4 rounded-lg">
+    {{ messages }}
+  </div>
+
+</div> -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+    console.log("messages cool")
+    console.log("{{ messages }}");
+    {% for msg in messages %}
+      showToast("{{ msg|escapejs }}", 3000);
+    {% endfor %}
+  });
+</script>
+{% endif %}
+
 {% endblock content %}

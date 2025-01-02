@@ -16,4 +16,5 @@ pyminizip
 discord-webhook
 pytz
 djlint
-boringavatars
+django-extensions
+Werkzeug

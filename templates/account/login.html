@@ -468,18 +468,21 @@ document.addEventListener('DOMContentLoaded', function() {
 });
   </script>
 {% if messages %}
-<div class="z-50 w-screen text-6xl h-screen fixed top-0 left-0 flex items-center justify-center">
+<!-- <div class="z-50 w-screen text-6xl h-screen fixed top-0 left-0 flex items-center justify-center">
   <div class="bg-green-600 text-white p-4 rounded-lg">
     {{ messages }}
   </div>
 
-</div>
+</div> -->
 <script>
-  console.log("messages")
-  console.log("{{ messages }}");
-  {% for msg in messages %}
-    showToast("{{ msg|escapejs }}", 3000);
-  {% endfor %}
+  document.addEventListener('DOMContentLoaded', function() {
+
+    console.log("messages cool")
+    console.log("{{ messages }}");
+    {% for msg in messages %}
+      showToast("{{ msg|escapejs }}", 3000);
+    {% endfor %}
+  });
 </script>
 {% endif %}
 
