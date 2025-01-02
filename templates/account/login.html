@@ -350,10 +350,7 @@
           </div>
           <!-- Form Section -->
           <div class="md:w-2/3 flex-1" data-aos="fade-up" data-aos-duration="800">
-            <form class="h-full"
-                  id="login_form"
-                  method="post"
-                  action="{% url 'account_login' %}">
+            <form method="post" action="{% url 'account_login' %}" class="h-full" id="login_form">
               {% csrf_token %}
               <div class="form-container h-full">
                 <div class="form-content p-8">
@@ -373,12 +370,14 @@
                   <div class="form-fields" data-aos="fade-up" data-aos-delay="200">
                     <div class="form-field">
                       <label for="id_login">Email or Username</label>
-                      <div class="relative">{{ form.login }}</div>
+                      <div class="relative">
+                        <input type="text" name="login" class="..." placeholder="Username" />
+                      </div>
                     </div>
                     <div class="form-field">
                       <label for="id_password">Password</label>
                       <div class="relative">
-                        {{ form.password }}
+                        <input type="password" name="password" class="..." placeholder="Password" id="id_password"/>
                         <span class="material-symbols-outlined cursor-pointer text-xl absolute top-3 right-3 text-neutral-400"
                               id="togglePassword">visibility</span>
                       </div>
@@ -429,40 +428,62 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Form validation
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const loginField = document.getElementById('id_login');
-    const password = passwordInput.value;
+//   form.addEventListener('submit', async (e) => {
+//     e.preventDefault();
+//     console
+//     const loginField = document.getElementById('id_login');
+//     const password = passwordInput.value;
+
+//     console.log(loginField.value, password);
     
-    if (!loginField.value || !password) {
-      showToast('Please fill in all fields', 3000);
-      return;
-    }
+//     if (!loginField.value || !password) {
+//       showToast('Please fill in all fields', 3000);
+//       return;
+//     }
 
-    try {
-      const response = await fetch('/account/login/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': '{{ csrf_token }}'
-        },
-        body: JSON.stringify({
-          login: loginField.value,
-          password: password
-        })
-      });
+//     try {
+//       const response = await fetch("{% url 'account_login' %}", {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'X-CSRFToken': '{{ csrf_token }}'
+//         },
+//         body: JSON.stringify({
+//           login: loginField.value,
+//           password: password
+//         })
+//       });
 
-      const data = await response.json();
+//       const data = await response.json();
       
-      if (data.error) {
-        showToast(data.error, 3000);
-      } else if (response.ok) {
-        window.location.href = data.redirect || '/';
-      }
-    } catch (err) {
-      showToast('An error occurred. Please try again.', 3000);
-    }
-  });
+//       if (data.error) {
+//         showToast(data.error, 3000);
+//       } else if (response.ok) {
+//         window.location.href = data.redirect || '/';
+//       }
+//     } catch (err) {
+//       showToast('An error occurred. Please try again.', 3000);
+//     }
+// });
 });
   </script>
+{% if messages %}
+<div class="z-50 w-screen text-6xl h-screen fixed top-0 left-0 flex items-center justify-center">
+  <div class="bg-green-600 text-white p-4 rounded-lg">
+    {{ messages }}
+  </div>
+
+</div>
+<script>
+  console.log("messages")
+  console.log("{{ messages }}");
+  {% for msg in messages %}
+    showToast("{{ msg|escapejs }}", 3000);
+  {% endfor %}
+</script>
+{% endif %}
+
+
+
 {% endblock content %}
+
