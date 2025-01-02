@@ -47,19 +47,17 @@
 
       <form method="post" action="{% url 'send_confirmation_email' %}" class="w-full max-w-md">
         {% csrf_token %}
-        <div class="has-tooltip relative inline-block w-full">
-          <button type="submit" 
-                  class="resend-btn w-full bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300 flex items-center justify-center gap-2"
-                  {% if cooldown %}disabled{% endif %}>
-            <span class="material-symbols-outlined">send</span>
-            Resend Verification Email
-          </button>
-          {% if cooldown %}
-          <div class="tooltip bg-neutral-900/90 text-neutral-100 px-4 py-2 rounded-lg -mt-14 left-1/2 transform -translate-x-1/2">
-            Please wait {{ remaining_time }} before requesting another email
-          </div>
-          {% endif %}
+        {% if cooldown %}
+        <div class="mb-4 text-center">
+          <p class="text-amber-500">Please wait {{ remaining_time }} before requesting another email.</p>
         </div>
+        {% endif %}
+        <button type="submit" 
+                class="resend-btn w-full bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300 flex items-center justify-center gap-2"
+                {% if cooldown %}disabled{% endif %}>
+          <span class="material-symbols-outlined">send</span>
+          Resend Verification Email
+        </button>
       </form>
 
       <div class="mt-8 flex gap-4">
