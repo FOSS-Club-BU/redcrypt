@@ -1,6 +1,9 @@
 import json
 import logging
 from django.http import HttpResponse
+import json
+import logging
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from accounts.models import Profile, contact_form
@@ -24,6 +27,36 @@ from .utils import can_send_verification_email, get_next_available_time
 
 @login_required
 @not_banned
+def verify_captcha(request):
+    if request.method == "POST":
+        try:
+            # Get hCaptcha response token from form
+            captcha_response = request.POST.get('h-captcha-response')
+            
+            # Verify with hCaptcha API
+            data = {
+                'secret': settings.HCAPTCHA_SECRET,
+                'response': captcha_response
+            }
+            response = requests.post('https://hcaptcha.com/siteverify', data=data)
+            result = response.json()
+            print(type(result.get('success')))
+            return JsonResponse({
+                'captchaValid': result.get('success')
+            })
+            
+        except Exception as e:
+            logger.error(f"Captcha verification error: {str(e)}")
+            return JsonResponse({
+                'captchaValid': False,
+                'error': 'Verification failed'
+            }, status=400)
+            
+    return JsonResponse({
+        'captchaValid': False,
+        'error': 'Invalid request method'
+    }, status=405)
+
 def profile(request):
     user = request.user
     profile = Profile.objects.get(user=user)
