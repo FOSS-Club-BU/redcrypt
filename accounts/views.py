@@ -1,8 +1,12 @@
 import json
+import logging
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from accounts.models import Profile, contact_form
+from django.contrib import messages
+
+logger = logging.getLogger(__name__)
 from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -12,6 +16,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from hunt.utils import get_rank
 # from sentry_sdk import capture_exception
 from accounts.forms import ContactForm
+import requests
+from django.conf import settings
 
 
 @login_required
@@ -110,12 +116,21 @@ def connect(request):
 @login_required
 @not_banned
 def send_confirmation_email(request):
-    send_email_confirmation(request, request.user)
+    try:
+        send_email_confirmation(request, request.user, signup=False)
+        messages.success(request, "Verification email sent successfully!")
+    except Exception as e:
+        logger.error(f"Failed to send verification email: {str(e)}")
+        messages.error(request, "Failed to send verification email. Please try again or contact support.")
     return redirect('verification-sent')
 
 
 @login_required
 def verification_sent(request):
+    # Check if email is already verified
+    if request.user.emailaddress_set.filter(verified=True).exists():
+        messages.info(request, "Your email is already verified!")
+        return redirect('profile')
     return render(request, 'verification_sent.html')
 
 
@@ -157,3 +172,33 @@ def check_unique(request):
 
 def e500(request):
     return render(request, '500.html', status=500)
+
+def verify_captcha(request):
+    if request.method == "POST":
+        try:
+            # Get hCaptcha response token from form
+            captcha_response = request.POST.get('h-captcha-response')
+            
+            # Verify with hCaptcha API
+            data = {
+                'secret': settings.HCAPTCHA_SECRET,
+                'response': captcha_response
+            }
+            response = requests.post('https://hcaptcha.com/siteverify', data=data)
+            result = response.json()
+            
+            return JsonResponse({
+                'captchaValid': result.get('success', False)
+            })
+            
+        except Exception as e:
+            logger.error(f"Captcha verification error: {str(e)}")
+            return JsonResponse({
+                'captchaValid': False,
+                'error': 'Verification failed'
+            }, status=400)
+            
+    return JsonResponse({
+        'captchaValid': False,
+        'error': 'Invalid request method'
+    }, status=405)

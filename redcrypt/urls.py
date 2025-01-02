@@ -89,6 +89,9 @@ urlpatterns = [
         'contact_form_submit',
         accounts_views.submit_contact_form,
         name='contact_form_submit'),
+    path('account/verify-captcha/',
+         accounts_views.verify_captcha,
+         name='verify_captcha'),
     path('', include((
         'url_shortner.urls', 'url_shortner'),
         namespace='url_shortner')),

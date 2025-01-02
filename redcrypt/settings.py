@@ -48,8 +48,10 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_AGE = 86400
 CSRF_COOKIE_SECURE = True
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 # Application definition
@@ -185,6 +187,30 @@ ACCOUNT_MAX_EMAIL_ADDRESSES = 1
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 
 LOGIN_REDIRECT_URL = '/profile/'
+
+# Add custom adapter setting for AllAuth
+ACCOUNT_ADAPTER = 'accounts.adapter.CustomAccountAdapter'
+
+# Email verification can be made optional if SMTP is not configured
+ACCOUNT_EMAIL_VERIFICATION = 'optional'  # Change to 'mandatory' if you want to enforce it when SMTP is configured
+
+# Optional: Configure logging to see adapter messages
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'accounts.adapter': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+        },
+    },
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -219,15 +245,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp-pulse.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", default=True)
+EMAIL_PORT = os.getenv("EMAIL_PORT", default=587)
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = "Re-Dcrypt <hunt@redcrypt.xyz>"
+# New setting for sender email address
+EMAIL_SENDER = os.getenv('EMAIL_SENDER', EMAIL_HOST_USER)
+DEFAULT_FROM_EMAIL = f"Re-Dcrypt <{EMAIL_SENDER}>"
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "Re-Dcrypt - "
 ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 600
+
 SOCIALACCOUNT_AUTO_SIGNUP = False
 HCAPTCHA_SITEKEY = os.getenv('HCAPTCHA_SITEKEY')
 print(HCAPTCHA_SITEKEY)
