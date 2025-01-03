@@ -1,26 +1,29 @@
-{% load static %}
-{% load pwa %}
+{% load static %} {% load pwa %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>
-      {% block head_title %}
-      {% endblock head_title %}
-    | Re-Dcrypt</title>
+    <title>{% block head_title %} {% endblock head_title %} | Re-Dcrypt</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="content-language" content="en-IN" />
     <meta name="title" content="Re-Dcrypt 2" />
-    <meta name="description"
-          content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it." />
-    <meta name="keywords" content="cryptic hunt, hunt, cryptic, steg, redcrypt" />
+    <meta
+      name="description"
+      content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it."
+    />
+    <meta
+      name="keywords"
+      content="cryptic hunt, hunt, cryptic, steg, redcrypt"
+    />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="language" content="English" />
     <meta name="author" content="DiluteWater" />
     <meta name="theme-color" content="#08B74F" />
     <meta property="og:title" content="Re-Dcrypt 2" />
-    <meta property="og:description"
-          content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it." />
+    <meta
+      property="og:description"
+      content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it."
+    />
     <meta property="og:image" content="/icons/maskable_icon_x192.png" />
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
     {% progressive_web_app_meta %}
@@ -76,9 +79,14 @@
         key: "BDV_66hjFZ-UmAPoFewcLdDHu3i2pPxgc-ZtBcDPesJqWM-SmAPBExtw1EhE1zzG7EuSuJje6Z42xAQqflvoFL4",
       });
     </script>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-79MBGTX27V"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
+    />
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-79MBGTX27V"
+    ></script>
     <script type="text/javascript">
       (function (c, l, a, r, i, t, y) {
         c[a] =
@@ -95,64 +103,16 @@
     </script>
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-          rel="stylesheet">
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script>
-    function showToast(message, time, type = 'INFO') {
-      const toastVariants = {
-        DEBUG: {
-          colorClass: 'text-gray-400 border-gray-400',
-          icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M6 18.75V5.25m0 0L12 9m6-3.75v13.5m0 0L12 15" />`
-        },
-        INFO: {
-          colorClass: 'text-blue-400 border-blue-400',
-          icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M11.25 7.5h1.5m-6 0h1.5m-2.25 3h6m-6 3h3m0 3h6M12 21a.75.75 0 000-1.5" />`
-        },
-        SUCCESS: {
-          colorClass: 'text-green-400 border-green-400',
-          icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />`
-        },
-        WARNING: {
-          colorClass: 'text-yellow-400 border-yellow-400',
-          icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M11.25 3L2.25 20.25h19.5L12.75 3M12 15v.008h.008M12 9v3" />`
-        },
-        ERROR: {
-          colorClass: 'text-red-500 border-red-500',
-          icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m-6 11.25h12c1.242 0 2.25-1.008 2.25-2.25V4.5a2.25" />`
-        },
-      };
-      let container = document.getElementById('toast_container');
-      let toast = document.createElement('div');
-      toast.classList.add(
-        'text-sm', 'rounded-2xl', 'bg-neutral-900/70', 'backdrop-blur-xl',
-        'shadow-inset-white', 'text-neutral-100', 'flex', 'items-center',
-        'gap-2', 'px-3', 'py-2', 'transition-all', 'duration-500', 'justify-center'
-      );
-      let variant = toastVariants[type] || toastVariants['INFO'];
-      toast.classList.add(...variant.colorClass.split(' '));
-      toast.classList.add('border', 'border-2'); // Since we want a border
-      toast.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-             viewBox="0 0 24 24" stroke-width="1.5"
-             stroke="currentColor" class="w-6 h-6">
-          ${variant.icon}
-        </svg>
-        <span>${message}</span>
-      `;
-      container.appendChild(toast);
-      setTimeout(() => {
-        toast.remove();
-      }, time);
-    }
-
-    let userAgent = navigator.userAgent;
-    if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
-      showToast('Please use a chromium based browser or Firefox. You may experience some issues while using safari.', 5000)
-    }
-    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
     <style>
       body {
         background-color: #0a0a0a;
@@ -181,63 +141,63 @@
         }
       }
 
-    #custom_toast {
-      visibility: hidden;
-      opacity: 0;
-      transition: all 0.5s;
-      position: fixed;
-      bottom: -999px;
-      width: calc(100% - 2rem);
-      max-width: 1200px;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      justify-content: center;
-      padding: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 50;
-    }
-
-    #custom_toast.show {
-      visibility: visible;
-      opacity: 1;
-      transition: all 0.5s;
-      bottom: 1rem;
-    }
-
-    @media (max-width: 768px) {
       #custom_toast {
-        width: calc(100% - 0.625rem);
-        margin: 0;
-        flex-direction: column;
-        text-align: center;
-        padding: 0.75rem;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.5s;
+        position: fixed;
+        bottom: -999px;
+        width: calc(100% - 2rem);
+        max-width: 1200px;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        justify-content: center;
+        padding: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 50;
       }
-    }
+
+      #custom_toast.show {
+        visibility: visible;
+        opacity: 1;
+        transition: all 0.5s;
+        bottom: 1rem;
+      }
+
+      @media (max-width: 768px) {
+        #custom_toast {
+          width: calc(100% - 0.625rem);
+          margin: 0;
+          flex-direction: column;
+          text-align: center;
+          padding: 0.75rem;
+        }
+      }
 
       .promptPopup-show {
         background-color: rgba(0, 41, 41, 1);
         border: 1px solid #08b74f;
       }
 
-          .button-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-    }
-
-    @media (max-width: 768px) {
       .button-container {
-        flex-direction: column;
-        align-items: stretch;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
       }
 
-      .button-container button {
-        width: 100%;
+      @media (max-width: 768px) {
+        .button-container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .button-container button {
+          width: 100%;
+        }
       }
-    }
 
       .webpushrOnBtn,
       .webpushrUnknownBtn {
@@ -288,56 +248,85 @@
         -moz-osx-font-smoothing: grayscale;
       }
     </style>
-    {% block head %}
-    {% endblock head %}
+    {% block head %} {% endblock head %}
   </head>
   <body class="font-Inter mt-24">
     <!-- Container for stacking multiple toasts -->
-    <div id="toast_container"
-         class="fixed bottom-0 right-0 flex w-full flex-col items-center p-4 space-y-2 z-50"></div>
+    <div
+      id="toast_container"
+      class="fixed bottom-0 right-0 flex w-full flex-col items-center p-4 space-y-2 z-50"
+    ></div>
     <div class="static-bg">
       <svg width="100%" height="100%" viewBox="0 0 800 800">
         <defs>
-        <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">
-        <feGaussianBlur stdDeviation="105" in="SourceGraphic" result="blur"></feGaussianBlur>
-        </filter>
+          <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">
+            <feGaussianBlur
+              stdDeviation="105"
+              in="SourceGraphic"
+              result="blur"
+            ></feGaussianBlur>
+          </filter>
         </defs>
         <g filter="url(#bb-filter)">
-        <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f">
-        </ellipse>
-        <ellipse rx="277.5" ry="70.5" cx="609" cy="577" fill="#2e90fa">
-        </ellipse>
-        <ellipse rx="277.5" ry="70.5" cx="569" cy="421" fill="#08B74F">
-        </ellipse>
-        <ellipse rx="277.5" ry="70.5" cx="580" cy="245" fill="#08B74F">
-        </ellipse>
+          <ellipse
+            rx="277.5"
+            ry="70.5"
+            cx="374"
+            cy="152"
+            fill="#08b74f"
+          ></ellipse>
+          <ellipse
+            rx="277.5"
+            ry="70.5"
+            cx="609"
+            cy="577"
+            fill="#2e90fa"
+          ></ellipse>
+          <ellipse
+            rx="277.5"
+            ry="70.5"
+            cx="569"
+            cy="421"
+            fill="#08B74F"
+          ></ellipse>
+          <ellipse
+            rx="277.5"
+            ry="70.5"
+            cx="580"
+            cy="245"
+            fill="#08B74F"
+          ></ellipse>
         </g>
       </svg>
     </div>
-    {% if user.is_authenticated %}
-      {% include "auth_header.html" %}
-    {% else %}
-      {% include "no_auth_header.html" %}
-    {% endif %}
+    {% if user.is_authenticated %} {% include "auth_header.html" %} {% else %}
+    {% include "no_auth_header.html" %} {% endif %}
     <center>
-      {% block content %}
-      {% endblock content %}
-      <div id="custom_toast"
-           class="fixed bottom-0 text-sm rounded-2xl bg-neutral-900/70 backdrop-blur-xl shadow-inset-white text-neutral-100 flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg"
-             fill="none"
-             viewBox="0 0 24 24"
-             stroke-width="1.5"
-             stroke="currentColor"
-             class="w-6 h-6 text-amber-400">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+      {% block content %} {% endblock content %}
+      <div
+        id="custom_toast"
+        class="fixed bottom-0 text-sm rounded-2xl bg-neutral-900/70 backdrop-blur-xl shadow-inset-white text-neutral-100 flex items-center gap-2"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6 text-amber-400"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+          />
         </svg>
         <span></span>
       </div>
     </center>
     <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
     {% if user.is_authenticated %}
-      <script>
+    <script>
       let deferredPrompt;
       const addBtn = document.getElementById('installapp');
       addBtn.classList.add("hidden")
@@ -364,16 +353,15 @@
         }
       });
       {% endif %}
-      </script>
-      {% block scripts %}
-      {% endblock scripts %}
-      <script>
+    </script>
+    {% block scripts %} {% endblock scripts %}
+    <script>
       const options = { color: 'rgb(0, 210, 210)', zIndex: '-1' };
       {% if user.is_authenticated %}
       webpushr('attributes', { "username": "{{user.username}}" });
       {% endif %}
-      </script>
-      <script type="text/javascript">
+    </script>
+    <script type="text/javascript">
       window.$crisp = [];
       window.CRISP_WEBSITE_ID = "73cba040-9174-41dd-a9f8-77bbd9c90366";
       (function () {
@@ -383,14 +371,14 @@
         s.async = 1;
         d.getElementsByTagName("head")[0].appendChild(s);
       })();
-      </script>
-      {% if user.is_authenticated %}
-        <script type="text/javascript">
+    </script>
+    {% if user.is_authenticated %}
+    <script type="text/javascript">
       $crisp.push(["set", "user:nickname", ["{{user.username}}"]]);
       $crisp.push(["set", "user:email", ["{{user.email}}"]]);
-        </script>
-      {% endif %}
-      <script>
+    </script>
+    {% endif %}
+    <script>
       const mobileMenuButton = document.getElementById("mobile-menu-button");
       const mobileMenu = document.getElementById("mobile-menu");
       const menuIconLines = mobileMenuButton.querySelectorAll("span");
@@ -422,69 +410,64 @@
           menuIconLines[1].classList.remove("-rotate-45", "-translate-y-1.5");
         }
       });
-      </script>
-      <script>
+    </script>
+    <script>
       // Initialize AOS
       AOS.init({
         offset: 50,
         delay: 0,
         duration: 800,
-        easing: 'ease-out-cubic',
+        easing: "ease-out-cubic",
         once: true,
         mirror: false,
-        anchorPlacement: 'top-bottom'
+        anchorPlacement: "top-bottom",
       });
-      </script>
-      <script>
-      function showToast(message, time, type = 'INFO') {
+    </script>
+    <script>
+      function showToast(message, time, type = "INFO") {
         const toastVariants = {
           DEBUG: {
-            colorClass: 'text-gray-400 border-gray-400',
-            svg: `<svg fill="none" stroke="currentColor" class="w-6 h-6" viewBox="0 0 32 32" id="icon" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;}</style></defs><title>debug</title><path d="M29.83,20l.34-2L25,17.15V13c0-.08,0-.15,0-.23l5.06-1.36-.51-1.93-4.83,1.29A9,9,0,0,0,20,5V2H18V4.23a8.81,8.81,0,0,0-4,0V2H12V5a9,9,0,0,0-4.71,5.82L2.46,9.48,2,11.41,7,12.77c0,.08,0,.15,0,.23v4.15L1.84,18l.32,2L7,19.18a8.9,8.9,0,0,0,.82,3.57L3.29,27.29l1.42,1.42,4.19-4.2a9,9,0,0,0,14.2,0l4.19,4.2,1.42-1.42-4.54-4.54A8.9,8.9,0,0,0,25,19.18ZM15,25.92A7,7,0,0,1,9,19V13h6ZM9.29,11a7,7,0,0,1,13.42,0ZM23,19a7,7,0,0,1-6,6.92V13h6Z"/></svg>`
+            colorClass: "text-gray-400 border-none",
+            svg: `<svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="22px" fill="#9ca3af"><path d="M480-120q-65 0-120.83-31.33-55.84-31.34-84.5-88.67H160v-66.67h89.33q-5.66-24-5.83-48.33-.17-24.33-.17-49H160v-66.67h83.33q0-26 .5-51.66.5-25.67 6.84-51H160V-640h117.33q14-26.33 35.17-47t47.5-35l-72.67-72.67L332.67-840 424-748.67q28-9.66 56.67-9.66 28.66 0 56.66 9.66l92-91.33 45.34 45.33L602-722q26.33 14.33 46.83 35.17Q669.33-666 684.67-640H800v66.67h-90.67q7 25.33 6.84 51-.17 25.66-.17 51.66h84V-404h-84q0 24.67.17 49 .16 24.33-5.5 48.33H800V-240H686q-28 58-84.17 89-56.16 31-121.83 31Zm-80-200h160v-66.67H400V-320Zm0-168.67h160v-66.66H400v66.66Z" /></svg>`,
           },
           INFO: {
-            colorClass: 'text-blue-400 border-blue-400',
-            svg: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" class="w-6 h-6">
-                  <path d="M12 17.75C12.4142 17.75 12.75 17.4142 12.75 17V11C12.75 10.5858 12.4142 10.25 12 10.25C11.5858 10.25 11.25 10.5858 11.25 11V17C11.25 17.4142 11.5858 17.75 12 17.75Z" fill="#1C274C"/>
-                  <path d="M12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8C11 7.44772 11.4477 7 12 7Z" fill="#1C274C"/>
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75C6.06294 22.75 1.25 17.9371 1.25 12ZM12 2.75C6.89137 2.75 2.75 6.89137 2.75 12C2.75 17.1086 6.89137 21.25 12 21.25C17.1086 21.25 21.25 17.1086 21.25 12C21.25 6.89137 17.1086 2.75 12 2.75Z" fill="#1C274C"/>
-                  </svg>`
+            colorClass: "text-blue-400 border-none",
+            svg: `<svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="22px" fill="#60a5fa"><path d="M448.67-280h66.66v-240h-66.66v240Zm31.32-316q15.01 0 25.18-9.97 10.16-9.96 10.16-24.7 0-15.3-10.15-25.65-10.16-10.35-25.17-10.35-15.01 0-25.18 10.35-10.16 10.35-10.16 25.65 0 14.74 10.15 24.7 10.16 9.97 25.17 9.97Zm.19 516q-82.83 0-155.67-31.5-72.84-31.5-127.18-85.83Q143-251.67 111.5-324.56T80-480.33q0-82.88 31.5-155.78Q143-709 197.33-763q54.34-54 127.23-85.5T480.33-880q82.88 0 155.78 31.5Q709-817 763-763t85.5 127Q880-563 880-480.18q0 82.83-31.5 155.67Q817-251.67 763-197.46q-54 54.21-127 85.84Q563-80 480.18-80Z" /></svg>`,
           },
           SUCCESS: {
-            colorClass: 'text-green-400 border-green-400',
-            svg: `<svg stroke="currentColor" class="w-6 h-6" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm-55.808 536.384-99.52-99.584a38.4 38.4 0 1 0-54.336 54.336l126.72 126.72a38.272 38.272 0 0 0 54.336 0l262.4-262.464a38.4 38.4 0 1 0-54.272-54.336L456.192 600.384z"/></svg>`
+            colorClass: "text-green-500 border-none",
+            svg: `<svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="22px" fill="#16a34a"><path d="M422-297.33 704.67-580l-49.34-48.67L422-395.33l-118-118-48.67 48.66L422-297.33ZM480-80q-82.33 0-155.33-31.5-73-31.5-127.34-85.83Q143-251.67 111.5-324.67T80-480q0-83 31.5-156t85.83-127q54.34-54 127.34-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82.33-31.5 155.33-31.5 73-85.5 127.34Q709-143 636-111.5T480-80Z" /></svg>`,
           },
           WARNING: {
-            colorClass: 'text-yellow-400 border-yellow-400',
-            svg: `<svg stroke="currentColor" class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="12" cy="17" r="1" fill="currentColor"/>
-                  <path d="M12 10L12 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M3.44722 18.1056L10.2111 4.57771C10.9482 3.10361 13.0518 3.10362 13.7889 4.57771L20.5528 18.1056C21.2177 19.4354 20.2507 21 18.7639 21H5.23607C3.7493 21 2.78231 19.4354 3.44722 18.1056Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>`
+            colorClass: "text-yellow-400 border-none",
+            svg: `<svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="22px" fill="#facc15"><path d="m40-120 440-760 440 760H40Zm442.78-118q14.22 0 23.72-9.62 9.5-9.61 9.5-23.83 0-14.22-9.62-23.72-9.61-9.5-23.83-9.5-14.22 0-23.72 9.62-9.5 9.62-9.5 23.83 0 14.22 9.62 23.72 9.62 9.5 23.83 9.5Zm-33.45-114H516v-216h-66.67v216Z" /></svg>`,
           },
           ERROR: {
-            colorClass: 'text-red-500 border-red-500',
-            svg: `<svg class="w-6 h-6" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g id="add" fill="currentColor" transform="translate(42.666667, 42.666667)">
-                                <path d="M213.333333,3.55271368e-14 C331.136,3.55271368e-14 426.666667,95.5306667 426.666667,213.333333 C426.666667,331.136 331.136,426.666667 213.333333,426.666667 C95.5306667,426.666667 3.55271368e-14,331.136 3.55271368e-14,213.333333 C3.55271368e-14,95.5306667 95.5306667,3.55271368e-14 213.333333,3.55271368e-14 Z M262.250667,134.250667 L213.333333,183.168 L164.416,134.250667 L134.250667,164.416 L183.168,213.333333 L134.250667,262.250667 L164.416,292.416 L213.333333,243.498667 L262.250667,292.416 L292.416,262.250667 L243.498667,213.333333 L292.416,164.416 L262.250667,134.250667 Z" id="Combined-Shape">
-
-                    </path>
-                            </g>
-                        </g>
-                    </svg>`
+            colorClass: "text-red-500 border-none",
+            svg: `<svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="22px" fill="#ef4444"><path d="M330-120 120-330v-300l210-210h300l210 210v300L630-120H330Zm30-193.33 120-120 120 120L646.67-360l-120-120 120-120L600-646.67l-120 120-120-120L313.33-600l120 120-120 120L360-313.33Z" /></svg>`,
           },
         };
-        let container = document.getElementById('toast_container');
-        let toast = document.createElement('div');
+        let container = document.getElementById("toast_container");
+        let toast = document.createElement("div");
         toast.classList.add(
-          'text-sm', 'rounded-2xl', 'bg-neutral-900/70', 'backdrop-blur-xl',
-          'shadow-inset-white', 'text-neutral-100', 'flex', 'items-center',
-          'gap-2', 'px-3', 'py-2', 'transition-all', 'duration-500', 'justify-center'
+          "text-sm",
+          "rounded-2xl",
+          "bg-neutral-900/70",
+          "backdrop-blur-xl",
+          "shadow-inset-white",
+          "text-neutral-100",
+          "flex",
+          "items-center",
+          "gap-2",
+          "px-3",
+          "py-2",
+          "transition-all",
+          "duration-500",
+          "justify-center"
         );
-        let variant = toastVariants[type] || toastVariants['INFO'];
-        toast.classList.add(...variant.colorClass.split(' '));
-        toast.classList.add('border', 'border-2'); // Since we want a border
+        let variant = toastVariants[type] || toastVariants["INFO"];
+        toast.classList.add(...variant.colorClass.split(" "));
+        toast.classList.add("border", "border-2"); // Since we want a border
         toast.innerHTML = `
             ${variant.svg}
           <span>${message}</span>
@@ -495,16 +478,26 @@
         }, time);
       }
 
-      </script>
-      {% if messages %}
-
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          {% for msg in messages %}
-            showToast("{{ msg|escapejs }}", 3000, "{{ msg.tags }}");
-          {% endfor %}
-        });
-      </script>
-      {% endif %}
-    </body>
-  </html>
+      let userAgent = navigator.userAgent;
+      if (
+        navigator.userAgent.indexOf("Safari") != -1 &&
+        navigator.userAgent.indexOf("Chrome") == -1
+      ) {
+        showToast(
+          "Please use a chromium based browser or Firefox. You may experience some issues while using safari.",
+          5000,
+          "WARNING"
+        );
+      }
+    </script>
+    {% if messages %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        {% for msg in messages %}
+          showToast("{{ msg|escapejs }}", 3000, "{{ msg.tags }}");
+        {% endfor %}
+      });
+    </script>
+    {% endif %}
+  </body>
+</html>

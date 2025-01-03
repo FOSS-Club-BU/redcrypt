@@ -207,13 +207,13 @@ $(document).ready(function(){
             url: '{% url "save_profile" %}',
             data: form.serialize(),
             success: function(data){
-                showToast("Profile updated successfully!", 1500);
+                showToast("Profile updated successfully!", 3000, 'WARNING');
                 setTimeout(function(){
                     window.location.href = "{% url 'profile' %}";
                 }, 1500);
             },
             error: function(response){
-                showToast("Failed to update profile", 1500);
+                showToast("Failed to update profile", 3000, 'ERROR');
                 submitBtn.prop('disabled', false);
                 submitBtn.html('<span class="material-symbols-outlined">save</span> Save Changes');
             }
