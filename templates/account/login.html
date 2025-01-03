@@ -17,28 +17,37 @@
   margin-bottom: 1.5rem;
 }
 
+/* Updated form input styling to match edit profile */
 .form-field input {
   width: 100%;
-  padding: 1rem;
-  background-color: rgb(23, 23, 23, 0.7);
+  background-color: rgba(23, 23, 23, 0.7);
   box-shadow: inset 0 2px 0px -0.5px rgba(255, 255, 255, 0.1);
-  border-radius: 999px;
-  color: #08b74f;
-  transition: all 0.3s ease;
   backdrop-filter: blur(13.5px);
-  -webkit-backdrop-filter: blur(13.5px);
+  color: #f1f1f1;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid transparent;
+  transition: all 0.3s;
 }
 
 .form-field input:focus {
+  border-color: rgba(8, 183, 79, 0.5);
   outline: none;
-  background: rgba(8, 183, 79, 0.1);
+  background-color: rgba(23, 23, 23, 0.8);
+  transform: none;
+}
+
+.form-field input:not(:focus) {
+  transform: translateY(0);
+  transition: all 0.2s ease-out;
 }
 
 .form-field label {
   display: block;
-  margin-bottom: 0.5rem;
-  color: #08b74f;
+  font-size: 0.875rem;
   font-weight: 500;
+  color: #9ca3af;
+  margin-bottom: 0.25rem;
 }
 
 .welcome-card {
@@ -47,7 +56,8 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.3);
   border-right: 1px solid rgba(8, 183, 79, 0.2);
-  min-height: calc(100vh - 150px);
+  min-height: auto; /* Remove the large min-height */
+  animation: fadeIn 0.4s ease-out;
 }
 
   .welcome-card .content {
@@ -81,11 +91,9 @@
 
   @media (max-width: 768px) {
     .welcome-card {
-      height: 250px;
       border-right: none;
       border-bottom: 1px solid rgba(8, 183, 79, 0.2);
       margin-bottom: 0;
-      min-height: auto;
     }
     
     .welcome-text h2 {
@@ -98,12 +106,27 @@
       margin-right: 0.5rem;
     }
 
-    .form-container {
-      min-height: auto;
-    }
-
     .welcome-card .logos {
       padding: 2rem;
+    }
+
+
+    .form-container {
+      padding-bottom: 2rem; 
+    }
+
+    .form-field {
+      margin-bottom: 2rem; 
+    }
+
+    .form-content {
+      padding-bottom: 2rem;  
+    }
+
+    .form-buttons {
+      position: relative;
+      margin-top: 2rem; 
+      padding: 1.5rem;
     }
   }
 
@@ -124,6 +147,7 @@
 
   .form-content {
     flex: 1;
+    animation: slideUp 0.3s ease-out;
   }
 
   .form-buttons {
@@ -141,15 +165,6 @@
 
   .form-fields {
     text-align: left;
-  }
-
-  /* Password strength bar styling */
-  #passwordStrengthBar {
-    width: 100%;
-    height: 6px;
-    background-color: #ef4444;
-    border-radius: 999px;
-    transition: background-color 0.3s;
   }
 
   .required-field label::after {
@@ -212,7 +227,6 @@
     color: #aaa;
   }
 
-  /* Custom checkbox styling */
   .custom-checkbox {
     display: flex;
     align-items: center;
@@ -229,7 +243,7 @@
     background: rgba(8, 183, 79, 0.1);
     cursor: pointer;
     position: relative;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
   }
 
   .custom-checkbox input[type="checkbox"]:checked {
@@ -254,18 +268,61 @@
     cursor: pointer;
     user-select: none;
   }
+
+  [data-aos] {
+    transition-duration: 600ms !important;
+  }
+
+  .form-buttons button {
+    background-color: rgba(23, 23, 23, 0.7);
+    box-shadow: inset 0 2px 0px -0.5px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(13.5px);
+    border-radius: 0.75rem;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-out;
+  }
+
+  .form-buttons button:hover {
+    background-color: #08b74f;
+    transform: translateY(-1px);
+  }
+
+  .form-buttons button:active {
+    transform: translateY(0);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
   </style>
 {% endblock head %}
 {% block content %}
-  <div class="justify-center px-4 py-8">
-    <div class="max-w-7xl mx-auto min-h-[calc(100vh-150px)] flex items-stretch">
-      <!-- Combined Card Container -->
-      <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl overflow-hidden flex-1 flex flex-col md:flex-row">
+  <div class="justify-center px-4 py-8 flex items-center">
+    <div class="max-w-5xl mx-auto flex items-stretch h-auto">
+      <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl overflow-hidden flex-1 flex flex-col md:flex-row shadow-md">
         <div class="flex flex-col md:flex-row w-full">
           <!-- Welcome Card -->
-          <div class="md:w-1/2 welcome-card hidden md:block"
+          <div class="md:w-[400px] welcome-card hidden md:block"
                data-aos="fade-right"
-               data-aos-duration="800">
+               data-aos-duration="600">
             <svg width="100%"
                  height="100%"
                  viewBox="0 0 800 800"
@@ -280,7 +337,7 @@
               </defs>
               <g filter="url(#bb-filter)">
               <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f"></ellipse>
-              <ellipse rx="277.5" ry="70.5" cx="609" cy="577" fill="#2e90fa"></ellipse>
+              <ellipse rx="500" ry="70.5" cx="0" cy="800" fill="#2e90fa"></ellipse>
               </g>
             </svg>
             <div class="content">
@@ -298,9 +355,7 @@
               </div>
               <div class="welcome-text">
                 <h2>
-                  <span class="block text-white/80">Let's</span>
-                  <span class="block text-white/80">Log You</span>
-                  <span class="block text-white/80">In</span>
+                  <span class="block text-white/80" id="welcomeText">Let's Log You In</span>
                 </h2>
               </div>
             </div>
@@ -341,22 +396,25 @@
               </div>
               <div class="welcome-text">
                 <h2>
-                  <span class="block text-white/80">Let's</span>
-                  <span class="block text-white/80">Log You</span>
-                  <span class="block text-white/80">In</span>
+                  <span class="block text-white/80" id="welcomeText">Let's Log You In</span>
                 </h2>
               </div>
             </div>
           </div>
           <!-- Form Section -->
-          <div class="md:w-2/3 flex-1" data-aos="fade-up" data-aos-duration="800">
-            <form method="post" action="{% url 'account_login' %}" class="h-full" id="login_form">
+          <div class="md:w-[500px] flex-1"
+               data-aos="fade-up"
+               data-aos-duration="600">
+            <form method="post"
+                  action="{% url 'account_login' %}"
+                  class="h-full"
+                  id="login_form">
               {% csrf_token %}
               <div class="form-container h-full">
-                <div class="form-content p-8">
+                <div class="form-content p-6">
                   <div class="step-header flex flex-col items-center mb-8">
                     <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
-                      <span class="material-symbols-outlined text-3xl">login</span>
+                      <span class="material-symbols-outlined text-3xl">person</span>
                     </span>
                     <div class="text-center">
                       <h2 class="text-xl font-bold text-green-500">Welcome back!</h2>
@@ -367,35 +425,42 @@
                       </p>
                     </div>
                   </div>
-                  <div class="form-fields" data-aos="fade-up" data-aos-delay="200">
+                  <div class="form-fields"
+                       data-aos="fade-up"
+                       data-aos-delay="100"
+                       data-aos-duration="600">
                     <div class="form-field">
                       <label for="id_login">Email or Username</label>
                       <div class="relative">
-                        <input type="text" name="login" class="..." placeholder="Username" required />
+                        <input type="text" name="login" required placeholder="Username" />
                       </div>
                     </div>
                     <div class="form-field">
-                      <label for="id_password">Password</label>
+                      <div class="flex items-center justify-between">
+                        <label for="id_password">Password</label>
+                        <a href="{% url 'account_reset_password' %}"
+                           class="text-green-500 hover:underline text-sm">Forgot Password?</a>
+                      </div>
                       <div class="relative">
-                        <input type="password" name="password" class="..." placeholder="Password" id="id_password" required/>
+                        <input type="password"
+                               name="password"
+                               required
+                               placeholder="Password"
+                               id="id_password" />
                         <span class="material-symbols-outlined cursor-pointer text-xl absolute top-3 right-3 text-neutral-400"
                               id="togglePassword">visibility</span>
                       </div>
                     </div>
-                    <div class="flex items-center justify-between mb-6">
-                      <label class="custom-checkbox">
-                        {{ form.remember }}
-                        <span class="text-neutral-400">Remember me</span>
-                      </label>
-                      <a href="{% url 'account_reset_password' %}"
-                         class="text-green-500 hover:underline text-sm">Forgot Password?</a>
-                    </div>
                   </div>
                 </div>
-                <div class="form-buttons" data-aos="fade-up" data-aos-delay="400">
+                <div class="form-buttons"
+                     data-aos="fade-up"
+                     data-aos-delay="200"
+                     data-aos-duration="600">
                   <button type="submit"
-                          class="w-full bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300">
-                    Login
+                          class="w-full bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300 flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined">login</span>
+                    <span class="button-text">Login</span>
                   </button>
                   <p class="text-neutral-400 text-xs mt-4 text-center">
                     By logging in, you agree to Re-Dcrypt's
@@ -411,12 +476,47 @@
     </div>
   </div>
   <script>
+const welcomeMessages = [
+  "Ready to crack some codes?",
+  "Back for more puzzles?",
+  "The rabbit hole awaits...",
+  "Time to decrypt the truth",
+  "Your next challenge awaits",
+  "Looks like someone's stuck",
+  "Need those hints, eh?",
+  "The matrix has you...",
+  "Plot twist: This is level 0",
+  "Forgot the password again?",
+  "Hopefully you're not a bot",
+  "Welcome back, detective",
+  "Puzzle master returns!",
+  "The game is afoot",
+  "*cryptic noises intensify*"
+];
+
 document.addEventListener('DOMContentLoaded', function() {
+  const welcomeElements = document.querySelectorAll('#welcomeText');
+  const randomMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+  welcomeElements.forEach(el => el.textContent = randomMessage);
+
   const form = document.getElementById('login_form');
   const togglePassword = document.getElementById('togglePassword');
   const passwordInput = document.getElementById('id_password');
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const buttonText = submitBtn.querySelector('.button-text');
 
-  // Password visibility toggle
+  form.addEventListener('submit', function(e) {
+    if (!form.checkValidity()) {
+      e.preventDefault();
+      showToast('Please fill in all required fields', 3000);
+    } else {
+      submitBtn.disabled = true;
+      submitBtn.querySelector('.material-symbols-outlined').textContent = 'autorenew';
+      submitBtn.querySelector('.material-symbols-outlined').classList.add('animate-spin');
+      buttonText.textContent = 'Logging in...';
+    }
+  });
+
   togglePassword.addEventListener('click', () => {
     if (passwordInput.type === 'password') {
       passwordInput.type = 'text';
@@ -437,7 +537,7 @@ document.addEventListener('DOMContentLoaded', function() {
 //     console.log(loginField.value, password);
     
 //     if (!loginField.value || !password) {
-//       showToast('Please fill in all fields', 3000, 'ERROR');
+//       showToast('Please fill in all fields', 3000);
 //       return;
 //     }
 
@@ -457,12 +557,12 @@ document.addEventListener('DOMContentLoaded', function() {
 //       const data = await response.json();
       
 //       if (data.error) {
-//         showToast(data.error, 3000, 'ERROR');
+//         showToast(data.error, 3000);
 //       } else if (response.ok) {
 //         window.location.href = data.redirect || '/';
 //       }
 //     } catch (err) {
-//       showToast('An error occurred. Please try again.', 3000, 'ERROR');
+//       showToast('An error occurred. Please try again.', 3000);
 //     }
 // });
 });
@@ -486,4 +586,3 @@ document.addEventListener('DOMContentLoaded', function() {
 {% endfor %}
 {% endif %}
 {% endblock content %}
-
