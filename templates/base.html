@@ -418,6 +418,17 @@
           toast.remove();
         }, time);
       }
+
       </script>
+      {% if messages %}
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          {% for msg in messages %}
+            showToast("{{ msg|escapejs }}", 3000);
+          {% endfor %}
+        });
+      </script>
+      {% endif %}
     </body>
   </html>

@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-from django.core.management.utils import get_random_secret_key;
+from django.core.management.utils import get_random_secret_key
 # import sentry_sdk
 # from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", get_random_secret_key())
+SECRET_KEY = os.environ.get("SECRET_KEY", '%^7w6=-k)c*od9w1ci*dj-3$+yg45(@g_+kxw==(3t3z+^s7gd')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 try:

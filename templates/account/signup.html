@@ -928,24 +928,6 @@ document.addEventListener('DOMContentLoaded', function() {
   document.head.appendChild(style);
 });
   </script>
-  {% if messages %}
-    <div class="z-50 w-screen text-6xl h-screen fixed top-0 left-0 flex items-center justify-center">
-      <div class="bg-green-600 text-white p-4 rounded-lg">{{ messages }}</div>
-    </div>
-    <script>
-  document.addEventListener('DOMContentLoaded', function() {
-
-    console.log("messages cool")
-    console.log("{{ messages }}");
-    {% for msg in messages %}
-      showToast("{{ msg|escapejs }}", 3000);
-    {% endfor %}
-  });
-
-
-
-    </script>
-  {% endif %}
   {% if form.errors %}
     <script>console.log("{{ form.errors }}");</script>
     {% for field in form %}
