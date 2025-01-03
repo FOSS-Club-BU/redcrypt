@@ -98,7 +98,7 @@
                 else if (response.correct===false){
                     var ansinput = document.getElementById("answer");
                     ansinput.value = "";
-                    showToast("Incorrect 😢",1000);
+                    showToast("Incorrect 😢",1000, "ERROR");
                     setTimeout(function(){
                         button.disabled = false;
                         button.classList.remove("hover:bg-nblue-700");

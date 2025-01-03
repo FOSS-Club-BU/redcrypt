@@ -101,13 +101,50 @@
           rel="stylesheet">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>
-    function showToast(message, time) {
-      let toast = document.getElementById('custom_toast');
-      toast.querySelector('span').innerHTML = message;
-      toast.classList.add('show');
-
-      setTimeout(function () {
-        toast.classList.remove('show');
+    function showToast(message, time, type = 'INFO') {
+      const toastVariants = {
+        DEBUG: {
+          colorClass: 'text-gray-400 border-gray-400',
+          icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M6 18.75V5.25m0 0L12 9m6-3.75v13.5m0 0L12 15" />`
+        },
+        INFO: {
+          colorClass: 'text-blue-400 border-blue-400',
+          icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M11.25 7.5h1.5m-6 0h1.5m-2.25 3h6m-6 3h3m0 3h6M12 21a.75.75 0 000-1.5" />`
+        },
+        SUCCESS: {
+          colorClass: 'text-green-400 border-green-400',
+          icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />`
+        },
+        WARNING: {
+          colorClass: 'text-yellow-400 border-yellow-400',
+          icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M11.25 3L2.25 20.25h19.5L12.75 3M12 15v.008h.008M12 9v3" />`
+        },
+        ERROR: {
+          colorClass: 'text-red-500 border-red-500',
+          icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m-6 11.25h12c1.242 0 2.25-1.008 2.25-2.25V4.5a2.25" />`
+        },
+      };
+      let container = document.getElementById('toast_container');
+      let toast = document.createElement('div');
+      toast.classList.add(
+        'text-sm', 'rounded-2xl', 'bg-neutral-900/70', 'backdrop-blur-xl',
+        'shadow-inset-white', 'text-neutral-100', 'flex', 'items-center',
+        'gap-2', 'px-3', 'py-2', 'transition-all', 'duration-500', 'justify-center'
+      );
+      let variant = toastVariants[type] || toastVariants['INFO'];
+      toast.classList.add(...variant.colorClass.split(' '));
+      toast.classList.add('border', 'border-2'); // Since we want a border
+      toast.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+             viewBox="0 0 24 24" stroke-width="1.5"
+             stroke="currentColor" class="w-6 h-6">
+          ${variant.icon}
+        </svg>
+        <span>${message}</span>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.remove();
       }, time);
     }
 
@@ -399,18 +436,57 @@
       });
       </script>
       <script>
-      function showToast(message, time) {
+      function showToast(message, time, type = 'INFO') {
+        const toastVariants = {
+          DEBUG: {
+            colorClass: 'text-gray-400 border-gray-400',
+            svg: `<svg fill="none" stroke="currentColor" class="w-6 h-6" viewBox="0 0 32 32" id="icon" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;}</style></defs><title>debug</title><path d="M29.83,20l.34-2L25,17.15V13c0-.08,0-.15,0-.23l5.06-1.36-.51-1.93-4.83,1.29A9,9,0,0,0,20,5V2H18V4.23a8.81,8.81,0,0,0-4,0V2H12V5a9,9,0,0,0-4.71,5.82L2.46,9.48,2,11.41,7,12.77c0,.08,0,.15,0,.23v4.15L1.84,18l.32,2L7,19.18a8.9,8.9,0,0,0,.82,3.57L3.29,27.29l1.42,1.42,4.19-4.2a9,9,0,0,0,14.2,0l4.19,4.2,1.42-1.42-4.54-4.54A8.9,8.9,0,0,0,25,19.18ZM15,25.92A7,7,0,0,1,9,19V13h6ZM9.29,11a7,7,0,0,1,13.42,0ZM23,19a7,7,0,0,1-6,6.92V13h6Z"/></svg>`
+          },
+          INFO: {
+            colorClass: 'text-blue-400 border-blue-400',
+            svg: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" class="w-6 h-6">
+                  <path d="M12 17.75C12.4142 17.75 12.75 17.4142 12.75 17V11C12.75 10.5858 12.4142 10.25 12 10.25C11.5858 10.25 11.25 10.5858 11.25 11V17C11.25 17.4142 11.5858 17.75 12 17.75Z" fill="#1C274C"/>
+                  <path d="M12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8C11 7.44772 11.4477 7 12 7Z" fill="#1C274C"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75C6.06294 22.75 1.25 17.9371 1.25 12ZM12 2.75C6.89137 2.75 2.75 6.89137 2.75 12C2.75 17.1086 6.89137 21.25 12 21.25C17.1086 21.25 21.25 17.1086 21.25 12C21.25 6.89137 17.1086 2.75 12 2.75Z" fill="#1C274C"/>
+                  </svg>`
+          },
+          SUCCESS: {
+            colorClass: 'text-green-400 border-green-400',
+            svg: `<svg stroke="currentColor" class="w-6 h-6" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M512 64a448 448 0 1 1 0 896 448 448 0 0 1 0-896zm-55.808 536.384-99.52-99.584a38.4 38.4 0 1 0-54.336 54.336l126.72 126.72a38.272 38.272 0 0 0 54.336 0l262.4-262.464a38.4 38.4 0 1 0-54.272-54.336L456.192 600.384z"/></svg>`
+          },
+          WARNING: {
+            colorClass: 'text-yellow-400 border-yellow-400',
+            svg: `<svg stroke="currentColor" class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="17" r="1" fill="currentColor"/>
+                  <path d="M12 10L12 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3.44722 18.1056L10.2111 4.57771C10.9482 3.10361 13.0518 3.10362 13.7889 4.57771L20.5528 18.1056C21.2177 19.4354 20.2507 21 18.7639 21H5.23607C3.7493 21 2.78231 19.4354 3.44722 18.1056Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>`
+          },
+          ERROR: {
+            colorClass: 'text-red-500 border-red-500',
+            svg: `<svg class="w-6 h-6" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="add" fill="currentColor" transform="translate(42.666667, 42.666667)">
+                                <path d="M213.333333,3.55271368e-14 C331.136,3.55271368e-14 426.666667,95.5306667 426.666667,213.333333 C426.666667,331.136 331.136,426.666667 213.333333,426.666667 C95.5306667,426.666667 3.55271368e-14,331.136 3.55271368e-14,213.333333 C3.55271368e-14,95.5306667 95.5306667,3.55271368e-14 213.333333,3.55271368e-14 Z M262.250667,134.250667 L213.333333,183.168 L164.416,134.250667 L134.250667,164.416 L183.168,213.333333 L134.250667,262.250667 L164.416,292.416 L213.333333,243.498667 L262.250667,292.416 L292.416,262.250667 L243.498667,213.333333 L292.416,164.416 L262.250667,134.250667 Z" id="Combined-Shape">
+
+                    </path>
+                            </g>
+                        </g>
+                    </svg>`
+          },
+        };
         let container = document.getElementById('toast_container');
         let toast = document.createElement('div');
         toast.classList.add(
           'text-sm', 'rounded-2xl', 'bg-neutral-900/70', 'backdrop-blur-xl',
           'shadow-inset-white', 'text-neutral-100', 'flex', 'items-center',
-          'gap-2', 'px-3', 'py-2', 'transition-all', 'duration-500', 'justify-center',
+          'gap-2', 'px-3', 'py-2', 'transition-all', 'duration-500', 'justify-center'
         );
+        let variant = toastVariants[type] || toastVariants['INFO'];
+        toast.classList.add(...variant.colorClass.split(' '));
+        toast.classList.add('border', 'border-2'); // Since we want a border
         toast.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-amber-400">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-          </svg>
+            ${variant.svg}
           <span>${message}</span>
         `;
         container.appendChild(toast);
@@ -425,7 +501,7 @@
       <script>
         document.addEventListener('DOMContentLoaded', function() {
           {% for msg in messages %}
-            showToast("{{ msg|escapejs }}", 3000);
+            showToast("{{ msg|escapejs }}", 3000, "{{ msg.tags }}");
           {% endfor %}
         });
       </script>

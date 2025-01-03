@@ -854,13 +854,13 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log(captchaPassed);
       isValid = false;
       if (!captchaPassed) {
-        showToast('Captcha verification failed.', 3000);
+        showToast('Captcha verification failed.', 3000, "ERROR");
         isValid = false;
       }
     }
 
     if (!isValid) {
-      showToast('Please ensure all required fields are properly filled.', 3000);
+      showToast('Please ensure all required fields are properly filled.', 3000, "WARNING");
     }
     return isValid;
   }
@@ -877,7 +877,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const data = await response.json();
       return data; // Expecting { emailExists: bool, usernameExists: bool }
     } catch (err) {
-      showToast('Error checking username/email', 2000);
+      showToast('Error checking username/email', 2000, "ERROR");
       return { emailExists: false, usernameExists: false };
     }
   }
@@ -936,7 +936,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.addEventListener('DOMContentLoaded', function() {
 
             console.log("{{ error|escapejs }}");
-            showToast("{{ error|escapejs }}", 3000);
+            showToast("{{ error|escapejs }}", 3000, "ERROR");
             });
         </script>
       {% endfor %}

@@ -437,7 +437,7 @@ document.addEventListener('DOMContentLoaded', function() {
 //     console.log(loginField.value, password);
     
 //     if (!loginField.value || !password) {
-//       showToast('Please fill in all fields', 3000);
+//       showToast('Please fill in all fields', 3000, 'ERROR');
 //       return;
 //     }
 
@@ -457,43 +457,33 @@ document.addEventListener('DOMContentLoaded', function() {
 //       const data = await response.json();
       
 //       if (data.error) {
-//         showToast(data.error, 3000);
+//         showToast(data.error, 3000, 'ERROR');
 //       } else if (response.ok) {
 //         window.location.href = data.redirect || '/';
 //       }
 //     } catch (err) {
-//       showToast('An error occurred. Please try again.', 3000);
+//       showToast('An error occurred. Please try again.', 3000, 'ERROR');
 //     }
 // });
 });
-  </script>
-  {% if form.errors %}
+</script>
+{% if form.errors %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    {% for err in form.non_field_errors %}
+      showToast("{{ err }}", 3000, 'ERROR');
+    {% endfor %}
+  });
+</script>
+{% for field in form %}
+  {% for error in field.errors %}
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        {% for err in form.non_field_errors %}
-          showToast("{{ err }}", 3000);
-        {% endfor %}
-    });
-  </script>
-
-  <script>
-    console.log("Errors");
-      // console.log("{{ form.errors }}");
+        showToast("{{ error }}", 3000, 'ERROR');
+      });
     </script>
-      {% for field in form %}
-        {% for error in field.errors %}
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-
-            console.log("{{ error }}");
-            showToast("{{ error }}", 3000);
-            });
-          </script>
-        {% endfor %}
-      {% endfor %}
-  {% endif %}
-
-
-
+  {% endfor %}
+{% endfor %}
+{% endif %}
 {% endblock content %}
 
