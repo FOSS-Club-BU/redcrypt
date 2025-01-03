@@ -57,6 +57,8 @@ def verify_captcha(request):
         'error': 'Invalid request method'
     }, status=405)
 
+@login_required(login_url='account_login')
+@not_banned
 def profile(request):
     user = request.user
     profile = Profile.objects.get(user=user)
@@ -80,7 +82,7 @@ def profile(request):
         })
 
 
-@login_required
+@login_required(login_url='account_login')
 @not_banned
 def edit_profile(request):
     user = request.user
@@ -94,7 +96,7 @@ def edit_profile(request):
         })
 
 
-@login_required
+@login_required(login_url='account_login')
 @not_banned
 def save_profile(request):
     if request.method == "POST":

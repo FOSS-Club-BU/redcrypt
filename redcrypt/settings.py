@@ -330,3 +330,5 @@ PWA_APP_ICONS_APPLE = [
     }
 ]
 PWA_APP_LANG = 'en-US'
+LOGIN_URL = 'account_login'
+ACCOUNT_LOGIN_ON_GET = True
