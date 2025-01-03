@@ -1,10 +1,32 @@
 from django import forms
 from allauth.account.forms import SignupForm, ResetPasswordForm, LoginForm
+from allauth.socialaccount.forms import SignupForm as SocialSignupForm
 from accounts.models import Profile
 from hcaptcha.fields import hCaptchaField
 from datetime import datetime
+from allauth.socialaccount.adapter import get_adapter
+
 import pytz
 
+
+class MyCustomSocialSignupForm(SocialSignupForm):
+    name = forms.CharField(required=False, label="Name [Optional]")
+    organization = forms.CharField(required=False, label='College/Organization [Optional]')
+
+    def save(self, request):
+        adapter = get_adapter(request)
+        user = adapter.save_user(request, self.sociallogin, form=self)
+        self.custom_signup(request, user)
+        return user
+
+    def validate_unique_email(self, value):
+        try:
+            return super(SignupForm, self).validate_unique_email(value)
+        except forms.ValidationError:
+            raise forms.ValidationError(
+                get_adapter().error_messages["email_taken"]
+                % self.sociallogin.account.get_provider().name
+            )
 
 class MyCustomSignupForm(SignupForm):
     name = forms.CharField(required=False, label="Name [Optional]")

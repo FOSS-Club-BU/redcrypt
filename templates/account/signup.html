@@ -362,12 +362,12 @@
           </div>
           <!-- Form Section -->
           <div class="md:w-2/3 flex-1" data-aos="fade-up" data-aos-duration="800">
+            <div class="form-container h-full">
             <form class="signup h-full"
                   id="signup_form"
                   method="post"
                   action="{% url 'account_signup' %}">
               {% csrf_token %}
-              <div class="form-container h-full">
                 <div class="form-content p-8">
                   <div class="step-progress mb-8"
                        data-aos="fade"
@@ -522,8 +522,9 @@
                     <a href="/privacy-policy/" class="text-green-500 hover:underline">Privacy Policy</a>
                   </p>
                 </div>
-              </div>
-            </form>
+              </form>
+              {% include 'components/google_onetap.html' %}
+            </div>
           </div>
         </div>
       </div>

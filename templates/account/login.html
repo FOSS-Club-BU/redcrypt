@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 {% block head_title %}
-  Login {% endblock head_title %}
-  {% block head %}
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
-    <style>
+  Login
+{% endblock head_title %}
+{% block head %}
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+  <style>
   .errorlist {
     color: #ef4444;
     font-size: 0.875rem;
@@ -310,171 +311,179 @@
       transform: translateY(0);
     }
   }
-    </style>
-  {% endblock head %}
-  {% block content %}
-    <div class="justify-center px-4 py-8 flex items-center">
-      <div class="max-w-5xl mx-auto flex items-stretch h-auto">
-        <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl overflow-hidden flex-1 flex flex-col md:flex-row shadow-md">
-          <div class="flex flex-col md:flex-row w-full">
-            <!-- Welcome Card -->
-            <div class="md:w-[400px] welcome-card hidden md:block"
-                 data-aos="fade-right"
-                 data-aos-duration="600">
-              <svg width="100%"
-                   height="100%"
-                   viewBox="0 0 800 800"
-                   style="position: absolute;
-                          top: 0;
-                          left: 0;
-                          z-index: 0">
-                <defs>
-                <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">
-                <feGaussianBlur stdDeviation="105" in="SourceGraphic" result="blur"></feGaussianBlur>
-                </filter>
-                </defs>
-                <g filter="url(#bb-filter)">
-                <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f"></ellipse>
-                <ellipse rx="500" ry="70.5" cx="0" cy="800" fill="#2e90fa"></ellipse>
-                </g>
-              </svg>
-              <div class="content">
-                <div class="logos">
-                  <img src="{% static 'foss-bu-dark.png' %}"
-                       alt="FOSS BU"
-                       class="h-8 md:h-12 w-auto"
-                       width="auto"
-                       height="auto" />
-                  <img src="{% static 'logo.svg' %}"
-                       alt="Re-Dcrypt"
-                       class="h-8 md:h-12 w-auto"
-                       width="auto"
-                       height="auto" />
-                </div>
-                <div class="welcome-text">
-                  <h2>
-                    <span class="block text-white/80" id="welcomeText">Let's Log You In</span>
-                  </h2>
-                </div>
+
+  .relative-form-buttons {
+    position: relative;
+    margin-top: 2rem;
+  }
+  </style>
+{% endblock head %}
+{% block content %}
+  <div class="justify-center px-4 py-8 flex items-center">
+    <div class="max-w-5xl mx-auto flex items-stretch h-auto">
+      <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl overflow-hidden flex-1 flex flex-col md:flex-row shadow-md">
+        <div class="flex flex-col md:flex-row w-full">
+          <!-- Welcome Card -->
+          <div class="md:w-[400px] welcome-card hidden md:block"
+               data-aos="fade-right"
+               data-aos-duration="600">
+            <svg width="100%"
+                 height="100%"
+                 viewBox="0 0 800 800"
+                 style="position: absolute;
+                        top: 0;
+                        left: 0;
+                        z-index: 0">
+              <defs>
+              <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">
+              <feGaussianBlur stdDeviation="105" in="SourceGraphic" result="blur"></feGaussianBlur>
+              </filter>
+              </defs>
+              <g filter="url(#bb-filter)">
+              <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f"></ellipse>
+              <ellipse rx="500" ry="70.5" cx="0" cy="800" fill="#2e90fa"></ellipse>
+              </g>
+            </svg>
+            <div class="content">
+              <div class="logos">
+                <img src="{% static 'foss-bu-dark.png' %}"
+                     alt="FOSS BU"
+                     class="h-8 md:h-12 w-auto"
+                     width="auto"
+                     height="auto" />
+                <img src="{% static 'logo.svg' %}"
+                     alt="Re-Dcrypt"
+                     class="h-8 md:h-12 w-auto"
+                     width="auto"
+                     height="auto" />
+              </div>
+              <div class="welcome-text">
+                <h2>
+                  <span class="block text-white/80" id="welcomeText">Let's Log You In</span>
+                </h2>
               </div>
             </div>
-            <!-- Mobile Welcome Card -->
-            <div class="md:hidden welcome-card"
-                 data-aos="fade-down"
-                 data-aos-duration="800">
-              <svg width="100%"
-                   height="100%"
-                   viewBox="0 0 800 800"
-                   style="position: absolute;
-                          top: 0;
-                          left: 0;
-                          z-index: 0">
-                <defs>
-                <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">
-                <feGaussianBlur stdDeviation="105" in="SourceGraphic" result="blur"></feGaussianBlur>
-                </filter>
-                </defs>
-                <g filter="url(#bb-filter)">
-                <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f"></ellipse>
-                <ellipse rx="277.5" ry="70.5" cx="609" cy="577" fill="#2e90fa"></ellipse>
-                </g>
-              </svg>
-              <div class="content">
-                <div class="logos">
-                  <img src="{% static 'foss-bu-dark.png' %}"
-                       alt="FOSS BU"
-                       class="h-8 md:h-12 w-auto"
-                       width="auto"
-                       height="auto" />
-                  <img src="{% static 'logo.svg' %}"
-                       alt="Re-Dcrypt"
-                       class="h-8 md:h-12 w-auto"
-                       width="auto"
-                       height="auto" />
-                </div>
-                <div class="welcome-text">
-                  <h2>
-                    <span class="block text-white/80" id="welcomeText">Let's Log You In</span>
-                  </h2>
-                </div>
+          </div>
+          <!-- Mobile Welcome Card -->
+          <div class="md:hidden welcome-card"
+               data-aos="fade-down"
+               data-aos-duration="800">
+            <svg width="100%"
+                 height="100%"
+                 viewBox="0 0 800 800"
+                 style="position: absolute;
+                        top: 0;
+                        left: 0;
+                        z-index: 0">
+              <defs>
+              <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">
+              <feGaussianBlur stdDeviation="105" in="SourceGraphic" result="blur"></feGaussianBlur>
+              </filter>
+              </defs>
+              <g filter="url(#bb-filter)">
+              <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f"></ellipse>
+              <ellipse rx="277.5" ry="70.5" cx="609" cy="577" fill="#2e90fa"></ellipse>
+              </g>
+            </svg>
+            <div class="content">
+              <div class="logos">
+                <img src="{% static 'foss-bu-dark.png' %}"
+                     alt="FOSS BU"
+                     class="h-8 md:h-12 w-auto"
+                     width="auto"
+                     height="auto" />
+                <img src="{% static 'logo.svg' %}"
+                     alt="Re-Dcrypt"
+                     class="h-8 md:h-12 w-auto"
+                     width="auto"
+                     height="auto" />
+              </div>
+              <div class="welcome-text">
+                <h2>
+                  <span class="block text-white/80" id="welcomeText">Let's Log You In</span>
+                </h2>
               </div>
             </div>
-            <!-- Form Section -->
-            <div class="md:w-[500px] flex-1"
-                 data-aos="fade-up"
-                 data-aos-duration="600">
+          </div>
+          <!-- Form Section -->
+          <div class="md:w-[500px] flex-1"
+               data-aos="fade-up"
+               data-aos-duration="600">
+            <div class="form-container h-full">
               <form method="post"
                     action="{% url 'account_login' %}"
                     class="h-full"
                     id="login_form">
                 {% csrf_token %}
-                <div class="form-container h-full">
-                  <div class="form-content p-6">
-                    <div class="step-header flex flex-col items-center mb-8">
-                      <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
-                        <span class="material-symbols-outlined text-3xl">person</span>
-                      </span>
-                      <div class="text-center">
-                        <h2 class="text-xl font-bold text-green-500">Welcome back!</h2>
-                        <p class="text-neutral-400 text-sm mt-2">
-                          Don't have an account?
-                          <a href="{% url 'account_signup' %}"
-                             class="text-green-500 hover:underline">Sign up</a>
-                        </p>
-                      </div>
-                    </div>
-                    <div class="form-fields"
-                         data-aos="fade-up"
-                         data-aos-delay="100"
-                         data-aos-duration="600">
-                      <div class="form-field">
-                        <label for="id_login">Email or Username</label>
-                        <div class="relative">
-                          <input type="text" name="login" required placeholder="Username" />
-                        </div>
-                      </div>
-                      <div class="form-field">
-                        <div class="flex items-center justify-between">
-                          <label for="id_password">Password</label>
-                          <a href="{% url 'account_reset_password' %}"
-                             class="text-green-500 hover:underline text-sm">Forgot Password?</a>
-                        </div>
-                        <div class="relative">
-                          <input type="password"
-                                 name="password"
-                                 required
-                                 placeholder="Password"
-                                 id="id_password" />
-                          <span class="material-symbols-outlined cursor-pointer text-xl absolute top-3 right-3 text-neutral-400"
-                                id="togglePassword">visibility</span>
-                        </div>
-                      </div>
+                <div class="form-content p-6">
+                  <div class="step-header flex flex-col items-center mb-8">
+                    <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
+                      <span class="material-symbols-outlined text-3xl">person</span>
+                    </span>
+                    <div class="text-center">
+                      <h2 class="text-xl font-bold text-green-500">Welcome back!</h2>
+                      <p class="text-neutral-400 text-sm mt-2">
+                        Don't have an account?
+                        <a href="{% url 'account_signup' %}"
+                           class="text-green-500 hover:underline">Sign up</a>
+                      </p>
                     </div>
                   </div>
-                  <div class="form-buttons"
+                  <div class="form-fields"
                        data-aos="fade-up"
-                       data-aos-delay="200"
+                       data-aos-delay="100"
                        data-aos-duration="600">
-                    <button type="submit"
-                            class="w-full bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300 flex items-center justify-center gap-2">
-                      <span class="material-symbols-outlined">login</span>
-                      <span class="button-text">Login</span>
-                    </button>
-                    <p class="text-neutral-400 text-xs mt-4 text-center">
-                      By logging in, you agree to Re-Dcrypt's
-                      <a href="/terms-and-conditions/" class="text-green-500 hover:underline">Terms of Service</a>
-                      and
-                      <a href="/privacy-policy/" class="text-green-500 hover:underline">Privacy Policy</a>
-                    </p>
+                    <div class="form-field">
+                      <label for="id_login">Email or Username</label>
+                      <div class="relative">
+                        <input type="text" name="login" required placeholder="Username" />
+                      </div>
+                    </div>
+                    <div class="form-field">
+                      <div class="flex items-center justify-between">
+                        <label for="id_password">Password</label>
+                        <a href="{% url 'account_reset_password' %}"
+                           class="text-green-500 hover:underline text-sm">Forgot Password?</a>
+                      </div>
+                      <div class="relative">
+                        <input type="password"
+                               name="password"
+                               required
+                               placeholder="Password"
+                               id="id_password" />
+                        <span class="material-symbols-outlined cursor-pointer text-xl absolute top-3 right-3 text-neutral-400"
+                              id="togglePassword">visibility</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
+                <div class="form-buttons"
+                     data-aos="fade-up"
+                     data-aos-delay="200"
+                     data-aos-duration="600">
+                  <button type="submit"
+                          class="w-full bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300 flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined">login</span>
+                    <span class="button-text">Login</span>
+                  </button>
+                  <p class="text-neutral-400 text-xs mt-4 text-center">
+                    By logging in, you agree to Re-Dcrypt's
+                    <a href="/terms-and-conditions/" class="text-green-500 hover:underline">Terms of Service</a>
+                    and
+                    <a href="/privacy-policy/" class="text-green-500 hover:underline">Privacy Policy</a>
+                  </p>
+                </div>
               </form>
+              <div class="form-buttons relative-form-buttons mb-5">
+                {% include 'components/google_onetap.html' %}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <script>
+  </div>
+  <script>
   const welcomeMessages = [
     "Ready to crack some codes?",
     "Back for more puzzles?",
@@ -530,21 +539,21 @@
       }
     });
   });
-    </script>
-    {% if form.errors %}
-      <script>
+  </script>
+  {% if form.errors %}
+    <script>
   document.addEventListener('DOMContentLoaded', function() {
     {% for err in form.non_field_errors %}showToast("{{ err }}", 3000, 'ERROR');{% endfor %}
   });
-      </script>
-      {% for field in form %}
-        {% for error in field.errors %}
-          <script>
+    </script>
+    {% for field in form %}
+      {% for error in field.errors %}
+        <script>
   document.addEventListener("DOMContentLoaded", function () {
     showToast("{{ error }}", 3000, "ERROR");
   });
-          </script>
-        {% endfor %}
+        </script>
       {% endfor %}
-    {% endif %}
-  {% endblock content %}
+    {% endfor %}
+  {% endif %}
+{% endblock content %}

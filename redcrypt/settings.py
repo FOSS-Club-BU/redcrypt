@@ -53,7 +53,7 @@ SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_AGE = 86400
 CSRF_COOKIE_SECURE = True
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+# ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 # Application definition
 
 INSTALLED_APPS = [
@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.discord',
+    'allauth.socialaccount.providers.google',
     'hunt',
     'accounts',
     'extra_settings',
@@ -93,6 +94,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'redcrypt.middleware.CustomMiddleware',
     'maintenance_mode.middleware.MaintenanceModeMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
+
 ]
 
 ROOT_URLCONF = 'redcrypt.urls'
@@ -332,3 +335,18 @@ PWA_APP_ICONS_APPLE = [
 PWA_APP_LANG = 'en-US'
 LOGIN_URL = 'account_login'
 ACCOUNT_LOGIN_ON_GET = True
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
+            'secret': os.getenv('GOOGLE_CLIENT_SECRET'),
+        },
+        'FETCH_USERINFO' : True 
+    },
+}
+
+SOCIALACCOUNT_FORMS = {
+    'signup': 'accounts.forms.MyCustomSocialSignupForm',
+}

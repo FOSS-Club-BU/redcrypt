@@ -20,7 +20,6 @@ from hunt.views import faqs, sample_questions_play, update_rank
 from hunt.views import sample_checkans, about, guidelines
 from hunt.views import privacy_policy, terms_and_conditions
 from accounts import views as accounts_views
-from allauth1.account.views import password_change
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -36,11 +35,6 @@ urlpatterns = [
     path(
         'accounts/social/connections/',
         accounts_views.connect, name='connect'),
-    path(
-        "accounts/password/change/",
-        password_change,
-        name="account_change_password",
-    ),
     path('accounts/', include('allauth.urls')),
 
     path('profile/', accounts_views.profile, name='profile'),
