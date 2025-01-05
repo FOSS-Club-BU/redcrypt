@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-from django.core.management.utils import get_random_secret_key
 # import sentry_sdk
 # from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -30,31 +29,33 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY", '%^7w6=-k)c*od9w1ci*dj-3$+yg45(@g_+kxw==(3t3z+^s7gd')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-try:
-    if os.environ.get("DEBUG") == "True":
-        DEBUG = True
-    else:
-        DEBUG = False
-except:
-    DEBUG = False
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = [
-    'https://*.rachitkhurana.xyz',
-    'https://*.127.0.0.1',
-    'https://redcrypt.rachitkhurana.repl.co',
-    'https://*.redcrypt.xyz/']
+CSRF_TRUSTED_ORIGINS = []
+
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "http://localhost:8000").split(",")
+
+
+if DEBUG:
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
+    SECURE_SSL_REDIRECT = False
+
+else:
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+
+
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
-SECURE_SSL_REDIRECT = False
-SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_AGE = 86400
-CSRF_COOKIE_SECURE = True
-# ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
-# Application definition
 
 INSTALLED_APPS = [
     'admin_interface',
@@ -62,7 +63,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
-    'django.contrib.contenttypes',  # Add this line
+    'django.contrib.contenttypes', 
     'django.contrib.sessions',
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
@@ -121,10 +122,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'redcrypt.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -144,9 +141,6 @@ DATABASES = {
 #     # django.contrib.auth) you may enable sending PII data.
 #     send_default_pii=True
 # )
-
-# Password validation
-# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
 SITE_ID = 3
 
@@ -170,10 +164,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
@@ -181,7 +172,9 @@ ACCOUNT_FORMS = {
     'signup': 'accounts.forms.MyCustomSignupForm',
     'reset_password': 'accounts.forms.CustomForgetPassword'}
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SOCIALACCOUNT_FORMS = {
+    'signup': 'accounts.forms.MyCustomSocialSignupForm',
+}
 
 ACCOUNT_EMAIL_REQUIRED = True
 
@@ -193,31 +186,11 @@ ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 LOGIN_REDIRECT_URL = '/profile/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
 
-# Add custom adapter setting for AllAuth
+SOCIALACCOUNT_AUTO_SIGNUP = False
+
 ACCOUNT_ADAPTER = 'accounts.adapter.CustomAccountAdapter'
 
-# Email verification can be made optional if SMTP is not configured
 ACCOUNT_EMAIL_VERIFICATION = 'optional'  # Change to 'mandatory' if you want to enforce it when SMTP is configured
-
-# Optional: Configure logging to see adapter messages
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'accounts.adapter': {
-            'handlers': ['console'],
-            'level': 'WARNING',
-        },
-    },
-}
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -229,8 +202,6 @@ USE_TZ = True
 
 APPEND_SLASH = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 WHITENOISE_MANIFEST_STRICT = True
 WHITENOISE_ROOT = "static"
@@ -245,9 +216,6 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email Configuration
@@ -257,85 +225,21 @@ EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", default=True)
 EMAIL_PORT = os.getenv("EMAIL_PORT", default=587)
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-# New setting for sender email address
 EMAIL_SENDER = os.getenv('EMAIL_SENDER', EMAIL_HOST_USER)
 DEFAULT_FROM_EMAIL = f"Re-Dcrypt <{EMAIL_SENDER}>"
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "Re-Dcrypt - "
 ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 600
 
-SOCIALACCOUNT_AUTO_SIGNUP = False
 HCAPTCHA_SITEKEY = os.getenv('HCAPTCHA_SITEKEY')
-print(HCAPTCHA_SITEKEY)
 HCAPTCHA_SECRET = os.getenv('HCAPTCHA_SECRET')
-print(HCAPTCHA_SECRET)
 
-try:
-    if os.getenv("MAINTENANCE_MODE").lower() == "true":
-        MAINTENANCE_MODE = True
-    else:
-        MAINTENANCE_MODE = False
-except:
-    MAINTENANCE_MODE = False
+MAINTENANCE_MODE = os.getenv("MAINTENANCE_MODE", "false").lower() == "true"
 
 MAINTENANCE_MODE_IGNORE_ADMIN_SITE = True
 MAINTENANCE_MODE_IGNORE_SUPERUSER = True
 
-
-PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'serviceworker.js')
-PWA_APP_NAME = 'Re-Dcrypt'
-PWA_APP_DESCRIPTION = 'Re-Dcrypt Cryptic Hunt.'
-PWA_APP_THEME_COLOR = '#08B74F'
-PWA_APP_BACKGROUND_COLOR = '#002a2a'
-PWA_APP_DISPLAY = 'standalone'
-PWA_APP_SCOPE = '/'
-PWA_APP_START_URL = '/'
-PWA_APP_HOME_PATH = '/'
-PWA_APP_STATUS_BAR_COLOR = 'default'
-PWA_APP_DEBUG_MODE = False
-PWA_APP_ICONS = [
-    {
-        'src': '/icons/maskable_icon_x192.png',
-        'sizes': '192x192',
-        'type': 'image/png',
-        "purpose": "maskable"
-    },
-    {
-        'src': '/icons/maskable_icon_x192.png',
-        'sizes': '192x192',
-        'type': 'image/png',
-        "purpose": "any"
-    },
-    {
-        'src': '/icons/maskable_icon_x512.png',
-        'sizes': '512x512',
-        'type': 'image/png',
-        "purpose": "maskable"
-    }
-]
-PWA_APP_ICONS_APPLE = [
-    {
-        'src': '/icons/maskable_icon_x192.png',
-        'sizes': '192x192',
-        'type': 'image/png',
-        "purpose": "maskable",
-    },
-    {
-        'src': '/icons/maskable_icon_x192.png',
-        'sizes': '192x192',
-        'type': 'image/png',
-        "purpose": "any"
-    },
-    {
-        'src': '/icons/maskable_icon_x512.png',
-        'sizes': '512x512',
-        'type': 'image/png',
-        "purpose": "maskable"
-    }
-]
-PWA_APP_LANG = 'en-US'
 LOGIN_URL = 'account_login'
 ACCOUNT_LOGIN_ON_GET = True
-
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -347,7 +251,5 @@ SOCIALACCOUNT_PROVIDERS = {
     },
 }
 
-SOCIALACCOUNT_FORMS = {
-    'signup': 'accounts.forms.MyCustomSocialSignupForm',
-}
+
 SOCIALACCOUNT_EMAIL_AUTHENTICATION = True

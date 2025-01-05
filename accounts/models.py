@@ -65,37 +65,6 @@ class contact_form(models.Model):
     body = models.TextField()
 
 
-@receiver(user_signed_up)
-def user_signed_up_(request, user, **kwargs):
-    profile = Profile.objects.get(user=user)
-    "Send  discord webhook after user signup"
-    name = profile.name if profile.name else "None"
-    organization = profile.organization if profile.organization else "None"
-    json_data = {"content": "New Signup", "embeds": [{
-        "title": "New User Signup", "color": 53970, "fields": [
-            {
-                "name": "Username",
-                "value": str(user.username)
-            },
-            {
-                "name": "Name",
-                "value": name
-            },
-            {
-                "name": "Email",
-                "value": str(user.email)
-            },
-            {
-                "name": "School/Organisation",
-                "value": organization
-            }]}]}
-    try:
-        url = os.getenv("DISCORD_LOGGING_WEBHOOK")
-        requests.post(url, json=json_data)
-    except:
-        pass
-
-
 @receiver(social_account_added)
 def social_account_added_(request, **kwargs):
     profile = Profile.objects.get(user=request.user)

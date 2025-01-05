@@ -31,7 +31,7 @@ class ProfileAdmin(admin.ModelAdmin):
                 ('name', 'is_public_name'),
                 ('organization', 'is_public_organization'),
                 ('discord_id'),
-                ('avatar_url')
+                ('avatar')
                 ]}),
         ('Hunt',
             {'fields': [

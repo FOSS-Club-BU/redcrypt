@@ -17,11 +17,15 @@ class MyCustomSocialSignupForm(SocialSignupForm):
         adapter = get_adapter(request)
         user = adapter.save_user(request, self.sociallogin, form=self)
         self.custom_signup(request, user)
+        try:
+            avatar_url = self.sociallogin.account.get_avatar_url()
+        except:
+            avatar_url = f"https://api.dicebear.com/9.x/fun-emoji/svg?seed={user.username}&backgroundColor=059ff2,71cf62,d84be5,d9915b,f6d594,fcbc34,b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf&backgroundRotation[]"
         profile = Profile.objects.create(
             user=user,
             name=self.cleaned_data['name'],
             organization=self.cleaned_data['organization'],
-            avatar=f"https://api.dicebear.com/9.x/fun-emoji/svg?seed={user.username}&backgroundColor=059ff2,71cf62,d84be5,d9915b,f6d594,fcbc34,b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf&backgroundRotation[]",
+            avatar=avatar_url,
             last_completed_time=datetime.now(pytz.timezone('Asia/Kolkata')))
         profile.save()
         return user
@@ -55,10 +59,6 @@ class MyCustomSignupForm(SignupForm):
             avatar=f"https://api.dicebear.com/9.x/fun-emoji/svg?seed={user.username}&backgroundColor=059ff2,71cf62,d84be5,d9915b,f6d594,fcbc34,b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf&backgroundRotation[]",
             last_completed_time=datetime.now(pytz.timezone('Asia/Kolkata')))
         profile.save()
-
-        # Add your own processing here.
-
-        # You must return the original result.
         return user
 
 
