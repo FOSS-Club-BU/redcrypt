@@ -17,11 +17,18 @@ class MyCustomSocialSignupForm(SocialSignupForm):
         adapter = get_adapter(request)
         user = adapter.save_user(request, self.sociallogin, form=self)
         self.custom_signup(request, user)
+        profile = Profile.objects.create(
+            user=user,
+            name=self.cleaned_data['name'],
+            organization=self.cleaned_data['organization'],
+            avatar=f"https://api.dicebear.com/9.x/fun-emoji/svg?seed={user.username}&backgroundColor=059ff2,71cf62,d84be5,d9915b,f6d594,fcbc34,b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf&backgroundRotation[]",
+            last_completed_time=datetime.now(pytz.timezone('Asia/Kolkata')))
+        profile.save()
         return user
 
     def validate_unique_email(self, value):
         try:
-            return super(SignupForm, self).validate_unique_email(value)
+            return super(MyCustomSocialSignupForm, self).validate_unique_email(value)
         except forms.ValidationError:
             raise forms.ValidationError(
                 get_adapter().error_messages["email_taken"]

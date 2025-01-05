@@ -350,3 +350,4 @@ SOCIALACCOUNT_PROVIDERS = {
 SOCIALACCOUNT_FORMS = {
     'signup': 'accounts.forms.MyCustomSocialSignupForm',
 }
+SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
