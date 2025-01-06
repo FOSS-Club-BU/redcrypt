@@ -239,7 +239,6 @@
                         <span class="mx-4 flex-shrink text-neutral-400 text-sm">OR</span>
                         <div class="flex-grow border-t border-neutral-700"></div>
                       </div>
-                      <div class="flex items-center justify-center w-full">{% include "components/google_onetap.html" %}</div>
                     </div>
                   </div>
                   <!-- Step 2: Username & Password -->
@@ -381,6 +380,8 @@
                   </div>
                 </div>
               </form>
+              <div class="flex items-center justify-center w-full">{% include "components/google_onetap.html" %}</div>
+
               <div class="px-6">
                 <p class="text-neutral-400 text-xs py-6 text-center">
                   By signing up, you agree to Re-Dcrypt's
@@ -402,7 +403,6 @@
           {% for field in form %}
             {% for error in field.errors %}showToast("{{ error|escapejs }}", 3000, "ERROR");{% endfor %}
             {% if field.errors %}console.log("{{ field.name }}");{% endif %}
-            
           {% endfor %}
         });
     </script>
