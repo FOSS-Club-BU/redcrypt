@@ -16,5 +16,5 @@ pytz
 djlint
 django-extensions
 Werkzeug
-jwt
+PyJWT
 gunicorn
