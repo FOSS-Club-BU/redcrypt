@@ -267,3 +267,20 @@ def verify_captcha(request):
         'captchaValid': False,
         'error': 'Invalid request method'
     }, status=405)
+
+def check_email(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        email = data.get('email')
+        exists = User.objects.filter(email=email).exists()
+        return JsonResponse({'exists': exists})
+    return HttpResponse(status=405)
+
+def check_username(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        username = data.get('username')
+        # Using iexact for case-insensitive comparison
+        exists = User.objects.filter(username__iexact=username).exists()
+        return JsonResponse({'exists': exists})
+    return HttpResponse(status=405)

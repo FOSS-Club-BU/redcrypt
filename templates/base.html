@@ -1,29 +1,26 @@
-{% load static %} {% load pwa %}
+{% load static %}
+{% load pwa %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>{% block head_title %} {% endblock head_title %} | Re-Dcrypt</title>
+    <title>
+      {% block head_title %}
+      {% endblock head_title %}
+    | Re-Dcrypt</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="content-language" content="en-IN" />
     <meta name="title" content="Re-Dcrypt 2" />
-    <meta
-      name="description"
-      content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it."
-    />
-    <meta
-      name="keywords"
-      content="cryptic hunt, hunt, cryptic, steg, redcrypt"
-    />
+    <meta name="description"
+          content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it." />
+    <meta name="keywords" content="cryptic hunt, hunt, cryptic, steg, redcrypt" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="language" content="English" />
     <meta name="author" content="DiluteWater" />
     <meta name="theme-color" content="#08B74F" />
     <meta property="og:title" content="Re-Dcrypt 2" />
-    <meta
-      property="og:description"
-      content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it."
-    />
+    <meta property="og:description"
+          content="A cryptic hunt in which you would face questions in any form. You need to use hints, Google & your out-of-the-box thinking skills to solve it." />
     <meta property="og:image" content="/icons/maskable_icon_x192.png" />
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
     {% progressive_web_app_meta %}
@@ -79,14 +76,10 @@
         key: "BDV_66hjFZ-UmAPoFewcLdDHu3i2pPxgc-ZtBcDPesJqWM-SmAPBExtw1EhE1zzG7EuSuJje6Z42xAQqflvoFL4",
       });
     </script>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
-    />
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-79MBGTX27V"
-    ></script>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-79MBGTX27V"></script>
     <script type="text/javascript">
       (function (c, l, a, r, i, t, y) {
         c[a] =
@@ -105,14 +98,9 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <script
-      defer
-      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
-    ></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+          rel="stylesheet" />
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
       body {
         background-color: #0a0a0a;
@@ -248,85 +236,52 @@
         -moz-osx-font-smoothing: grayscale;
       }
     </style>
-    {% block head %} {% endblock head %}
+    {% block head %}
+    {% endblock head %}
   </head>
   <body class="font-Inter mt-24">
     <!-- Container for stacking multiple toasts -->
-    <div
-      id="toast_container"
-      class="fixed bottom-0 right-0 flex w-full flex-col items-center p-4 space-y-2 z-50"
-    ></div>
+    <div id="toast_container"
+         class="fixed bottom-0 right-0 flex w-full flex-col items-center p-4 space-y-2 z-50"></div>
     <div class="static-bg">
       <svg width="100%" height="100%" viewBox="0 0 800 800">
         <defs>
-          <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">
-            <feGaussianBlur
-              stdDeviation="105"
-              in="SourceGraphic"
-              result="blur"
-            ></feGaussianBlur>
-          </filter>
+        <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">
+        <feGaussianBlur stdDeviation="105" in="SourceGraphic" result="blur"></feGaussianBlur>
+        </filter>
         </defs>
         <g filter="url(#bb-filter)">
-          <ellipse
-            rx="277.5"
-            ry="70.5"
-            cx="374"
-            cy="152"
-            fill="#08b74f"
-          ></ellipse>
-          <ellipse
-            rx="277.5"
-            ry="70.5"
-            cx="609"
-            cy="577"
-            fill="#2e90fa"
-          ></ellipse>
-          <ellipse
-            rx="277.5"
-            ry="70.5"
-            cx="569"
-            cy="421"
-            fill="#08B74F"
-          ></ellipse>
-          <ellipse
-            rx="277.5"
-            ry="70.5"
-            cx="580"
-            cy="245"
-            fill="#08B74F"
-          ></ellipse>
+        <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f"></ellipse>
+        <ellipse rx="277.5" ry="70.5" cx="609" cy="577" fill="#2e90fa"></ellipse>
+        <ellipse rx="277.5" ry="70.5" cx="569" cy="421" fill="#08B74F"></ellipse>
+        <ellipse rx="277.5" ry="70.5" cx="580" cy="245" fill="#08B74F"></ellipse>
         </g>
       </svg>
     </div>
-    {% if user.is_authenticated %} {% include "auth_header.html" %} {% else %}
-    {% include "no_auth_header.html" %} {% endif %}
+    {% if user.is_authenticated %}
+      {% include "auth_header.html" %}
+    {% else %}
+      {% include "no_auth_header.html" %}
+    {% endif %}
     <center>
-      {% block content %} {% endblock content %}
-      <div
-        id="custom_toast"
-        class="fixed bottom-0 text-sm rounded-2xl bg-neutral-900/70 backdrop-blur-xl shadow-inset-white text-neutral-100 flex items-center gap-2"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6 text-amber-400"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
-          />
+      {% block content %}
+      {% endblock content %}
+      <div id="custom_toast"
+           class="fixed bottom-0 text-sm rounded-2xl bg-neutral-900/70 backdrop-blur-xl shadow-inset-white text-neutral-100 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             fill="none"
+             viewBox="0 0 24 24"
+             stroke-width="1.5"
+             stroke="currentColor"
+             class="w-6 h-6 text-amber-400">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
         </svg>
         <span></span>
       </div>
     </center>
     <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
     {% if user.is_authenticated %}
-    <script>
+      <script>
       let deferredPrompt;
       const addBtn = document.getElementById('installapp');
       addBtn.classList.add("hidden")
@@ -353,15 +308,16 @@
         }
       });
       {% endif %}
-    </script>
-    {% block scripts %} {% endblock scripts %}
-    <script>
+      </script>
+      {% block scripts %}
+      {% endblock scripts %}
+      <script>
       const options = { color: 'rgb(0, 210, 210)', zIndex: '-1' };
       {% if user.is_authenticated %}
       webpushr('attributes', { "username": "{{user.username}}" });
       {% endif %}
-    </script>
-    <script>
+      </script>
+      <script>
       window.chatwootSettings = {"position":"right","type":"standard","launcherTitle":"Lead Confirmation"};
       (function(d,t) {
         var BASE_URL="https://chat.fossbu.co";
@@ -377,9 +333,9 @@
           })
         }
       })(document,"script");
-    </script>
-    {% if user.is_authenticated %}
-    <script type="text/javascript">
+      </script>
+      {% if user.is_authenticated %}
+        <script type="text/javascript">
       window.addEventListener("chatwoot:ready", function () {
       window.$chatwoot.setUser("{{ user.username }}", {
         email: "{{ user.email }}",
@@ -396,9 +352,9 @@
         testing: "okoko"
       });
       });
-    </script>
-    {% endif %}
-    <script>
+        </script>
+      {% endif %}
+      <script>
       const mobileMenuButton = document.getElementById("mobile-menu-button");
       const mobileMenu = document.getElementById("mobile-menu");
       const menuIconLines = mobileMenuButton.querySelectorAll("span");
@@ -430,8 +386,8 @@
           menuIconLines[1].classList.remove("-rotate-45", "-translate-y-1.5");
         }
       });
-    </script>
-    <script>
+      </script>
+      <script>
       // Initialize AOS
       AOS.init({
         offset: 50,
@@ -442,8 +398,8 @@
         mirror: false,
         anchorPlacement: "top-bottom",
       });
-    </script>
-    <script>
+      </script>
+      <script>
       function showToast(message, time, type = "INFO") {
         const toastVariants = {
           DEBUG: {
@@ -509,15 +465,15 @@
           "WARNING"
         );
       }
-    </script>
-    {% if messages %}
-    <script>
+      </script>
+      {% if messages %}
+        <script>
       document.addEventListener('DOMContentLoaded', function() {
         {% for msg in messages %}
           showToast("{{ msg|escapejs }}", 3000, "{{ msg.tags }}");
         {% endfor %}
       });
-    </script>
-    {% endif %}
-  </body>
-</html>
+        </script>
+      {% endif %}
+    </body>
+  </html>

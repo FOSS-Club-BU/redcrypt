@@ -1,290 +1,134 @@
 {% extends "base.html" %}
 {% load static %}
 {% block head_title %}
-  Join Re-Dcrypt
+  Sign Up
 {% endblock head_title %}
 {% block head %}
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
   <style>
-  .form-step {
-    display: none;
+@keyframes fadeIn {
+  from {
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease-in-out;
+    transform: translateY(10px);
   }
-
-  .form-step.active {
-    display: block;
+  to {
     opacity: 1;
     transform: translateY(0);
   }
-
-  .form-field {
-    margin-bottom: 1.5rem;
-  }
-
-  .form-field input {
-    width: 100%;
-    padding: 1rem;
-    background-color: rgb(23, 23, 23, 0.7);
-    box-shadow: inset 0 2px 0px -0.5px rgba(255, 255, 255, 0.1);
-    border-radius: 999px;
-    color: #08b74f;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(13.5px);
-    -webkit-backdrop-filter: blur(13.5px);
-  }
-
-  .form-field input:focus {
-    outline: none;
-    background: rgba(8, 183, 79, 0.1);
-    box-shadow: inset 0 2px 0px -0.5px rgba(255, 255, 255, 0.1);
-  }
-
-  .form-field label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #08b74f;
-    font-weight: 500;
-  }
-
-  .errorlist {
-    color: #ef4444;
-    font-size: 0.875rem;
-    margin-top: 0.5rem;
-  }
+}
 
   #id_hcaptcha {
     margin: 1rem auto;
     display: block;
   }
-
-  .step-progress {
-    display: flex;
-    align-items: center;
-    margin-bottom: 2rem;
+  
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-
-  .step-number {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(8, 183, 79, 0.1);
-    border: 2px solid #08b74f;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #08b74f;
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
-
-  .step-number.active {
-    background: #08b74f;
-    color: black;
-  }
-
-  .step-line {
-    flex: 1;
-    height: 2px;
-    background: rgba(8, 183, 79, 0.2);
-    margin: 0 10px;
-  }
-
-  .step-line.active {
-    background: #08b74f;
-  }
-
-  .welcome-card {
-    position: relative;
-    overflow: hidden;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    border-right: 1px solid rgba(8, 183, 79, 0.2);
-    min-height: calc(100vh - 150px);
-  }
-
-  .welcome-card .content {
-    position: relative;
-    z-index: 1;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .welcome-card .logos {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    padding: 3rem;
-  }
-
-  .welcome-text {
-    padding: 2rem;
-    margin-top: auto;
-  }
-
-  .welcome-text h2 {
-    font-size: 4rem;
-    font-weight: 900;
-    line-height: 1.1;
-    color: #fff;
-    text-align: left;
-  }
-
-  @media (max-width: 768px) {
-    .welcome-card {
-      height: 250px;
-      border-right: none;
-      border-bottom: 1px solid rgba(8, 183, 79, 0.2);
-      margin-bottom: 0;
-      min-height: auto;
-    }
-    
-    .welcome-text h2 {
-      font-size: 2.5rem;
-      text-align: center;
-    }
-    
-    .welcome-text h2 span {
-      display: inline;
-      margin-right: 0.5rem;
-    }
-
-    .form-container {
-      min-height: auto;
-    }
-
-    .welcome-card .logos {
-      padding: 2rem;
-    }
-  }
-
-  .gradient-text-green {
-    background: linear-gradient(135deg, #08b74f 0%, #002a2a 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .form-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
-    position: relative;
-    padding-bottom: 5rem;
-  }
-
-  .form-content {
-    flex: 1;
-  }
-
-  .form-buttons {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1.5rem;
-  }
-
-  .step-header {
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-
-  .form-fields {
-    text-align: left;
-  }
-
-  /* Password strength bar styling */
-  #passwordStrengthBar {
-    width: 100%;
-    height: 6px;
-    background-color: #ef4444;
-    border-radius: 999px;
-    transition: background-color 0.3s;
-  }
-
-  .required-field label::after {
-    content: " *";
-    color: #ef4444;
-  }
-
-  .strength-meter {
-    width: 90%;
-    margin-top: 0.5rem;
-    margin-left: auto;
-    margin-right: auto;
-    transition: opacity 0.3s;
-    animation: strengthMeterAppear 0.3s ease-out forwards;
-  }
-
-  @keyframes strengthMeterAppear {
-    0% {
-      transform: translateY(-10px);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  .strength-label {
-    margin-bottom: 0.25rem;
-    color: #08b74f;
-    font-size: 0.875rem;
-    transition: color 0.3s;
-  }
-
-  .strength-bars {
-    display: flex;
-    justify-content: space-between;
-    gap: 3px;
-  }
-
-  .strength-bar {
-    flex: 1;
-    height: 6px;
-    background-color: #ef4444; /* initial red color */
-    transition: width 0.3s, background-color 0.3s;
-    border-radius: 999px;
-  }
-
-  .hidden {
-    display: none;
-  }
-
-  .visible {
-    display: block;
+  to {
     opacity: 1;
+    transform: translateY(0);
   }
+}
 
-  .material-symbols-outlined#togglePassword1,
-  .material-symbols-outlined#togglePassword2 {
-    color: #aaa;
-  }
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeOut {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes wave {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(-20deg); }
+  40% { transform: rotate(10deg); }
+  60% { transform: rotate(-10deg); }
+  80% { transform: rotate(5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.strength-ring circle {
+  stroke-linecap: round;
+  transform-origin: center;
+  transform: rotate(-90deg);
+}
+
+.strength-ring.strength-weak circle { 
+  stroke: rgb(239 68 68);
+}
+
+.strength-ring.strength-medium circle { 
+  stroke: rgb(245 158 11);
+}
+
+.strength-ring.strength-strong circle { 
+  stroke: rgb(16 185 129);
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out forwards;
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.3s ease-out;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-fadeOut {
+  animation: fadeOut 0.3s ease-out forwards;
+}
+
+.animate-wave {
+  animation: wave 2s ease-in-out infinite;
+  transform-origin: 70% 70%;
+}
   </style>
+  <script>
+    // Set welcome message before page loads
+    const messages = [
+      "Ready to start the hunt?",
+      "Your journey begins here",
+      "Time to join the elite",
+      "Prepare for the challenge",
+      "Welcome, future cryptographer",
+      "The puzzle awaits you",
+      "Ready to decode reality?",
+      "Join the cipher society",
+      "Your first puzzle: signup",
+      "Begin your quest",
+      "Challenge accepted?",
+      "Initiate sequence...",
+      "Access granted... almost",
+      "Identity verification required",
+      "Encryption in progress..."
+    ];
+    const welcomeMessage = messages[Math.floor(Math.random() * messages.length)];
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('welcomeText').textContent = welcomeMessage;
+      document.getElementById('welcomeTextMobile').textContent = welcomeMessage;
+    });
+  </script>
 {% endblock head %}
 {% block content %}
-  <div class="justify-center px-4 py-8">
-    <div class="max-w-7xl mx-auto min-h-[calc(100vh-150px)] flex items-stretch">
-      <!-- Combined Card Container -->
+  <div class="justify-center px-4 pb-8 md:pt-4 flex items-center">
+    <div class="max-w-5xl mx-auto flex items-stretch h-auto">
       <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl overflow-hidden flex-1 flex flex-col md:flex-row">
         <div class="flex flex-col md:flex-row w-full">
           <!-- Welcome Card -->
-          <div class="md:w-1/2 welcome-card hidden md:block"
-               data-aos="fade-right"
-               data-aos-duration="800">
+          <div class="md:w-[400px] min-h-[500px] relative overflow-hidden h-full bg-black/30 animate-fadeIn hidden md:block">
             <svg width="100%"
                  height="100%"
                  viewBox="0 0 800 800"
-                 style="position: absolute;
-                        top: 0;
-                        left: 0;
-                        z-index: 0">
+                 class="absolute top-0 left-0 z-0">
               <defs>
               <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">
               <feGaussianBlur stdDeviation="105" in="SourceGraphic" result="blur"></feGaussianBlur>
@@ -292,655 +136,628 @@
               </defs>
               <g filter="url(#bb-filter)">
               <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f"></ellipse>
-              <ellipse rx="277.5" ry="70.5" cx="609" cy="577" fill="#2e90fa"></ellipse>
+              <ellipse rx="500" ry="70.5" cx="0" cy="800" fill="#2e90fa"></ellipse>
               </g>
             </svg>
-            <div class="content">
-              <div class="logos">
+            <div class="relative z-10 h-full flex flex-col justify-between">
+              <div class="flex justify-between items-start p-12">
                 <img src="{% static 'foss-bu-dark.png' %}"
                      alt="FOSS BU"
                      class="h-8 md:h-12 w-auto"
-                     height="auto"
-                     width="auto">
+                     width="48"
+                     height="48">
                 <img src="{% static 'logo.svg' %}"
                      alt="Re-Dcrypt"
                      class="h-8 md:h-12 w-auto"
-                     height="auto"
-                     width="auto">
+                     width="48"
+                     height="48">
               </div>
-              <div class="welcome-text">
-                <h2>
-                  <span class="block text-white/80">Let's</span>
-                  <span class="block text-white/80">Get You</span>
-                  <span class="block text-white/80">Started</span>
+              <div>
+                <h2 class="text-5xl font-black leading-tight text-white text-start p-8">
+                  <span class="text-white/80" id="welcomeText"></span>
                 </h2>
               </div>
             </div>
           </div>
           <!-- Mobile Welcome Card -->
-          <div class="md:hidden welcome-card"
-               data-aos="fade-down"
-               data-aos-duration="800">
+          <div class="md:hidden relative overflow-hidden h-full bg-black/30 animate-fadeIn">
             <svg width="100%"
                  height="100%"
                  viewBox="0 0 800 800"
-                 style="position: absolute;
-                        top: 0;
-                        left: 0;
-                        z-index: 0">
+                 class="absolute top-0 left-0 z-0">
               <defs>
-              <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">
+              <filter id="bb-filter-mobile" x="-100%" y="-100%" width="400%" height="400%">
               <feGaussianBlur stdDeviation="105" in="SourceGraphic" result="blur"></feGaussianBlur>
               </filter>
               </defs>
-              <g filter="url(#bb-filter)">
+              <g filter="url(#bb-filter-mobile)">
               <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f"></ellipse>
               <ellipse rx="277.5" ry="70.5" cx="609" cy="577" fill="#2e90fa"></ellipse>
               </g>
             </svg>
-            <div class="content">
-              <div class="logos">
+            <div class="relative z-10 h-full flex flex-col justify-between">
+              <div class="flex justify-between items-start px-12 pt-12 pb-6">
                 <img src="{% static 'foss-bu-dark.png' %}"
                      alt="FOSS BU"
                      class="h-8 md:h-12 w-auto"
-                     height="auto"
-                     width="auto">
+                     width="48"
+                     height="48">
                 <img src="{% static 'logo.svg' %}"
                      alt="Re-Dcrypt"
                      class="h-8 md:h-12 w-auto"
-                     height="auto"
-                     width="auto">
+                     width="48"
+                     height="48">
               </div>
-              <div class="welcome-text">
-                <h2>
-                  <span class="block text-white/80">Let's</span>
-                  <span class="block text-white/80">Get You</span>
-                  <span class="block text-white/80">Started</span>
+              <div class="p-6">
+                <h2 class="text-4xl md:text-6xl font-black leading-tight text-white text-center md:text-left">
+                  <span class="block text-white/80" id="welcomeTextMobile"></span>
                 </h2>
               </div>
             </div>
           </div>
           <!-- Form Section -->
-          <div class="md:w-2/3 flex-1" data-aos="fade-up" data-aos-duration="800">
-            <div class="form-container h-full">
-            <form class="signup h-full"
-                  id="signup_form"
-                  method="post"
-                  action="{% url 'account_signup' %}">
-              {% csrf_token %}
-                <div class="form-content p-8">
-                  <div class="step-progress mb-8"
-                       data-aos="fade"
-                       data-aos-duration="800"
-                       data-aos-delay="200">
-                    <div class="step-number active">1</div>
-                    <div class="step-line"></div>
-                    <div class="step-number">2</div>
-                    <div class="step-line"></div>
-                    <div class="step-number">3</div>
-                  </div>
-                  <!-- Step 1: Basic Info -->
-                  <div class="form-step active"
-                       data-step="1"
-                       data-aos="fade-up"
-                       data-aos-duration="800"
-                       data-aos-delay="300">
-                    <div class="step-header flex flex-col items-center mb-6">
+          <div class="md:w-[500px] flex-1">
+            <div class="flex flex-col min-h-full">
+              <form method="post"
+                    action="{% url 'account_signup' %}"
+                    class="h-full"
+                    id="signup_form">
+                {% csrf_token %}
+                <!-- Form Steps -->
+                <div class="flex-1 animate-slideUp p-6 min-h-[450px]">
+                  <!-- Step 1: Email -->
+                  <div data-step="1"
+                       data-active="true"
+                       class="data-[active=true]:block hidden animate-fadeIn">
+                    <div class="flex flex-col items-center mb-8">
                       <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
-                        <span class="material-symbols-outlined text-3xl">mail</span>
+                        <i class="ph-fill ph-hand-waving text-2xl animate-wave"></i>
                       </span>
-                      <div>
-                        <h2 class="text-xl font-bold text-green-500">Let's get started</h2>
-                        <p class="text-neutral-400">Enter your basic information to create your account</p>
+                      <div class="text-center">
+                        <h2 class="text-xl font-bold text-green-500">Join Re-Dcypt</h2>
+                        <p class="text-neutral-400 text-sm mt-2">
+                          Already have an account?
+                          <a href="{% url 'account_login' %}"
+                             class="text-green-500 hover:underline">Login</a>
+                        </p>
                       </div>
                     </div>
-                    <div class="form-fields">
-                      <div class="form-field required-field">
-                        <label for="id_email">Email</label>
-                        {{ form.email }}
-                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden"
-                           id="email-error"></p>
+                    <div class="space-y-6">
+                      <div class="flex flex-col gap-y-2">
+                        <label for="id_email"
+                               class="text-sm font-medium text-gray-400 text-start mx-1">Email</label>
+                        <input type="email"
+                               name="email"
+                               id="id_email"
+                               placeholder="Enter your email"
+                               class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
                       </div>
-                      <div class="form-field required-field">
-                        <label for="id_username">Username</label>
-                        {{ form.username }}
-                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden"
-                           id="username-error"></p>
+                    </div>
+                    <div class="mt-6">
+                      <button type="button"
+                              class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold next-btn-email flex flex-row items-center justify-center gap-x-2">
+                        <i class="ph-bold ph-paper-plane-tilt"></i>
+                        Continue with E-mail
+                      </button>
+                      <div class="my-4 flex items-center">
+                        <div class="flex-grow border-t border-neutral-700"></div>
+                        <span class="mx-4 flex-shrink text-neutral-400 text-sm">OR</span>
+                        <div class="flex-grow border-t border-neutral-700"></div>
                       </div>
+                      <div class="flex items-center justify-center w-full">{% include "components/google_onetap.html" %}</div>
                     </div>
                   </div>
-                  <!-- Step 2: Security -->
-                  <div class="form-step"
-                       data-step="2"
-                       data-aos="fade-up"
-                       data-aos-duration="800"
-                       data-aos-delay="300">
-                    <div class="step-header flex flex-col items-center mb-6">
-                      <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-600/20 text-purple-500 mb-4">
-                        <span class="material-symbols-outlined text-3xl">lock</span>
+                  <!-- Step 2: Username & Password -->
+                  <div data-step="2"
+                       data-active="false"
+                       class="data-[active=true]:block hidden">
+                    <div class="flex flex-col items-center mb-8">
+                      <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
+                        <i class="ph-fill ph-gear text-2xl animate-spin"></i>
                       </span>
-                      <div>
-                        <h2 class="text-xl font-bold text-purple-500">Secure your account</h2>
-                        <p class="text-neutral-400">Choose a strong password to protect your account</p>
+                      <div class="text-center">
+                        <h2 class="text-xl font-bold text-green-500">Set Up Your Account</h2>
+                        <p class="text-neutral-400 text-sm mt-2">Choose a unique username and a strong password.</p>
                       </div>
                     </div>
-                    <div class="form-fields">
-                      <div class="form-field required-field">
-                        <label for="id_password1">Password</label>
+                    <div class="space-y-6">
+                      <div class="flex flex-col gap-y-2">
+                        <label for="id_username"
+                               class="text-sm font-medium text-gray-400 text-start mx-1">Username</label>
+                        <input type="text"
+                               name="username"
+                               id="id_username"
+                               required
+                               placeholder="Choose a username"
+                               class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
+                      </div>
+                      <div class="flex flex-col gap-y-2">
+                        <label for="id_password"
+                               class="text-sm font-medium text-gray-400 text-start mx-1">Password</label>
                         <div class="relative">
-                          {{ form.password1 }}
-                          <span class="material-symbols-outlined cursor-pointer text-xl absolute top-3 right-3"
-                                id="togglePassword1">visibility</span>
-                        </div>
-                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden"
-                           id="password1-error"></p>
-                        <!-- Strength meter container -->
-                        <div id="passwordStrengthContainer" class="strength-meter hidden">
-                          <div class="strength-label" id="strengthLabel">Password Strength</div>
-                          <div class="strength-bars">
-                            <div class="strength-bar" id="bar1"></div>
-                            <div class="strength-bar" id="bar2"></div>
-                            <div class="strength-bar" id="bar3"></div>
+                          <input type="password"
+                                 name="password"
+                                 id="id_password"
+                                 required
+                                 placeholder="Enter password"
+                                 class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 pr-16 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
+                          <div class="absolute right-10 top-1/2 -translate-y-1/2 z-20">
+                            <div class="relative">
+                              <svg width="20"
+                                   height="20"
+                                   viewBox="0 0 24 24"
+                                   class="strength-ring cursor-pointer text-neutral-400"
+                                   id="strengthIndicator">
+                                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5" class="text-neutral-700/50"></circle>
+                                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5" class="transition-all duration-300" style="stroke-dasharray: 63; stroke-dashoffset: 63"></circle>
+                              </svg>
+                              <!-- Password Requirements Popup -->
+                              <div class="absolute -right-2 top-7 w-64 bg-neutral-900/95 border border-neutral-800 rounded-xl backdrop-blur-md shadow-lg transform opacity-0 scale-95 transition-all duration-200 pointer-events-none z-50"
+                                   id="passwordRequirements">
+                                <div class="p-4">
+                                  <h3 class="text-sm text-neutral-300 mb-3 font-bold">Password Requirements</h3>
+                                  <div class="space-y-2 text-xs requirements-list"></div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
+                          <i class="ph-fill ph-eye cursor-pointer text-xl absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400"
+                             id="togglePassword"></i>
                         </div>
-                      </div>
-                      <div class="form-field required-field">
-                        <label for="id_password2">Confirm Password</label>
-                        <div class="relative">
-                          {{ form.password2 }}
-                          <span class="material-symbols-outlined cursor-pointer text-xl absolute top-3 right-3"
-                                id="togglePassword2">visibility</span>
-                        </div>
-                        <p class="error-message text-red-500 text-sm mt-1 ml-2 hidden"
-                           id="password2-error"></p>
                       </div>
                     </div>
+                    <!-- Step Indicator -->
+                    <div class="flex justify-center gap-4 mt-8">
+                      <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
+                      <div class="w-2 h-2 rounded-full bg-green-500 scale-125"></div>
+                      <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
+                    </div>
+                    <!-- Form Navigation -->
+                    <div class="mt-6 flex flex-col md:flex-row gap-4">
+                      <button type="button"
+                              class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2 back-btn">
+                        <i class="ph-bold ph-arrow-left"></i>
+                        <span>Back</span>
+                      </button>
+                      <button type="button"
+                              class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2 next-btn">
+                        <i class="ph-bold ph-arrow-right"></i>
+                        <span>Continue</span>
+                      </button>
+                    </div>
                   </div>
-                  <!-- Step 3: Optional Info -->
-                  <div class="form-step"
-                       data-step="3"
-                       data-aos="fade-up"
-                       data-aos-duration="800"
-                       data-aos-delay="300">
-                    <div class="step-header flex flex-col items-center mb-6">
-                      <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600/20 text-blue-500 mb-4">
-                        <span class="material-symbols-outlined text-3xl">person</span>
+                  <!-- Step 3: Profile Details -->
+                  <div data-step="3"
+                       data-active="false"
+                       class="data-[active=true]:block hidden">
+                    <div class="flex flex-col items-center mb-8">
+                      <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
+                        <i class="ph-fill ph-identification-card text-2xl"></i>
                       </span>
-                      <div>
-                        <h2 class="text-xl font-bold text-blue-500">Almost there!</h2>
-                        <p class="text-neutral-400">Add some optional details about yourself</p>
+                      <div class="text-center">
+                        <h2 class="text-xl font-bold text-green-500">Complete Your Profile</h2>
+                        <p class="text-neutral-400 text-sm mt-2">Just a few more details to get you started</p>
                       </div>
                     </div>
-                    <div class="form-fields">
-                      <div class="form-field">
-                        <label for="id_name">Full Name</label>
-                        {{ form.name }}
+                    <div class="space-y-6">
+                      <div class="flex flex-col gap-y-2">
+                        <label for="id_name"
+                               class="text-sm font-medium text-gray-400 text-start mx-1">Full Name</label>
+                        <input type="text"
+                               name="name"
+                               id="id_name"
+                               required
+                               placeholder="Enter your full name"
+                               class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
                       </div>
-                      <div class="form-field">
-                        <label for="id_organization">School/Organization</label>
-                        {{ form.organization }}
+                      <div class="flex flex-col gap-y-2">
+                        <label for="id_organization"
+                               class="text-sm font-medium text-gray-400 text-start mx-1">School/Organization</label>
+                        <input type="text"
+                               name="organization"
+                               id="id_organization"
+                               required
+                               placeholder="Enter your school or organization"
+                               class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
                       </div>
-                      <div class="form-field">{{ form.hcaptcha }}</div>
+                      <div class="flex justify-center mt-4">
+                        <div class="h-captcha" data-sitekey="{{ HCAPTCHA_SITEKEY }}">{{ form.hcaptcha }}</div>
+                      </div>
+                    </div>
+                    <!-- Step Indicator -->
+                    <div class="flex justify-center gap-4 mt-8">
+                      <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
+                      <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
+                      <div class="w-2 h-2 rounded-full bg-green-500 scale-125"></div>
+                    </div>
+                    <!-- Form Navigation -->
+                    <div class="mt-6 flex flex-col md:flex-row gap-4">
+                      <button type="button"
+                              class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2 back-btn">
+                        <i class="ph-bold ph-arrow-left"></i>
+                        <span>Back</span>
+                      </button>
+                      <button type="submit"
+                              class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2">
+                        <i class="ph-fill ph-user-check"></i>
+                        <span>Complete Signup</span>
+                      </button>
                     </div>
                   </div>
                 </div>
-                <!-- Form Buttons - Step 1 -->
-                <div class="form-buttons" data-step="1">
-                  <button type="button"
-                          class="next-step w-full bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300">
-                    Continue
-                  </button>
-                </div>
-                <!-- Form Buttons - Step 2 -->
-                <div class="form-buttons hidden" data-step="2">
-                  <div class="flex gap-3">
-                    <button type="button"
-                            class="prev-step flex-1 bg-neutral-900/70 shadow-inset-white hover:bg-red-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300">
-                      Back
-                    </button>
-                    <button type="button"
-                            class="next-step flex-1 bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300">
-                      Continue
-                    </button>
-                  </div>
-                </div>
-                <!-- Form Buttons - Step 3 -->
-                <div class="form-buttons hidden" data-step="3">
-                  <div class="flex gap-3">
-                    <button type="button"
-                            class="prev-step flex-1 bg-neutral-900/70 shadow-inset-white hover:bg-red-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300">
-                      Back
-                    </button>
-                    <button type="submit"
-                            class="flex-1 bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300">
-                      Complete Signup
-                    </button>
-                  </div>
-                  <p class="text-neutral-400 text-xs mt-4 text-center">
+                <div class="px-6">
+                  <p class="text-neutral-400 text-xs pb-6 text-center">
                     By signing up, you agree to Re-Dcrypt's
-                    <a href="/terms-and-conditions/" class="text-green-500 hover:underline">Terms of Service</a> and
-                    <a href="/privacy-policy/" class="text-green-500 hover:underline">Privacy Policy</a>
+                    <a href="{% url 'terms_and_conditions' %}"
+                       class="text-green-500 hover:underline">Terms of Service</a> and
+                    <a href="{% url 'privacy_policy' %}"
+                       class="text-green-500 hover:underline">Privacy Policy</a>
                   </p>
                 </div>
               </form>
-              {% include 'components/google_onetap.html' %}
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  {% if form.errors %}
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+  {% for field in form %}
+    {% for error in field.errors %}showToast("{{ error|escapejs }}", 3000, "ERROR");{% endfor %}
+  {% endfor %}
+});
+    </script>
+  {% endif %}
   <script>
+// Welcome Messages
+const signupMessages = [
+  "Ready to start the hunt?",
+  "Your journey begins here",
+  "Time to join the elite",
+  "Prepare for the challenge",
+  "Welcome, future cryptographer",
+  "The puzzle awaits you",
+  "Ready to decode reality?",
+  "Join the cipher society",
+  "Your first puzzle: signup",
+  "Begin your quest",
+  "Challenge accepted?",
+  "Initiate sequence...",
+  "Access granted... almost",
+  "Identity verification required",
+  "Encryption in progress..."
+];
+
+// Function to check if email/username exists
+async function checkEmail(email) {
+  try {
+    const response = await fetch('/accounts/check-email/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+      },
+      body: JSON.stringify({ email })
+    });
+    
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error checking email:', error);
+    return { exists: false };
+  }
+}
+
+async function checkUsername(username) {
+  try {
+    const response = await fetch('/accounts/check-username/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+      },
+      body: JSON.stringify({ username })
+    });
+    
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error checking username:', error);
+    return { exists: false };
+  }
+}
+
+// Function to check password strength
+function checkPasswordStrength(password) {
+  // Simple password strength check
+  let score = 0;
+  
+  // Length check
+  if (password.length >= 8) score++;
+  
+  // Contains number
+  if (/\d/.test(password)) score++;
+  
+  // Contains lowercase
+  if (/[a-z]/.test(password)) score++;
+  
+  // Contains uppercase
+  if (/[A-Z]/.test(password)) score++;
+  
+  // Contains special character
+  if (/[^A-Za-z0-9]/.test(password)) score++;
+  
+  return { score };
+}
+
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('signup_form');
-  const steps = form.querySelectorAll('.form-step');
-  const stepNumbers = document.querySelectorAll('.step-number');
-  const stepLines = document.querySelectorAll('.step-line');
+  const nextBtnEmail = form.querySelector('.next-btn-email');
+  const nextBtn = form.querySelector('.next-btn');
+  const backBtns = form.querySelectorAll('.back-btn');  // Select all back buttons
   let currentStep = 1;
 
-  function showStep(stepNumber) {
-    steps.forEach(step => {
-      step.classList.remove('active');
-      if (step.dataset.step == stepNumber) {
-        step.classList.add('active');
-      }
-    });
+  // Show/hide elements based on current step
+  function updateFormNavigation() {
+    const steps = form.querySelectorAll('[data-step]');
+    const oldStep = [...steps].find(s => s.dataset.active === 'true');
+    if (oldStep) {
+      oldStep.classList.remove('animate-fadeIn');
+      oldStep.classList.add('animate-fadeOut');
+      oldStep.dataset.active = 'false';
+    }
 
-    // Update step indicators
-    stepNumbers.forEach((number, index) => {
-      if (index < stepNumber) {
-        number.classList.add('active');
-      } else {
-        number.classList.remove('active');
-      }
-    });
-
-    // Update connecting lines
-    stepLines.forEach((line, index) => {
-      if (index < stepNumber - 1) {
-        line.classList.add('active');
-      } else {
-        line.classList.remove('active');
-      }
-    });
-
-    // Update buttons visibility
-    document.querySelectorAll('.form-buttons').forEach(buttons => {
-      buttons.classList.add('hidden');
-    });
-    document.querySelector(`.form-buttons[data-step="${stepNumber}"]`).classList.remove('hidden');
+    setTimeout(() => {
+      steps.forEach(step => {
+        if (parseInt(step.dataset.step) === currentStep) {
+          step.classList.remove('hidden', 'animate-fadeOut');
+          step.classList.add('animate-fadeIn');
+          step.dataset.active = 'true';
+        } else {
+          step.classList.add('hidden');
+        }
+      });
+    }, 300);
   }
 
-  // Event listeners for navigation
-  document.querySelectorAll('.next-step').forEach(button => {
-    button.addEventListener('click', async () => {
-      if (await validateCurrentStep()) {
-        currentStep++;
-        showStep(currentStep);
+  // Handle back button clicks
+  backBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (currentStep > 1) {
+        currentStep--;
+        updateFormNavigation();
       }
     });
   });
 
-  document.querySelectorAll('.prev-step').forEach(button => {
-    button.addEventListener('click', () => {
-      currentStep--;
-      showStep(currentStep);
-    });
-  });
-
-  // Validation function
-  // async function validateCurrentStep() {
-  //   const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
-  //   const inputs = currentStepEl.querySelectorAll('input[required]');
-  //   let isValid = true;
-
-  //   inputs.forEach(input => {
-  //     if (!input.value) {
-  //       isValid = false;
-  //       input.classList.add('border-red-500');
-  //     } else {
-  //       input.classList.remove('border-red-500');
-  //     }
-  //   });
-
-  //   if (currentStep === 1) {
-  //     const emailVal = document.getElementById('id_email')?.value.trim();
-  //     const usernameVal = document.getElementById('id_username')?.value.trim();
-  //     if (emailVal && usernameVal) {
-  //       const { emailExists, usernameExists } = await checkEmailUsername(emailVal, usernameVal);
-  //       if (emailExists) {
-  //         showToast('Email already in use.', 3000);
-  //         isValid = false;
-  //       }
-  //       if (usernameExists) {
-  //         showToast('Username already taken.', 3000);
-  //         isValid = false;
-  //       }
-  //     }
-  //   }
-
-  //   // Password validation for step 2
-  //   if (currentStep === 2) {
-  //     const password1 = document.getElementById('id_password1');
-  //     const password2 = document.getElementById('id_password2');
-      
-  //     if (password1.value !== password2.value) {
-  //       isValid = false;
-  //       password2.classList.add('border-red-500');
-  //       showError('Passwords do not match');
-  //     }
-  //   }
-
-  //   if (currentStep === 3) {
-  //     const captchaPassed = await checkCaptcha();
-  //     if (!captchaPassed) {
-  //       showToast('Captcha verification failed.', 3000);
-  //       isValid = false;
-  //     }
-  //   }
-
-  //   if (!isValid) {
-  //     showToast('Please ensure all required fields are properly filled.', 3000);
-  //   }
-  //   return isValid;
-  // }
-
-  // Error display function
-  function showError(message) {
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'errorlist';
-    errorDiv.textContent = message;
-    
-    // Remove existing error messages
-    const existingErrors = document.querySelectorAll('.errorlist');
-    existingErrors.forEach(err => err.remove());
-    
-    const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
-    currentStepEl.appendChild(errorDiv);
-  }
-
-  // Handle form submission
-  form.addEventListener('submit', (e) => {
-    if (!validateCurrentStep()) {
-      e.preventDefault();
-    }
-  });
-
-  // Password toggles
-  const togglePassword1 = document.getElementById('togglePassword1');
-  const password1Input = document.getElementById('id_password1');
-  togglePassword1.addEventListener('click', () => {
-    if (password1Input.type === 'password') {
-      password1Input.type = 'text';
-      togglePassword1.textContent = 'visibility_off';
-    } else {
-      password1Input.type = 'password';
-      togglePassword1.textContent = 'visibility';
-    }
-  });
-
-  const togglePassword2 = document.getElementById('togglePassword2');
-  const password2Input = document.getElementById('id_password2');
-  togglePassword2.addEventListener('click', () => {
-    if (password2Input.type === 'password') {
-      password2Input.type = 'text';
-      togglePassword2.textContent = 'visibility_off';
-    } else {
-      password2Input.type = 'password';
-      togglePassword2.textContent = 'visibility';
-    }
-  });
-
-  // Password strength checker
-  password1Input.addEventListener('input', updatePasswordStrength);
-
-  function updatePasswordStrength() {
-    const val = password1Input.value;
-    const container = document.getElementById('passwordStrengthContainer');
-    const label = document.getElementById('strengthLabel');
-    const bars = [document.getElementById('bar1'), document.getElementById('bar2'), document.getElementById('bar3')];
-
-    // Show/hide meter container
-    if (!val.length) {
-      container.classList.remove('visible');
-      container.classList.add('hidden');
+  // Handle email button click
+  nextBtnEmail.addEventListener('click', async () => {
+    const email = form.querySelector('[name="email"]').value;
+    if (!validateEmail(email)) {
+      showToast('Please enter a valid email address', 3000, 'ERROR');
       return;
-    } else {
-      container.classList.remove('hidden');
-      container.classList.add('visible');
     }
-
-    // Strength checks
-    let score = 0;
-    const lengthCheck = val.length >= 8;
-    const hasUppercase = /[A-Z]/.test(val);
-    const hasSpecial = /[^a-zA-Z0-9]/.test(val);
-    if (lengthCheck) score++;
-    if (hasUppercase) score++;
-    if (hasSpecial) score++;
-
-    // Reset bars to red
-    bars.forEach(bar => bar.style.backgroundColor = '#ef4444');
-
-    // Update bars and label colors
-    if (score === 3) {
-      bars.forEach(bar => bar.style.backgroundColor = '#22c55e'); // green
-      label.textContent = 'Strength: Good';
-      label.style.color = '#22c55e';
-    } else if (score === 2) {
-      bars[0].style.backgroundColor = '#f59e0b'; // yellow
-      bars[1].style.backgroundColor = '#f59e0b';
-      label.textContent = 'Strength: Medium';
-      label.style.color = '#f59e0b';
-    } else {
-      label.textContent = 'Strength: Bad';
-      label.style.color = '#ef4444';
-    }
-  }
-
-  // Overwrite validateCurrentStep to prevent bad password proceed
-  async function validateCurrentStep() {
-    const currentStepEl = document.querySelector('.form-step.active');
-    const inputs = currentStepEl.querySelectorAll('input[required]');
-    let isValid = true;
-
-    // Clear previous errors first
-    document.querySelectorAll('.error-message').forEach(el => {
-      el.classList.add('hidden');
-      el.textContent = '';
-    });
     
-    inputs.forEach(input => {
-      input.classList.remove('border-red-500');
-      if (!input.value) {
-        isValid = false;
-        input.classList.add('border-red-500');
-        const errorEl = document.getElementById(`${input.id}-error`);
-        if (errorEl) {
-          errorEl.textContent = 'This field is required';
-          errorEl.classList.remove('hidden');
-        }
+    // Check if email exists
+    const emailCheck = await checkEmail(email);
+    if (emailCheck.exists) {
+      showToast('This email is already registered', 3000, 'ERROR');
+      return;
+    }
+
+    currentStep = 2;
+    updateFormNavigation();
+  });
+
+  // Handle next/submit button click
+  nextBtn.addEventListener('click', async () => {
+    if (currentStep === 2) {
+      const username = form.querySelector('[name="username"]').value;
+      const password = form.querySelector('[name="password"]').value;
+
+      if (!username || !password) {
+        showToast('Please fill in all required fields', 3000, 'ERROR');
+        return;
       }
+
+      // Check username availability
+      const usernameCheck = await checkUsername(username);
+      if (usernameCheck.exists) {
+        showToast('This username is already taken', 3000, 'ERROR');
+        return;
+      }
+
+      // Check password strength
+      const { score } = checkPasswordStrength(password);
+      if (score < 3) {
+        showToast('Password is not strong enough', 3000, 'ERROR');
+        return;
+      }
+
+      currentStep = 3;
+      updateFormNavigation();
+    }
+  });
+
+  // Add form submit handler
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const name = form.querySelector('[name="name"]').value;
+    const organization = form.querySelector('[name="organization"]').value;
+    const captchaResponse = document.querySelector('[name="h-captcha-response"]')?.value;
+
+    if (!name || !organization) {
+      showToast('Please fill in all required fields', 3000, 'ERROR');
+      return;
+    }
+
+    if (!captchaResponse) {
+      showToast('Please complete the captcha', 3000, 'ERROR');
+      return;
+    }
+
+    // If all validations pass, submit the form
+    form.submit();
+  });
+
+  // Initialize form navigation
+  updateFormNavigation();
+  
+  // Add this to your existing script section
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordInput = document.getElementById('id_password');
+  const strengthRing = document.querySelector('.strength-ring');
+
+  // Update password strength ring
+  passwordInput.addEventListener('input', function() {
+    const { score } = checkPasswordStrength(this.value);
+    const circle = strengthRing.querySelector('circle');
+    
+    // Remove existing strength classes
+    strengthRing.classList.remove('strength-weak', 'strength-medium', 'strength-strong');
+    
+    if (this.value.length === 0) {
+      circle.style.strokeDasharray = '63';
+      circle.style.strokeDashoffset = '63';
+      return;
+    }
+    
+    // Calculate circumference percentage based on score
+    const circumference = 63;
+    const offset = circumference - (score / 5) * circumference;
+    circle.style.strokeDasharray = circumference;
+    circle.style.strokeDashoffset = offset;
+    
+    // Add appropriate strength class
+    if (score <= 2) {
+      strengthRing.classList.add('strength-weak');
+    } else if (score <= 3) {
+      strengthRing.classList.add('strength-medium');
+    } else {
+      strengthRing.classList.add('strength-strong');
+    }
+  });
+
+  togglePassword.addEventListener('click', function() {
+      // Toggle the password visibility
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      
+      // Toggle the icon
+      if (type === 'password') {
+          this.classList.remove('ph-eye-slash');
+          this.classList.add('ph-eye');
+      } else {
+          this.classList.remove('ph-eye');
+          this.classList.add('ph-eye-slash');
+      }
+  });
+
+  // Strength ring and requirements popup handling
+  const strengthIndicator = document.getElementById('strengthIndicator');
+  const passwordRequirements = document.getElementById('passwordRequirements');
+  
+  function showRequirements() {
+    passwordRequirements.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+    passwordRequirements.classList.add('opacity-100', 'scale-100');
+  }
+
+  function hideRequirements() {
+    passwordRequirements.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+    passwordRequirements.classList.remove('opacity-100', 'scale-100');
+  }
+
+  // Toggle requirements on ring click
+  strengthIndicator.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (passwordRequirements.classList.contains('opacity-0')) {
+      showRequirements();
+    } else {
+      hideRequirements();
+    }
+  });
+
+  // Close on click outside
+  document.addEventListener('click', (e) => {
+    if (!passwordRequirements.contains(e.target) && e.target !== strengthIndicator) {
+      hideRequirements();
+    }
+  });
+
+  // Initialize requirements list
+  const requirementsList = passwordRequirements.querySelector('.requirements-list');
+  const requirements = [
+    { test: (p) => p.length >= 8, text: 'At least 8 characters' },
+    { test: (p) => /[A-Z]/.test(p), text: 'One uppercase letter' },
+    { test: (p) => /[a-z]/.test(p), text: 'One lowercase letter' },
+    { test: (p) => /\d/.test(p), text: 'One number' },
+    { test: (p) => /[^A-Za-z0-9]/.test(p), text: 'One special character' }
+  ];
+
+  // Populate requirements
+  requirementsList.innerHTML = requirements.map(req => `
+    <div class="flex items-center gap-2 requirement">
+      <i class="ph-bold ph-x-circle text-red-500"></i>
+      <span class="text-neutral-400">${req.text}</span>
+    </div>
+  `).join('');
+
+  // Update requirements in realtime
+  passwordInput.addEventListener('input', function() {
+    const password = this.value;
+    const { score } = checkPasswordStrength(password);
+    
+    // Update requirements list
+    requirementsList.querySelectorAll('.requirement').forEach((req, i) => {
+      const icon = req.querySelector('i');
+      const passed = requirements[i].test(password);
+      icon.className = passed ? 
+        'ph-bold ph-check-circle text-green-500' : 
+        'ph-bold ph-x-circle text-red-500';
     });
 
-    if (currentStep === 1) {
-      const emailInput = document.getElementById('id_email');
-      const usernameInput = document.getElementById('id_username');
-      const emailError = document.getElementById('email-error');
-      const usernameError = document.getElementById('username-error');
-      
-      if (emailInput.value && usernameInput.value) {
-        const { emailExists, usernameExists } = await checkEmailUsername(
-          emailInput.value.trim(),
-          usernameInput.value.trim()
-        );
-
-        if (emailExists) {
-          isValid = false;
-          emailInput.classList.add('border-red-500');
-          emailError.textContent = 'This email is already in use';
-          emailError.classList.remove('hidden');
-        }
-
-        if (usernameExists) {
-          isValid = false;
-          usernameInput.classList.add('border-red-500');
-          usernameError.textContent = 'This username is already taken';
-          usernameError.classList.remove('hidden');
-        }
-      }
+    // Update strength ring
+    const circle = strengthIndicator.querySelector('circle:last-child');
+    circle.style.strokeDasharray = '63';
+    
+    if (password.length === 0) {
+      circle.style.strokeDashoffset = '63';
+      strengthIndicator.classList.remove('text-red-500', 'text-yellow-500', 'text-green-500');
+      strengthIndicator.classList.add('text-neutral-400');
+      return;
     }
 
-    // Password validation
-    if (currentStep === 2) {
-      const password1 = document.getElementById('id_password1');
-      const password2 = document.getElementById('id_password2');
-      const password1Error = document.getElementById('password1-error');
-      const password2Error = document.getElementById('password2-error');
-      let isValid = true;
-      
-      // Reset previous error states
-      [password1, password2].forEach(input => {
-        input.classList.remove('border-red-500');
-      });
-      [password1Error, password2Error].forEach(error => {
-        error.classList.add('hidden');
-        error.textContent = '';
-      });
+    const offset = 63 - (score / 5) * 63;
+    circle.style.strokeDashoffset = offset;
 
-      // Password requirements check
-      const requirements = {
-        length: password1.value.length >= 8,
-        uppercase: /[A-Z]/.test(password1.value),
-        special: /[^a-zA-Z0-9]/.test(password1.value),
-        numbers: /[0-9]/.test(password1.value)
-      };
-
-      const errorMessages = [];
-      if (!requirements.length) errorMessages.push('at least 8 characters');
-      if (!requirements.uppercase) errorMessages.push('one uppercase letter');
-      if (!requirements.special) errorMessages.push('one special character');
-      if (!requirements.numbers) errorMessages.push('one number');
-
-      if (errorMessages.length > 0) {
-        isValid = false;
-        password1.classList.add('border-red-500');
-        password1Error.textContent = `Password must contain ${errorMessages.join(', ')}`;
-        password1Error.classList.remove('hidden');
-        
-        // Add animation to error message
-        password1Error.style.animation = 'none';
-        password1Error.offsetHeight; // Trigger reflow
-        password1Error.style.animation = 'fadeInDown 0.3s ease-out';
-      }
-
-      // Password match check
-      if (password1.value !== password2.value) {
-        isValid = false;
-        password2.classList.add('border-red-500');
-        password2Error.textContent = 'Passwords do not match';
-        password2Error.classList.remove('hidden');
-        
-        // Add animation to error message
-        password2Error.style.animation = 'none';
-        password2Error.offsetHeight; // Trigger reflow
-        password2Error.style.animation = 'fadeInDown 0.3s ease-out';
-      }
-
-      return isValid;
+    // Update ring color
+    strengthIndicator.classList.remove('text-neutral-400', 'text-red-500', 'text-yellow-500', 'text-green-500');
+    if (score <= 2) {
+      strengthIndicator.classList.add('text-red-500');
+    } else if (score <= 3) {
+      strengthIndicator.classList.add('text-yellow-500');
+    } else {
+      strengthIndicator.classList.add('text-green-500');
     }
+  });
 
-    if (currentStep === 3) {
-      const captchaPassed = await checkCaptcha();
-      console.log(captchaPassed);
-      isValid = false;
-      if (!captchaPassed) {
-        showToast('Captcha verification failed.', 3000, "ERROR");
-        isValid = false;
-      }
-    }
-
-    if (!isValid) {
-      showToast('Please ensure all required fields are properly filled.', 3000, "WARNING");
-    }
-    return isValid;
-  }
-
-  async function checkEmailUsername(email, username) {
-    // Example AJAX request for checking email + username
-    // Adjust the URL or data format as needed
-    try {
-      const response = await fetch('/account/check-unique/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
-        body: JSON.stringify({ email, username })
-      });
-      const data = await response.json();
-      return data; // Expecting { emailExists: bool, usernameExists: bool }
-    } catch (err) {
-      showToast('Error checking username/email', 2000, "ERROR");
-      return { emailExists: false, usernameExists: false };
-    }
-  }
-
-  async function checkCaptcha() {
-    const hcaptchaResponse = hcaptcha.getResponse();
-    if (!hcaptchaResponse) {
-      return false;
-    }
-    try {
-      const response = await fetch('/account/verify-captcha/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
-        body: JSON.stringify({ 'h-captcha-response': hcaptchaResponse })
-      });
-      const data = await response.json();
-      return data.captchaValid;
-    } catch (err) {
-      return false;
-    }
-  }
-
-  // Add animation keyframes
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .error-message {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-
-    .error-message:not(.hidden) {
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-    }
-  `;
-  document.head.appendChild(style);
+  document.getElementById('welcomeText').textContent =
+    signupMessages[Math.floor(Math.random() * signupMessages.length)];
+  document.getElementById('welcomeTextMobile').textContent =
+    signupMessages[Math.floor(Math.random() * signupMessages.length)];
 });
   </script>
-  {% if form.errors %}
-    <script>console.log("{{ form.errors }}");</script>
-    {% for field in form %}
-      {% for error in field.errors %}
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-
-            console.log("{{ error|escapejs }}");
-            showToast("{{ error|escapejs }}", 3000, "ERROR");
-            });
-        </script>
-      {% endfor %}
-    {% endfor %}
-  {% endif %}
 {% endblock content %}
