@@ -62,7 +62,7 @@ def verify_captcha(request):
 def profile(request):
     user = request.user
     profile = Profile.objects.get(user=user)
-    k = SocialAccount.objects.filter(user=request.user)
+    k = SocialAccount.objects.filter(user=request.user).filter(provider='discord')
     rank = get_rank(request.user)
     if len(k) > 0:
         connected = True

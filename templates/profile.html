@@ -76,11 +76,13 @@
           <div class="text-center mt-4 space-y-1">
             <div class="w-full justify-center items-center flex flex-row gap-x-2">
               <h1 class="text-3xl font-bold text-neutral-100">{{ user.username }}</h1>
-                {% if user.emailaddress_set.all.0.verified %}
-                <span class="material-symbols-outlined text-green-500 cursor-pointer" title="Email Verified">verified_user</span>
-                {% else %}
-                <span class="material-symbols-outlined text-amber-500 cursor-pointer" title="Email Pending Verification">warning</span>
-                {% endif %}
+              {% if user.emailaddress_set.all.0.verified %}
+                <span class="material-symbols-outlined text-green-500 cursor-pointer"
+                      title="Email Verified">verified_user</span>
+              {% else %}
+                <span class="material-symbols-outlined text-amber-500 cursor-pointer"
+                      title="Email Pending Verification">warning</span>
+              {% endif %}
             </div>
             <div class="md:hidden pt-6">
               <a href="{% url 'edit_profile' %}"
@@ -198,7 +200,9 @@
                 <span class="text-neutral-100">{{ discord }}</span>
               </div>
             {% else %}
-              <form action="{% provider_login_url 'discord' process='connect' %}"
+              <!-- <form action="{ provider_login_url 'discord' process='connect' }"
+                    method="post"> -->
+              <form action="/"
                     method="post">
                 {% csrf_token %}
                 <input type="hidden" name="process" value="connect">
