@@ -176,16 +176,17 @@
                     <span class="mx-4 flex-shrink text-neutral-400 text-sm">OR</span>
                     <div class="flex-grow border-t border-neutral-700"></div>
                   </div>
-                  <div>{% include "components/google_onetap.html" %}</div>
-                  <p class="text-neutral-400 text-xs py-6 text-center">
-                    By logging in, you agree to Re-Dcrypt's
-                    <a href="{% url 'terms_and_conditions' %}"
-                       class="text-green-500 hover:underline">Terms of Service</a> and
-                    <a href="{% url 'privacy_policy' %}"
-                       class="text-green-500 hover:underline">Privacy Policy</a>
-                  </p>
+
                 </div>
               </form>
+              <div>{% include "components/google_onetap.html" %}</div>
+              <p class="text-neutral-400 text-xs py-6 text-center">
+                    By logging in, you agree to Re-Dcrypt's
+                    <a href="{% url 'terms_and_conditions' %}"
+                    class="text-green-500 hover:underline">Terms of Service</a> and
+                    <a href="{% url 'privacy_policy' %}"
+                    class="text-green-500 hover:underline">Privacy Policy</a>
+                  </p>
             </div>
           </div>
         </div>
