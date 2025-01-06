@@ -216,7 +216,13 @@ USE_TZ = True
 
 APPEND_SLASH = True
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+
 WHITENOISE_MANIFEST_STRICT = True
 WHITENOISE_ROOT = "static"
 STATIC_URL = 'static/'
@@ -267,3 +273,19 @@ SOCIALACCOUNT_PROVIDERS = {
 
 
 SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'accounts.adapter': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+        },
+    },
+}
