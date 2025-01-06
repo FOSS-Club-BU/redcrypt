@@ -34,7 +34,6 @@ urlpatterns = [
     path("api/", include(("apis.urls", "apis"), namespace="api")),
     path("accounts/social/connections/", accounts_views.connect, name="connect"),
     path("accounts/", include("allauth.urls")),
-    path("accounts/", include("accounts.urls")),
     path("profile/", accounts_views.profile, name="profile"),
     path("profile/edit/", accounts_views.edit_profile, name="edit_profile"),
     path("profile/edit/save_profile", accounts_views.save_profile, name="save_profile"),

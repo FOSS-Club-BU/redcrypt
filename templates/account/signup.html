@@ -271,7 +271,7 @@
                                class="text-sm font-medium text-gray-400 text-start mx-1">Password</label>
                         <div class="relative">
                           <input type="password"
-                                 name="password"
+                                 name="password1"
                                  id="id_password"
                                  required
                                  placeholder="Enter password"
@@ -398,11 +398,13 @@
   </div>
   {% if form.errors %}
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-  {% for field in form %}
-    {% for error in field.errors %}showToast("{{ error|escapejs }}", 3000, "ERROR");{% endfor %}
-  {% endfor %}
-});
+        document.addEventListener('DOMContentLoaded', function() {
+          {% for field in form %}
+            {% for error in field.errors %}showToast("{{ error|escapejs }}", 3000, "ERROR");{% endfor %}
+            {% if field.errors %}console.log("{{ field.name }}");{% endif %}
+            
+          {% endfor %}
+        });
     </script>
   {% endif %}
   <script>
@@ -428,7 +430,7 @@ const signupMessages = [
 // Function to check if email/username exists
 async function checkEmail(email) {
   try {
-    const response = await fetch('/accounts/check-email/', {
+    const response = await fetch('/check-email/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -450,7 +452,7 @@ async function checkEmail(email) {
 
 async function checkUsername(username) {
   try {
-    const response = await fetch('/accounts/check-username/', {
+    const response = await fetch('/check-username/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -560,7 +562,7 @@ document.addEventListener('DOMContentLoaded', function() {
   nextBtn.addEventListener('click', async () => {
     if (currentStep === 2) {
       const username = form.querySelector('[name="username"]').value;
-      const password = form.querySelector('[name="password"]').value;
+      const password = form.querySelector('[name="password1"]').value;
 
       if (!username || !password) {
         showToast('Please fill in all required fields', 3000, 'ERROR');
