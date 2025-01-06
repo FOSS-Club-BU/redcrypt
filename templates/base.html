@@ -317,43 +317,7 @@
       webpushr('attributes', { "username": "{{user.username}}" });
       {% endif %}
       </script>
-      <script>
-      window.chatwootSettings = {"position":"right","type":"standard","launcherTitle":"Lead Confirmation"};
-      (function(d,t) {
-        var BASE_URL="https://chat.fossbu.co";
-        var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=BASE_URL+"/packs/js/sdk.js";
-        g.defer = true;
-        g.async = true;
-        s.parentNode.insertBefore(g,s);
-        g.onload=function(){
-          window.chatwootSDK.run({
-            websiteToken: '27GNBdL4h2TbebVDB5TjpjTy',
-            baseUrl: BASE_URL
-          })
-        }
-      })(document,"script");
-      </script>
-      {% if user.is_authenticated %}
-        <script type="text/javascript">
-      window.addEventListener("chatwoot:ready", function () {
-      window.$chatwoot.setUser("{{ user.username }}", {
-        email: "{{ user.email }}",
-        {% if user.profile.name %}
-        name: "{{ user.profile.name }}",
-        {% else %}
-        name: "{{ user.username }}",
-        {% endif %}
-        avatar_url: "{{ user.profile.avatar }}",
-        company: "{{ user.profile.current_level }}",
-      });
-      window.$chatwoot.setCustomAttributes({
-        current_level: "{{ user.profile.current_level }}",
-        testing: "okoko"
-      });
-      });
-        </script>
-      {% endif %}
+
       <script>
       const mobileMenuButton = document.getElementById("mobile-menu-button");
       const mobileMenu = document.getElementById("mobile-menu");
