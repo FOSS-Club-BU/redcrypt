@@ -19,3 +19,4 @@ Werkzeug
 PyJWT
 gunicorn
 cryptography
+psycopg2-binary
