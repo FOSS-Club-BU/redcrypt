@@ -1,151 +1,152 @@
-{% extends 'base.html' %} {% load static %} {% block head_title %} Leaderboard{% endblock %} {% block head %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}Leaderboard{% endblock %}
+
+{% block head %}
 <style>
-  th {
-    border-top: none;
-    border-left: none;
-    border-right: none;
-  }
-  #row {
-    border: solid 1px #08b74f;
-    outline: solid 1px #08b74f;
-    transition: all 0.3s;
-  }
-  td {
-    padding: 10px;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(8, 183, 79, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(8, 183, 79, 0.8); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out forwards;
+  animation-delay: calc(var(--delay, 0) * 100ms);
+  opacity: 0;
+}
 </style>
-{% endblock %} {% block content %}
-<div class="justify-center">
-  <div
-    class="rounded lg:w-1/3 md:w-1/2 w-[98%] p-5 mt-16 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 bg-color-green-600 border border-green-600 mb-10"
-    style="background-color: rgba(0, 42, 42, 0.6)"
-  >
-    <i
-      ><p
-        tabindex="0"
-        class="text-green-600 focus:outline-none text-2xl font-extrabold leading-6"
-      >
-        <span class="text-2xl">Leaderboard</span>
-      </p></i
-    >
-  </div>
-  <div
-    class="rounded lg:w-1/2 md:w-1/2 w-[98%] p-5 mt-16 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 bg-color-green-600 border border-green-600 mb-10"
-    style="background-color: rgba(0, 42, 42, 0.6)"
-  >
-    <p
-      tabindex="0"
-      class="text-green-600 focus:outline-none text-2xl font-extrabold leading-6"
-    >
-      {% if rank != 'unauthorised' %}<span class="text-2xl">Your Rank: {{rank}}</span>{% endif %}
-    </p>
+{% endblock %}
 
-    <table class="table-auto w-full border-separate border-spacing-y-5">
-      <thead
-        class="border border-green-600"
-        style="border-bottom: 1px solid #08b74f"
-      >
-        <tr class="p-3">
-          <th
-            class="border border-green-600 text-left text-xl font-bold leading-6 text-green-600"
-          >
-            Rank
-          </th>
-          <th
-            class="border border-green-600 text-left text-xl font-bold leading-6 text-green-600"
-          >
-            User
-          </th>
-          <th
-            class="border border-green-600 text-left text-xl font-bold leading-6 text-green-600"
-          >
-            Score
-          </th>
-        </tr>
-      </thead>
+{% block content %}
+<div class="justify-center px-4 pb-8 md:pt-4">
+  <!-- Header Section -->
+  <div class="max-w-5xl mx-auto mb-8" data-aos="fade-up">
+    <div class="flex flex-col items-center gap-4 mb-8">
+      <div class="w-20 h-20 rounded-full bg-green-600/20 flex items-center justify-center animate-fadeIn">
+        <i class="ph-fill ph-trophy text-4xl text-green-500"></i>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-black text-neutral-100 animate-fadeIn" style="--delay: 1">Leaderboard</h1>
+      {% if rank != 'unauthorised' %}
+        <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-xl p-6 w-full max-w-md transition-all duration-300 hover:bg-neutral-800/80 border border-green-600/20 animate-fadeIn group" style="--delay: 2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-green-600/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <span class="text-2xl font-black text-green-500">#{{rank}}</span>
+              </div>
+              <div>
+                <h3 class="text-neutral-300 text-sm">Your Current Rank</h3>
+                <p class="text-green-500 font-bold text-lg">Keep climbing!</p>
+              </div>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-green-600/10 flex items-center justify-center">
+              <i class="ph-bold ph-chart-line-up text-xl text-green-500"></i>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
 
-      <tbody>
-        {% for user in staff %}
-        <tr
-          class="border-spacing-y-10 border-spacing-x-0 hover:scale-110 hover:bg-clip-padding hover:backdrop-filter hover:backdrop-blur-xl hover:bg-opacity-80 hover:bg-color-green-600"
-          id="row"
-        >
-          <td class="text-left text-xl leading-6 text-green-600">
-            <span data-tooltip-target="tooltip" data-tooltip-placement="left"
-              ><img src="{% static 'logo.svg' %}" class="inline w-9 text-grenn-600"
-            /></span>
-          </td>
-          <div
-            id="tooltip"
-            role="tooltip"
-            class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-green-600 bg-green-800 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip"
-          >
-            Staff
-            <div class="tooltip-arrow" data-popper-arrow></div>
+    <!-- Leaderboard Grid -->
+    <div class="grid grid-cols-1 gap-4">
+      <!-- Players Section -->
+      <div class="animate-fadeIn" style="--delay: 3">
+        <div class="grid gap-4">
+          {% for user in staff %}
+            <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-xl p-6 transition-all duration-300 hover:bg-neutral-800/80 hover:-translate-y-0.5 hover:scale-[1.01] border border-green-600/20">
+              <div class="flex items-center gap-4">
+                <div class="flex-none">
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center">
+                    <i class="ph-fill ph-shield text-green-500"></i>
+                  </div>
+                </div>
+                <div class="flex-none">
+                  <img src="{{ user.avatar_url }}" alt="{{ user }}" class="w-10 h-10 rounded-full border-2 border-green-600 transition-transform duration-300 hover:scale-110">
+                </div>
+                <div class="flex-grow">
+                  <a href="{% url 'public-profile' username=user %}" class="text-neutral-100 font-bold hover:text-green-500 transition-colors">
+                    {{ user|truncatechars:15 }}
+                  </a>
+                  <p class="text-neutral-400 text-sm">Staff Member</p>
+                </div>
+                <div class="flex-none">
+                  <div class="text-green-500 font-bold">{{ user.score }}</div>
+                  <div class="text-neutral-400 text-xs">points</div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+
+          {% for user in players %}
+            <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-xl p-6 transition-all duration-300 hover:bg-neutral-800/80 hover:-translate-y-0.5 hover:scale-[1.01] border border-transparent">
+              <div class="flex items-center gap-4">
+                <div class="flex-none">
+                  {% if forloop.counter == 1 %}
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-yellow-500/20 text-yellow-500" style="animation: glow 2s infinite">1</div>
+                  {% elif forloop.counter == 2 %}
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-neutral-400/20 text-neutral-300">2</div>
+                  {% elif forloop.counter == 3 %}
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-amber-600/20 text-amber-500">3</div>
+                  {% else %}
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-neutral-800 text-neutral-400">{{ forloop.counter }}</div>
+                  {% endif %}
+                </div>
+                <div class="flex-none">
+                  <img src="{{ user.avatar_url }}" alt="{{ user }}" class="w-10 h-10 rounded-full border-2 border-green-600 transition-transform duration-300 hover:scale-110">
+                </div>
+                <div class="flex-grow">
+                  <a href="{% url 'public-profile' username=user %}" class="text-neutral-100 font-bold hover:text-green-500 transition-colors">
+                    {{ user|truncatechars:15 }}
+                  </a>
+                  <p class="text-neutral-400 text-sm">Level {{ user.current_level }}</p>
+                </div>
+                <div class="flex-none">
+                  <div class="text-green-500 font-bold">{{ user.score }}</div>
+                  <div class="text-neutral-400 text-xs">points</div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Banned Players Section -->
+      {% if banned %}
+        <div class="mt-6 animate-fadeIn" style="--delay: 5">
+          <h2 class="text-xl font-bold text-red-500 mb-4">Disqualified Players</h2>
+          <div class="grid gap-4">
+            {% for user in banned %}
+              <div class="leaderboard-card border border-red-900/20">
+                <div class="flex items-center gap-4">
+                  <div class="flex-none">
+                    <div class="rank-badge bg-red-500/20 text-red-500">
+                      <i class="ph-bold ph-prohibit"></i>
+                    </div>
+                  </div>
+                  <div class="flex-none">
+                    <img src="{{ user.avatar_url }}" alt="{{ user }}" class="profile-img border-red-500 opacity-50">
+                  </div>
+                  <div class="flex-grow">
+                    <span class="text-red-400 font-bold">{{ user|truncatechars:15 }}</span>
+                    <p class="text-neutral-400 text-sm">Disqualified</p>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
           </div>
-          <td class="text-left text-xl leading-6 text-green-600">
-            <a href="{% url 'public-profile' username=user%}"
-              ><img
-                src="{{ user.avatar_url }}"
-                class="inline w-9 rounded border border-green-600 mr-5"
-              />{{ user|truncatechars:15 }}</a
-            >
-          </td>
-          <td class="text-left text-xl leading-6 text-green-600">
-            {{ user.score }}
-          </td>
-        </tr>
-        {% endfor %} {% for user in players %}
-        <tr
-          class="border-spacing-y-10 border-spacing-x-0 hover:scale-110 hover:bg-clip-padding hover:backdrop-filter hover:backdrop-blur-xl hover:bg-opacity-80 hover:bg-color-green-600 border"
-          id="row"
-        >
-          <td class="text-left text-xl leading-6 text-green-600">
-            {% if forloop.counter == 1 %}🥇{% elif forloop.counter == 2 %}🥈{% elif forloop.counter == 3 %}🥉{% else %}{{ forloop.counter }}{% endif %}
-          </td>
-          <td class="text-left text-xl leading-6 text-green-600">
-            <a href="{% url 'public-profile' username=user%}"
-              ><img
-                src="{{ user.avatar_url }}"
-                class="inline w-9 rounded border border-green-600 mr-5"
-              />{{ user|truncatechars:15 }}</a
-            >
-          </td>
-          <td class="text-left text-xl leading-6 text-green-600">
-            {{ user.score }}
-          </td>
-        </tr>
-        {% endfor %} {% if banned %} {% for user in banned %}
-        <tr
-          class="border-spacing-y-10 border-spacing-x-0 hover:scale-110 hover:bg-clip-padding hover:backdrop-filter hover:backdrop-blur-xl hover:bg-opacity-80 hover:bg-color-green-600"
-          id="row"
-        >
-          <td class="text-left text-xl leading-6 text-green-600">
-            <span
-              data-tooltip-target="disqualified"
-              data-tooltip-placement="left"
-              >☠</span
-            >
-          </td>
-          <div
-            id="disqualified"
-            role="tooltip"
-            class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-green-600 bg-green-800 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip"
-          >
-            Disqualified
-            <div class="tooltip-arrow" data-popper-arrow></div>
-          </div>
-          <td class="text-left text-xl leading-6 text-green-600">
-            <img
-              src="{{ user.avatar_url }}"
-              class="inline w-9 rounded border border-green-600 mr-5"
-            />{{ user|truncatechars:15 }}
-          </td>
-          <td class="text-left text-xl leading-6 text-green-600">☠</td>
-        </tr>
-        {% endfor %} {% endif %}
-      </tbody>
-    </table>
+        </div>
+      {% endif %}
+    </div>
   </div>
 </div>
-{% endblock content %}
+{% endblock %}

@@ -119,7 +119,7 @@
       <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl overflow-hidden flex-1 flex flex-col md:flex-row">
         <div class="flex flex-col md:flex-row w-full">
           <!-- Welcome Card -->
-          <div class="md:w-[400px] min-h-[500px] relative overflow-hidden h-full bg-black/30 animate-fadeIn hidden md:block">
+          <div class="md:w-[400px] min-h-[420px] relative overflow-hidden h-full bg-black/30 animate-fadeIn hidden md:block">
             <svg width="100%"
                  height="100%"
                  viewBox="0 0 800 800"
@@ -199,7 +199,7 @@
                     id="signup_form">
                 {% csrf_token %}
                 <!-- Form Steps -->
-                <div class="flex-1 animate-slideUp p-6 pb-0">
+                <div class="flex-1 animate-slideUp px-6 pt-6 min-h-[420px]">
                   <!-- Step 1: Email -->
                   <div data-step="1"
                        data-active="true"
@@ -239,6 +239,7 @@
                         <span class="mx-4 flex-shrink text-neutral-400 text-sm">OR</span>
                         <div class="flex-grow border-t border-neutral-700"></div>
                       </div>
+                      <div class="flex items-center justify-center w-full">{% include "components/google_onetap.html" %}</div>
                     </div>
                   </div>
                   <!-- Step 2: Username & Password -->
@@ -379,18 +380,16 @@
                     </div>
                   </div>
                 </div>
-
               </form>
-                      <div class="flex items-center justify-center w-full mb-6">{% include "components/google_onetap.html" %}</div>
-                <div class="px-6">
-                  <p class="text-neutral-400 text-xs pb-6 text-center">
-                    By signing up, you agree to Re-Dcrypt's
-                    <a href="{% url 'terms_and_conditions' %}"
-                       class="text-green-500 hover:underline">Terms of Service</a> and
-                    <a href="{% url 'privacy_policy' %}"
-                       class="text-green-500 hover:underline">Privacy Policy</a>
-                  </p>
-                </div>
+              <div class="px-6">
+                <p class="text-neutral-400 text-xs py-6 text-center">
+                  By signing up, you agree to Re-Dcrypt's
+                  <a href="{% url 'terms_and_conditions' %}"
+                     class="text-green-500 hover:underline">Terms of Service</a> and
+                  <a href="{% url 'privacy_policy' %}"
+                     class="text-green-500 hover:underline">Privacy Policy</a>
+                </p>
+              </div>
             </div>
           </div>
         </div>

@@ -105,8 +105,7 @@
                      class="h-8 md:h-12 w-auto"
                      width="48"
                      height="48">
-              </div>                  
-
+              </div>
               <div class="p-6">
                 <h2 class="text-4xl md:text-6xl font-black leading-tight text-white text-center md:text-left">
                   <span class="text-white/80" id="welcomeText">Let's Log You In</span>
@@ -143,8 +142,8 @@
                         <input type="text"
                                name="login"
                                required
-                               placeholder="Username"
-                               class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
+                               placeholder="Email or username"
+                               class="w-full bg-neutral-900/10 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
                       </div>
                     </div>
                     <div class="flex flex-col gap-y-2 relative">
@@ -159,7 +158,7 @@
                                required
                                placeholder="Password"
                                id="id_password"
-                               class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
+                               class="w-full bg-neutral-900/10 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
                         <span class="ph-fill ph-eye cursor-pointer text-xl text-neutral-400 absolute right-3 top-1/2"
                               id="togglePassword"></span>
                       </div>
@@ -168,7 +167,7 @@
                 </div>
                 <div class="px-6">
                   <button type="submit"
-                          class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2">
+                          class="w-full bg-neutral-900/10 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2">
                     <i class="ph-bold ph-sign-in"></i>                    <span class="button-text">Login</span>
                   </button>
                   <div class="my-4 flex items-center">
@@ -176,17 +175,16 @@
                     <span class="mx-4 flex-shrink text-neutral-400 text-sm">OR</span>
                     <div class="flex-grow border-t border-neutral-700"></div>
                   </div>
-
+                  <div class="flex items-center justify-center w-full">{% include "components/google_onetap.html" %}</div>
                 </div>
               </form>
-              <div>{% include "components/google_onetap.html" %}</div>
               <p class="text-neutral-400 text-xs py-6 text-center">
-                    By logging in, you agree to Re-Dcrypt's
-                    <a href="{% url 'terms_and_conditions' %}"
-                    class="text-green-500 hover:underline">Terms of Service</a> and
-                    <a href="{% url 'privacy_policy' %}"
-                    class="text-green-500 hover:underline">Privacy Policy</a>
-                  </p>
+                By logging in, you agree to Re-Dcrypt's
+                <a href="{% url 'terms_and_conditions' %}"
+                   class="text-green-500 hover:underline">Terms of Service</a> and
+                <a href="{% url 'privacy_policy' %}"
+                   class="text-green-500 hover:underline">Privacy Policy</a>
+              </p>
             </div>
           </div>
         </div>
@@ -264,4 +262,5 @@ document.addEventListener("DOMContentLoaded", function () {
         </script>
       {% endfor %}
     {% endfor %}
-  {% endif %}{% endblock content %}
+  {% endif %}
+{% endblock content %}
