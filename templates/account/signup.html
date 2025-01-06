@@ -119,7 +119,7 @@
       <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl overflow-hidden flex-1 flex flex-col md:flex-row">
         <div class="flex flex-col md:flex-row w-full">
           <!-- Welcome Card -->
-          <div class="md:w-[400px] min-h-[420px] relative overflow-hidden h-full bg-black/30 animate-fadeIn hidden md:block">
+          <div class="md:w-[400px] min-h-[490px] relative overflow-hidden h-full bg-black/30 animate-fadeIn hidden md:block">
             <svg width="100%"
                  height="100%"
                  viewBox="0 0 800 800"
@@ -193,195 +193,197 @@
           <!-- Form Section -->
           <div class="md:w-[500px] flex-1">
             <div class="flex flex-col min-h-full">
-              <form method="post"
-                    action="{% url 'account_signup' %}"
-                    class="h-full"
-                    id="signup_form">
-                {% csrf_token %}
-                <!-- Form Steps -->
-                <div class="flex-1 animate-slideUp px-6 pt-6 min-h-[420px]">
-                  <!-- Step 1: Email -->
-                  <div data-step="1"
-                       data-active="true"
-                       class="data-[active=true]:block hidden animate-fadeIn">
-                    <div class="flex flex-col items-center mb-8">
-                      <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
-                        <i class="ph-fill ph-hand-waving text-2xl animate-wave"></i>
-                      </span>
-                      <div class="text-center">
-                        <h2 class="text-xl font-bold text-green-500">Join Re-Dcypt</h2>
-                        <p class="text-neutral-400 text-sm mt-2">
-                          Already have an account?
-                          <a href="{% url 'account_login' %}"
-                             class="text-green-500 hover:underline">Login</a>
-                        </p>
+              <div class="min-h-[425px]">
+                <form method="post"
+                      action="{% url 'account_signup' %}"
+                      class="h-full"
+                      id="signup_form">
+                  {% csrf_token %}
+                  <!-- Form Steps -->
+                  <div class="flex-1 animate-slideUp px-6 pt-6 min-h-[320px]">
+                    <!-- Step 1: Email -->
+                    <div data-step="1"
+                         data-active="true"
+                         class="data-[active=true]:block hidden animate-fadeIn">
+                      <div class="flex flex-col items-center mb-8">
+                        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
+                          <i class="ph-fill ph-hand-waving text-2xl animate-wave"></i>
+                        </span>
+                        <div class="text-center">
+                          <h2 class="text-xl font-bold text-green-500">Join Re-Dcypt</h2>
+                          <p class="text-neutral-400 text-sm mt-2">
+                            Already have an account?
+                            <a href="{% url 'account_login' %}"
+                               class="text-green-500 hover:underline">Login</a>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="space-y-6">
+                        <div class="flex flex-col gap-y-2">
+                          <label for="id_email"
+                                 class="text-sm font-medium text-gray-400 text-start mx-1">Email</label>
+                          <input type="email"
+                                 name="email"
+                                 id="id_email"
+                                 placeholder="Enter your email"
+                                 class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
+                        </div>
+                      </div>
+                      <div class="mt-6">
+                        <button type="button"
+                                class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold next-btn-email flex flex-row items-center justify-center gap-x-2">
+                          <i class="ph-bold ph-paper-plane-tilt"></i>
+                          Continue with E-mail
+                        </button>
                       </div>
                     </div>
-                    <div class="space-y-6">
-                      <div class="flex flex-col gap-y-2">
-                        <label for="id_email"
-                               class="text-sm font-medium text-gray-400 text-start mx-1">Email</label>
-                        <input type="email"
-                               name="email"
-                               id="id_email"
-                               placeholder="Enter your email"
-                               class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
+                    <!-- Step 2: Username & Password -->
+                    <div data-step="2"
+                         data-active="false"
+                         class="data-[active=true]:block hidden">
+                      <div class="flex flex-col items-center mb-8">
+                        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
+                          <i class="ph-fill ph-gear text-2xl animate-spin"></i>
+                        </span>
+                        <div class="text-center">
+                          <h2 class="text-xl font-bold text-green-500">Set Up Your Account</h2>
+                          <p class="text-neutral-400 text-sm mt-2">Choose a unique username and a strong password.</p>
+                        </div>
                       </div>
-                    </div>
-                    <div class="mt-6">
-                      <button type="button"
-                              class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold next-btn-email flex flex-row items-center justify-center gap-x-2">
-                        <i class="ph-bold ph-paper-plane-tilt"></i>
-                        Continue with E-mail
-                      </button>
-                      <div class="my-4 flex items-center">
-                        <div class="flex-grow border-t border-neutral-700"></div>
-                        <span class="mx-4 flex-shrink text-neutral-400 text-sm">OR</span>
-                        <div class="flex-grow border-t border-neutral-700"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Step 2: Username & Password -->
-                  <div data-step="2"
-                       data-active="false"
-                       class="data-[active=true]:block hidden">
-                    <div class="flex flex-col items-center mb-8">
-                      <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
-                        <i class="ph-fill ph-gear text-2xl animate-spin"></i>
-                      </span>
-                      <div class="text-center">
-                        <h2 class="text-xl font-bold text-green-500">Set Up Your Account</h2>
-                        <p class="text-neutral-400 text-sm mt-2">Choose a unique username and a strong password.</p>
-                      </div>
-                    </div>
-                    <div class="space-y-6">
-                      <div class="flex flex-col gap-y-2">
-                        <label for="id_username"
-                               class="text-sm font-medium text-gray-400 text-start mx-1">Username</label>
-                        <input type="text"
-                               name="username"
-                               id="id_username"
-                               required
-                               placeholder="Choose a username"
-                               class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
-                      </div>
-                      <div class="flex flex-col gap-y-2">
-                        <label for="id_password"
-                               class="text-sm font-medium text-gray-400 text-start mx-1">Password</label>
-                        <div class="relative">
-                          <input type="password"
-                                 name="password1"
-                                 id="id_password"
+                      <div class="space-y-6">
+                        <div class="flex flex-col gap-y-2">
+                          <label for="id_username"
+                                 class="text-sm font-medium text-gray-400 text-start mx-1">Username</label>
+                          <input type="text"
+                                 name="username"
+                                 id="id_username"
                                  required
-                                 placeholder="Enter password"
-                                 class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 pr-16 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
-                          <div class="absolute right-10 top-1/2 -translate-y-1/2 z-20">
-                            <div class="relative">
-                              <svg width="20"
-                                   height="20"
-                                   viewBox="0 0 24 24"
-                                   class="strength-ring cursor-pointer text-neutral-400"
-                                   id="strengthIndicator">
-                                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5" class="text-neutral-700/50"></circle>
-                                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5" class="transition-all duration-300" style="stroke-dasharray: 63; stroke-dashoffset: 63"></circle>
-                              </svg>
-                              <!-- Password Requirements Popup -->
-                              <div class="absolute -right-2 top-7 w-64 bg-neutral-900/95 border border-neutral-800 rounded-xl backdrop-blur-md shadow-lg transform opacity-0 scale-95 transition-all duration-200 pointer-events-none z-50"
-                                   id="passwordRequirements">
-                                <div class="p-4">
-                                  <h3 class="text-sm text-neutral-300 mb-3 font-bold">Password Requirements</h3>
-                                  <div class="space-y-2 text-xs requirements-list"></div>
+                                 placeholder="Choose a username"
+                                 class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
+                        </div>
+                        <div class="flex flex-col gap-y-2">
+                          <label for="id_password"
+                                 class="text-sm font-medium text-gray-400 text-start mx-1">Password</label>
+                          <div class="relative">
+                            <input type="password"
+                                   name="password1"
+                                   id="id_password"
+                                   required
+                                   placeholder="Enter password"
+                                   class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 pr-16 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
+                            <div class="absolute right-10 top-1/2 -translate-y-1/2 z-20">
+                              <div class="relative">
+                                <svg width="20"
+                                     height="20"
+                                     viewBox="0 0 24 24"
+                                     class="strength-ring cursor-pointer text-neutral-400"
+                                     id="strengthIndicator">
+                                  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5" class="text-neutral-700/50"></circle>
+                                  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5" class="transition-all duration-300" style="stroke-dasharray: 63; stroke-dashoffset: 63"></circle>
+                                </svg>
+                                <!-- Password Requirements Popup -->
+                                <div class="absolute -right-2 top-7 w-64 bg-neutral-900/95 border border-neutral-800 rounded-xl backdrop-blur-md shadow-lg transform opacity-0 scale-95 transition-all duration-200 pointer-events-none z-50"
+                                     id="passwordRequirements">
+                                  <div class="p-4">
+                                    <h3 class="text-sm text-neutral-300 mb-3 font-bold">Password Requirements</h3>
+                                    <div class="space-y-2 text-xs requirements-list"></div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
+                            <i class="ph-fill ph-eye cursor-pointer text-xl absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400"
+                               id="togglePassword"></i>
                           </div>
-                          <i class="ph-fill ph-eye cursor-pointer text-xl absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400"
-                             id="togglePassword"></i>
                         </div>
                       </div>
+                      <!-- Step Indicator -->
+                      <div class="flex justify-center gap-4 mt-8">
+                        <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
+                        <div class="w-2 h-2 rounded-full bg-green-500 scale-125"></div>
+                        <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
+                      </div>
+                      <!-- Form Navigation -->
+                      <div class="mt-6 flex flex-col md:flex-row gap-4">
+                        <button type="button"
+                                class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2 back-btn">
+                          <i class="ph-bold ph-arrow-left"></i>
+                          <span>Back</span>
+                        </button>
+                        <button type="button"
+                                class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2 next-btn">
+                          <i class="ph-bold ph-arrow-right"></i>
+                          <span>Continue</span>
+                        </button>
+                      </div>
                     </div>
-                    <!-- Step Indicator -->
-                    <div class="flex justify-center gap-4 mt-8">
-                      <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
-                      <div class="w-2 h-2 rounded-full bg-green-500 scale-125"></div>
-                      <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
-                    </div>
-                    <!-- Form Navigation -->
-                    <div class="mt-6 flex flex-col md:flex-row gap-4">
-                      <button type="button"
-                              class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2 back-btn">
-                        <i class="ph-bold ph-arrow-left"></i>
-                        <span>Back</span>
-                      </button>
-                      <button type="button"
-                              class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2 next-btn">
-                        <i class="ph-bold ph-arrow-right"></i>
-                        <span>Continue</span>
-                      </button>
+                    <!-- Step 3: Profile Details -->
+                    <div data-step="3"
+                         data-active="false"
+                         class="data-[active=true]:block hidden">
+                      <div class="flex flex-col items-center mb-8">
+                        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
+                          <i class="ph-fill ph-identification-card text-2xl"></i>
+                        </span>
+                        <div class="text-center">
+                          <h2 class="text-xl font-bold text-green-500">Complete Your Profile</h2>
+                          <p class="text-neutral-400 text-sm mt-2">Just a few more details to get you started</p>
+                        </div>
+                      </div>
+                      <div class="space-y-6">
+                        <div class="flex flex-col gap-y-2">
+                          <label for="id_name"
+                                 class="text-sm font-medium text-gray-400 text-start mx-1">Full Name</label>
+                          <input type="text"
+                                 name="name"
+                                 id="id_name"
+                                 placeholder="Enter your full name"
+                                 class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
+                        </div>
+                        <div class="flex flex-col gap-y-2">
+                          <label for="id_organization"
+                                 class="text-sm font-medium text-gray-400 text-start mx-1">School/Organization</label>
+                          <input type="text"
+                                 name="organization"
+                                 id="id_organization"
+                                 placeholder="Enter your school or organization"
+                                 class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
+                        </div>
+                        <div class="flex justify-center mt-4">
+                          <div>{{ form.hcaptcha }}</div>
+                        </div>
+                      </div>
+                      <!-- Step Indicator -->
+                      <div class="flex justify-center gap-4 mt-8">
+                        <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
+                        <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
+                        <div class="w-2 h-2 rounded-full bg-green-500 scale-125"></div>
+                      </div>
+                      <!-- Form Navigation -->
+                      <div class="mt-6 flex flex-col md:flex-row gap-4">
+                        <button type="button"
+                                class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2 back-btn">
+                          <i class="ph-bold ph-arrow-left"></i>
+                          <span>Back</span>
+                        </button>
+                        <button type="submit"
+                                id="signupSubmitBtn"
+                                class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2">
+                          <i class="ph-bold ph-user-plus"></i>
+                          <span class="button-text">Complete Signup</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
-                  <!-- Step 3: Profile Details -->
-                  <div data-step="3"
-                       data-active="false"
-                       class="data-[active=true]:block hidden">
-                    <div class="flex flex-col items-center mb-8">
-                      <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
-                        <i class="ph-fill ph-identification-card text-2xl"></i>
-                      </span>
-                      <div class="text-center">
-                        <h2 class="text-xl font-bold text-green-500">Complete Your Profile</h2>
-                        <p class="text-neutral-400 text-sm mt-2">Just a few more details to get you started</p>
-                      </div>
-                    </div>
-                    <div class="space-y-6">
-                      <div class="flex flex-col gap-y-2">
-                        <label for="id_name"
-                               class="text-sm font-medium text-gray-400 text-start mx-1">Full Name</label>
-                        <input type="text"
-                               name="name"
-                               id="id_name"
-                               required
-                               placeholder="Enter your full name"
-                               class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
-                      </div>
-                      <div class="flex flex-col gap-y-2">
-                        <label for="id_organization"
-                               class="text-sm font-medium text-gray-400 text-start mx-1">School/Organization</label>
-                        <input type="text"
-                               name="organization"
-                               id="id_organization"
-                               required
-                               placeholder="Enter your school or organization"
-                               class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
-                      </div>
-                      <div class="flex justify-center mt-4">
-                        <div>{{ form.hcaptcha }}</div>
-                      </div>
-                    </div>
-                    <!-- Step Indicator -->
-                    <div class="flex justify-center gap-4 mt-8">
-                      <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
-                      <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
-                      <div class="w-2 h-2 rounded-full bg-green-500 scale-125"></div>
-                    </div>
-                    <!-- Form Navigation -->
-                    <div class="mt-6 flex flex-col md:flex-row gap-4">
-                      <button type="button"
-                              class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2 back-btn">
-                        <i class="ph-bold ph-arrow-left"></i>
-                        <span>Back</span>
-                      </button>
-                      <button type="submit"
-                              class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2">
-                        <i class="ph-fill ph-user-check"></i>
-                        <span>Complete Signup</span>
-                      </button>
-                    </div>
+                </form>
+                <div id="googleAuthSection" class="px-6 hidden opacity-0">
+                  <div class="my-4 flex items-center">
+                    <div class="flex-grow border-t border-neutral-700"></div>
+                    <span class="mx-4 flex-shrink text-neutral-400 text-sm">OR</span>
+                    <div class="flex-grow border-t border-neutral-700"></div>
                   </div>
+                  <div class="flex items-center justify-center w-full">{% include "components/google_onetap.html" %}</div>
                 </div>
-              </form>
-              <div class="flex items-center justify-center w-full">{% include "components/google_onetap.html" %}</div>
-
+              </div>
               <div class="px-6">
                 <p class="text-neutral-400 text-xs py-6 text-center">
                   By signing up, you agree to Re-Dcrypt's
@@ -499,6 +501,21 @@ function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+function setButtonLoading(button, isLoading) {
+  const icon = button.querySelector('i');
+  const text = button.querySelector('.button-text');
+  
+  if (isLoading) {
+    button.disabled = true;
+    icon.className = 'ph-bold ph-circle-notch animate-spin';
+    text.textContent = 'Creating Account...';
+  } else {
+    button.disabled = false;
+    icon.className = 'ph-bold ph-user-plus';
+    text.textContent = 'Complete Signup';
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('signup_form');
   const nextBtnEmail = form.querySelector('.next-btn-email');
@@ -510,10 +527,29 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateFormNavigation() {
     const steps = form.querySelectorAll('[data-step]');
     const oldStep = [...steps].find(s => s.dataset.active === 'true');
+    const googleAuthSection = document.getElementById('googleAuthSection');
+    
     if (oldStep) {
       oldStep.classList.remove('animate-fadeIn');
       oldStep.classList.add('animate-fadeOut');
       oldStep.dataset.active = 'false';
+    }
+
+    // Show Google auth section immediately if on step 1
+    if (currentStep === 1) {
+      googleAuthSection.classList.remove('hidden');
+      // Small delay to ensure smooth animation
+      setTimeout(() => {
+        googleAuthSection.classList.remove('opacity-0');
+        googleAuthSection.classList.add('animate-fadeIn');
+      }, 50);
+    } else {
+      googleAuthSection.classList.add('opacity-0');
+      googleAuthSection.classList.remove('animate-fadeIn');
+      // Hide after animation
+      setTimeout(() => {
+        googleAuthSection.classList.add('hidden');
+      }, 300);
     }
 
     setTimeout(() => {
@@ -588,26 +624,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Add form submit handler
+  // Update the form submit handler
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const name = form.querySelector('[name="name"]').value;
-    const organization = form.querySelector('[name="organization"]').value;
     const captchaResponse = document.querySelector('[name="h-captcha-response"]')?.value;
-
-    if (!name || !organization) {
-      showToast('Please fill in all required fields', 3000, 'ERROR');
-      return;
-    }
+    const submitButton = document.getElementById('signupSubmitBtn');
 
     if (!captchaResponse) {
       showToast('Please complete the captcha', 3000, 'ERROR');
       return;
     }
 
-    // If all validations pass, submit the form
-    form.submit();
+    // Set loading state
+    setButtonLoading(submitButton, true);
+
+    // Small delay to ensure the loading state is visible
+    setTimeout(() => {
+      form.submit();
+    }, 100);
   });
 
   // Initialize form navigation
