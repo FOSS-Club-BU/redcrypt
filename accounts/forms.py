@@ -72,8 +72,19 @@ class ContactForm(forms.Form):
     subject = forms.CharField(
         required=True,
         max_length=150,
-        widget=forms.TextInput(attrs={'class': 'text-green-600 p-2'}))
+        label="Subject",
+        widget=forms.TextInput(attrs={
+            'class': 'form-input',
+            'placeholder': 'Enter subject',
+        })
+    )
     body = forms.CharField(
         required=True,
-        widget=forms.Textarea(attrs={'class': 'text-green-600 p-2'}))
+        label="Message",
+        widget=forms.Textarea(attrs={
+            'class': 'form-input',
+            'placeholder': 'Type your message here...',
+            'rows': 4,
+        })
+    )
     hCaptcha = hCaptchaField(theme='dark')

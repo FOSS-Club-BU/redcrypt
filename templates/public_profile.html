@@ -3,7 +3,7 @@
 {% load profile_tags %}
 {% get_providers as socialaccount_providers %}
 {% get_social_accounts user as accounts %}
-{% block head_title %}{{usern.username}} Profile{% endblock %}
+{% block head_title %}{{ usern.username }} Profile {% endblock head_title %}
 
 {% block head %}
 <style>
@@ -21,36 +21,30 @@
 {% block content %}
 <div class="container mx-auto px-4 my-8">
   <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="800">
-    <!-- Profile Card -->
-    <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl overflow-visible">
-      <!-- Header Banner -->
-      <div class="h-24 md:h-32 bg-gradient-to-r from-green-600/20 to-blue-600/20 relative rounded-t-2xl"></div>
+    <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-3xl overflow-visible">
+      <div class="h-24 md:h-32 bg-gradient-to-r from-green-600/20 to-blue-600/20 relative rounded-t-3xl"></div>
       
-      <!-- Profile Info -->
-      <div class="px-4 md:px-8 pb-6 md:pb-8 pt-8">
-        <!-- Avatar -->
+      <div class="px-4 md:px-8 pb-6 md:pb-8 pt-8 md:pt-0">
         <div class="flex justify-center">
           <div class="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-4 border-green-600/50 shadow-lg -mt-16 md:-mt-12 bg-neutral-900">
-            <img src="{% avatar usern %}" alt="Profile Picture" class="w-full h-full object-cover">
+            <img src="{% avatar usern %}" alt="Profile Picture" class="w-full h-full object-cover" width="auto" height="auto">
           </div>
         </div>
 
-        <!-- Basic Info -->
-        <div class="text-center mt-4 space-y-1">
-          <h1 class="text-3xl font-bold text-neutral-100">{{usern.username}}</h1>
+        <div class="text-centerspace-y-1 pt-4">
+          <h1 class="text-3xl font-bold text-neutral-100">{{ usern.username }}</h1>
           {% if profile.is_banned %}
-          <div class="inline-flex items-center gap-2 text-red-500 bg-red-500/10 px-4 py-2 rounded-full">
-            <span class="material-symbols-outlined">warning</span>
-            <span class="font-medium">BANNED</span>
+          <div class="inline-flex items-center gap-2 text-red-500 bg-red-500/10 px-4 py-2 rounded-full mt-4">
+            <span class="ph-fill ph-warning">warning</span>
+            <span class="font-bold">Banned</span>
           </div>
           {% endif %}
         </div>
 
-        <!-- Stats Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mt-6 md:mt-8">
           <div class="bg-neutral-900/50 rounded-xl p-4 md:p-6 shadow-inset-white hover:bg-neutral-800/80 transition-all duration-500 border border-transparent hover:border-purple-600/50 text-left hover:shadow-lg hover:shadow-purple-600/10 stat-card-hover-effect">
             <div class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-600/20 text-purple-500 mb-4">
-              <span class="material-symbols-outlined text-2xl">military_tech</span>
+              <span class="ph-fill ph-medal-military text-2xl"></span>
             </div>
             <p class="text-neutral-400 text-sm">Current Rank</p>
             <p class="text-2xl font-bold text-neutral-100">{{ rank|safe }}</p>
@@ -58,7 +52,7 @@
 
           <div class="bg-neutral-900/50 rounded-xl p-4 md:p-6 shadow-inset-white hover:bg-neutral-800/80 transition-all duration-500 border border-transparent hover:border-green-600/50 text-left hover:shadow-lg hover:shadow-green-600/10 stat-card-hover-effect">
             <div class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
-              <span class="material-symbols-outlined text-2xl">score</span>
+              <span class="ph-fill ph-chart-line-up text-2xl"></span>
             </div>
             <p class="text-neutral-400 text-sm">Total Score</p>
             <p class="text-2xl font-bold text-neutral-100">{{ profile.score }}</p>
@@ -66,27 +60,26 @@
 
           <div class="bg-neutral-900/50 rounded-xl p-4 md:p-6 shadow-inset-white hover:bg-neutral-800/80 transition-all duration-500 border border-transparent hover:border-blue-600/50 text-left hover:shadow-lg hover:shadow-blue-600/10 stat-card-hover-effect">
             <div class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600/20 text-blue-500 mb-4">
-              <span class="material-symbols-outlined text-2xl">trending_up</span>
+              <span class="ph-fill ph-trend-up text-2xl"></span>
             </div>
             <p class="text-neutral-400 text-sm">Current Level</p>
             <p class="text-2xl font-bold text-neutral-100">{{ profile.current_level }}</p>
           </div>
         </div>
 
-        <!-- Personal Info -->
         {% if profile.is_public_name or profile.is_public_organization %}
         <div class="mt-6 md:mt-8 space-y-4">
-          <div class="bg-neutral-900/50 rounded-xl p-4">
+          <div class="bg-neutral-900/50 rounded-xl px-4 py-2">
             {% if profile.is_public_name and profile.name %}
-            <div class="flex items-center gap-2 py-2">
-              <span class="material-symbols-outlined text-purple-500">person</span>
+            <div class="flex items-center gap-2 py-3">
+              <span class="ph-fill ph-user text-xl text-purple-500"></span>
               <span class="text-neutral-100">{{ profile.name }}</span>
             </div>
             {% endif %}
 
             {% if profile.is_public_organization and profile.organization %}
-            <div class="flex items-center gap-2 py-2 {% if profile.is_public_name %}border-t border-neutral-800{% endif %}">
-              <span class="material-symbols-outlined text-blue-500">school</span>
+            <div class="flex items-center gap-2 py-3 {% if profile.is_public_name %}border-t border-neutral-800{% endif %}">
+              <span class="ph-fill ph-graduation-cap text-xl text-blue-500"></span>
               <span class="text-neutral-100">{{ profile.organization }}</span>
             </div>
             {% endif %}
