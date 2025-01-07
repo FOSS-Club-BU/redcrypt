@@ -41,7 +41,7 @@ class MyCustomSocialSignupForm(SocialSignupForm):
 
 class MyCustomSignupForm(SignupForm):
     name = forms.CharField(required=False, label="Name [Optional]")
-    organization = forms.CharField(required=False, label='School/Organization [Optional]')
+    organization = forms.CharField(required=False, label='College/Organization [Optional]')
     hcaptcha = hCaptchaField(theme='dark')
 
     field_order = [
