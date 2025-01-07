@@ -18,7 +18,7 @@ from django.urls import path, include
 from hunt.views import index, offline, play, check_ans, leaderboard, rules
 from hunt.views import faqs, sample_questions_play, update_rank
 from hunt.views import sample_checkans, about, guidelines
-from hunt.views import privacy_policy, terms_and_conditions
+from hunt.views import privacy_policy, terms_and_conditions, help_center
 from accounts import views as accounts_views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -73,4 +73,5 @@ urlpatterns = [
         "account/verify-captcha/", accounts_views.verify_captcha, name="verify_captcha"
     ),
     path("", include(("url_shortner.urls", "url_shortner"), namespace="url_shortner")),
+    path("help/", help_center, name="help"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

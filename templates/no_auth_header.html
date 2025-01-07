@@ -18,21 +18,24 @@
 <div id="mobile-menu"
      class="fixed inset-x-0 top-[76px] bg-neutral-900/80 transform -translate-y-[150%] transition-transform duration-500 ease-in-out backdrop-blur-md z-40 md:hidden rounded-3xl m-4 shadow-inset-white">
   <div class="flex flex-col px-6 py-6">
-    <nav class="flex flex-col space-y-4">
-      <a href="{% url 'leaderboard' %}"
-         class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">Leaderboard</a>
-      <a href="{% url 'rules' %}"
-         class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">Rules</a>
-      <a href="{% url 'about' %}"
-         class="text-neutral-100 font-bold hover:text-neutral-200 py-2 text-left">About</a>
-    </nav>
-    <div class="flex flex-col space-y-2 mt-4">
-      <a href="{% url 'account_login' %}"
-         class="text-center font-black transition-all ease-in duration-75 hover:bg-neutral-300 bg-neutral-200 text-black rounded-full px-4 py-2">Login</a>
-      <a href="{% url 'account_signup' %}"
-         class="text-center font-black transition-all ease-in duration-75 bg-green-600 hover:bg-green-800 text-white rounded-full px-4 py-2">Signup</a>
-    </div>
-  </div>
+    <nav class="flex flex-col space-y-2">
+    <a href="{% url 'leaderboard' %}"
+       class="text-neutral-100 font-black hover:text-neutral-200 py-2 text-left rounded-full px-4 flex items-center gap-x-3"><i class="ph-fill ph-ranking"></i>
+  Leaderboard</a>
+<a href="{% url 'help' %}"
+   class="text-neutral-100 font-black hover:text-neutral-200 py-2 text-left rounded-full px-4 flex items-center gap-x-3"><i class="ph-fill ph-question"></i>
+Help</a>
+<a href="{% url 'about' %}"
+   class="text-neutral-100 font-black hover:text-neutral-200 py-2 text-left rounded-full px-4 flex items-center gap-x-3"><i class="ph-fill ph-info"></i>
+About</a>
+</nav>
+<div class="flex flex-col space-y-2 mt-4">
+  <a href="{% url 'account_login' %}"
+     class="text-center font-black transition-all ease-in duration-75 hover:bg-neutral-300 bg-neutral-200 text-black rounded-full px-4 py-2">Login</a>
+  <a href="{% url 'account_signup' %}"
+     class="text-center font-black transition-all ease-in duration-75 bg-green-600 hover:bg-green-800 text-white rounded-full px-4 py-2">Signup</a>
+</div>
+</div>
 </div>
 <!-- Desktop Navigation -->
 <div class="w-full fixed top-0 hidden items-start justify-center z-30 md:flex">
@@ -42,8 +45,8 @@
       <nav class="flex-1 flex justify-start items-center gap-5">
         <a href="{% url 'leaderboard' %}"
            class="{% if url_name == 'leaderboard' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold">Leaderboard</a>
-        <a href="{% url 'rules' %}"
-           class="{% if url_name == 'rules' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold">Rules</a>
+        <a href="{% url 'help' %}"
+           class="{% if url_name == 'rules' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold">Help</a>
         <a href="{% url 'about' %}"
            class="{% if url_name == 'about' %}text-neutral-100{% else %}text-neutral-100{% endif %} hover:text-neutral-200 font-bold">About</a>
       </nav>

@@ -134,6 +134,10 @@ def privacy_policy(request):
     return render(request, 'privacy-policy.html', {'url_name': 'privacy_policy'})
 
 
+def help_center(request):
+    return render(request, 'help.html')
+
+
 @login_required
 def sample_questions_play(request):
     user = request.user

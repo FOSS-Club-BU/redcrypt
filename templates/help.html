@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}Help Center{% endblock head_title %}
+
+{% block head %}
+<style>
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+{% endblock head %}
+
+{% block content %}
+<div class="justify-center px-4 pb-8 md:pt-4">
+  <div class="max-w-5xl mx-auto mb-8">
+    <!-- Header Section -->
+    <div class="flex flex-col items-center gap-4 mb-12" data-aos="fade-up">
+      <div class="w-20 h-20 rounded-full bg-green-600/20 flex items-center justify-center">
+        <i class="ph-fill ph-question text-4xl text-green-500"></i>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-black text-neutral-100">Help Center</h1>
+      <p class="text-xl text-neutral-400 max-w-2xl text-center">Everything you need to know about Re-Dcrypt</p>
+    </div>
+
+    <!-- Help Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Rules Card -->
+      <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl p-6 transition-all duration-300 hover:bg-neutral-800/80 hover:-translate-y-0.5 hover:scale-[1.01] border border-transparent group" data-aos="fade-up" data-aos-delay="100">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-purple-600/20 flex items-center justify-center text-2xl text-purple-500">
+            <i class="ph-fill ph-scroll"></i>
+          </div>
+          <h3 class="text-xl font-bold text-neutral-100">Rules</h3>
+        </div>
+        <p class="text-neutral-400 mb-6">Learn about the competition rules and what's allowed.</p>
+        <a href="{% url 'rules' %}" class="inline-flex items-center gap-2 text-purple-500 hover:text-purple-400 transition-colors">
+          <span>View Rules</span>
+          <i class="ph-bold ph-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- Guidelines Card -->
+      <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl p-6 transition-all duration-300 hover:bg-neutral-800/80 hover:-translate-y-0.5 hover:scale-[1.01] border border-transparent group" data-aos="fade-up" data-aos-delay="200">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-green-600/20 flex items-center justify-center text-2xl text-green-500">
+            <i class="ph-fill ph-book-open"></i>
+          </div>
+          <h3 class="text-xl font-bold text-neutral-100">Guidelines</h3>
+        </div>
+        <p class="text-neutral-400 mb-6">Get tips and guidance on solving challenges.</p>
+        <a href="{% url 'guidelines' %}" class="inline-flex items-center gap-2 text-green-500 hover:text-green-400 transition-colors">
+          <span>Read Guidelines</span>
+          <i class="ph-bold ph-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- FAQs Card -->
+      <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl p-6 transition-all duration-300 hover:bg-neutral-800/80 hover:-translate-y-0.5 hover:scale-[1.01] border border-transparent group" data-aos="fade-up" data-aos-delay="300">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-blue-600/20 flex items-center justify-center text-2xl text-blue-500">
+            <i class="ph-fill ph-chat-dots"></i>
+          </div>
+          <h3 class="text-xl font-bold text-neutral-100">FAQs</h3>
+        </div>
+        <p class="text-neutral-400 mb-6">Find answers to commonly asked questions.</p>
+        <a href="{% url 'faqs' %}" class="inline-flex items-center gap-2 text-blue-500 hover:text-blue-400 transition-colors">
+          <span>View FAQs</span>
+          <i class="ph-bold ph-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- Contact Card -->
+      <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl p-6 transition-all duration-300 hover:bg-neutral-800/80 hover:-translate-y-0.5 hover:scale-[1.01] border border-transparent group md:col-span-2 lg:col-span-3 md:flex md:flex-col md:justify-center md:items-center" data-aos="fade-up" data-aos-delay="400">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-amber-600/20 flex items-center justify-center text-2xl text-amber-500">
+            <i class="ph-fill ph-headset"></i>
+          </div>
+          <h3 class="text-xl font-bold text-neutral-100">Need More Help?</h3>
+        </div>
+        <p class="text-neutral-400 mb-6">Can't find what you're looking for? Our support team is here to help.</p>
+        <div class="flex flex-col sm:flex-row justify-center items-center w-full gap-4">
+          <a href="{% url 'contact' %}" class="w-full sm:w-auto bg-neutral-900/70 shadow-inset-white hover:bg-amber-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300 flex items-center justify-center gap-2">
+            <i class="ph-bold ph-envelope"></i>
+            Contact Support
+          </a>
+          <a href="/discord" class="w-full sm:w-auto bg-neutral-900/70 shadow-inset-white hover:bg-[#5865F2] text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300 flex items-center justify-center gap-2">
+            <i class="ph-bold ph-discord-logo"></i>
+            Join Discord
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
