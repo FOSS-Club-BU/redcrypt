@@ -1,53 +1,51 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
-{% block head_title %}{{title}}{% endblock %}
+{% block head_title %} {{ title }} {% endblock head_title %}
 
 {% block head %}
 <style>
-.flip-clock {
-  perspective: 1000px;
-}
-
-.flip-unit {
+.countdown-unit {
   position: relative;
   width: 100px;
   height: 100px;
   margin: 5px;
   background: rgba(0, 42, 42, 0.6);
   border-radius: 10px;
-  perspective: 400px;
+  overflow: hidden;
 }
 
-.flip-card {
-  position: relative;
-  width: 100%;
+.number-display {
   height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.6s;
-}
-
-.flip-card.flip {
-  transform: rotateX(-180deg);
-}
-
-.card-face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
   font-weight: bold;
-  border: 1px solid rgba(8, 183, 79, 0.3);
-  background: rgba(0, 42, 42, 0.6);
-  border-radius: 10px;
+  color: #08B74F;
 }
 
-.card-face-back {
-  transform: rotateX(180deg);
+@keyframes slideUpdate {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  51% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.number-update {
+  animation: slideUpdate 0.6s ease-in-out;
 }
 
 .unit-label {
@@ -57,13 +55,8 @@
   margin-top: 0.5rem;
   color: #08B74F;
 }
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
 </style>
-{% endblock %}
+{% endblock head %}
 
 {% block content %}
 <div class="min-h-[80vh] flex items-center justify-center">
@@ -73,8 +66,8 @@
       <div class="w-20 h-20 mx-auto rounded-full bg-green-600/20 flex items-center justify-center mb-6 animate-pulse">
         <i class="ph-fill ph-timer text-4xl text-green-500"></i>
       </div>
-      <h1 class="text-5xl md:text-6xl font-black text-neutral-100 mb-4">{{heading}}</h1>
-      <p class="text-xl text-neutral-400 max-w-2xl mx-auto">{{subheading}}</p>
+      <h1 class="text-5xl md:text-6xl font-black text-neutral-100 mb-4">{{ heading }}</h1>
+      <p class="text-xl text-neutral-400 max-w-2xl mx-auto">{{ subheading }}</p>
     </div>
 
     {% if time %}
@@ -82,45 +75,33 @@
     <div class="rounded-2xl p-8">
       <div class="flex flex-wrap justify-center gap-4" id="countdown-container">
         <!-- Days -->
-        <div class="flip-clock text-center">
-          <div class="flip-unit">
-            <div class="flip-card" id="days-card">
-              <div class="card-face text-green-500">00</div>
-              <div class="card-face card-face-back text-green-500">00</div>
-            </div>
+        <div class="text-center">
+          <div class="countdown-unit">
+            <div class="number-display" id="days-display">00</div>
           </div>
           <div class="unit-label">Days</div>
         </div>
 
         <!-- Hours -->
-        <div class="flip-clock text-center">
-          <div class="flip-unit">
-            <div class="flip-card" id="hours-card">
-              <div class="card-face text-green-500">00</div>
-              <div class="card-face card-face-back text-green-500">00</div>
-            </div>
+        <div class="text-center">
+          <div class="countdown-unit">
+            <div class="number-display" id="hours-display">00</div>
           </div>
           <div class="unit-label">Hours</div>
         </div>
 
         <!-- Minutes -->
-        <div class="flip-clock text-center">
-          <div class="flip-unit">
-            <div class="flip-card" id="minutes-card">
-              <div class="card-face text-green-500">00</div>
-              <div class="card-face card-face-back text-green-500">00</div>
-            </div>
+        <div class="text-center">
+          <div class="countdown-unit">
+            <div class="number-display" id="minutes-display">00</div>
           </div>
           <div class="unit-label">Minutes</div>
         </div>
 
         <!-- Seconds -->
-        <div class="flip-clock text-center">
-          <div class="flip-unit">
-            <div class="flip-card" id="seconds-card">
-              <div class="card-face text-green-500">00</div>
-              <div class="card-face card-face-back text-green-500">00</div>
-            </div>
+        <div class="text-center">
+          <div class="countdown-unit">
+            <div class="number-display" id="seconds-display">00</div>
           </div>
           <div class="unit-label">Seconds</div>
         </div>
@@ -129,7 +110,7 @@
       <div class="mt-12 text-center">
         <div class="inline-flex items-center gap-2 bg-green-600/20 px-6 py-3 rounded-full text-green-500">
           <i class="ph-fill ph-calendar text-xl"></i>
-          <span class="text-sm font-medium" id="formatted-date">Starting {{time}}</span>
+          <span class="text-sm font-medium" id="formatted-date">Starting {{ time }}</span>
         </div>
       </div>
     </div>
@@ -138,18 +119,19 @@
 </div>
 
 <script>
-function updateFlipCard(cardId, value) {
-  const card = document.querySelector(`#${cardId}`);
-  const currentValue = card.querySelector('.card-face').textContent;
+function updateNumber(displayId, value) {
+  const display = document.querySelector(`#${displayId}`);
   const paddedValue = value.toString().padStart(2, '0');
   
-  if (currentValue !== paddedValue) {
-    card.querySelector('.card-face').textContent = paddedValue;
-    card.querySelector('.card-face-back').textContent = paddedValue;
-    card.classList.add('flip');
+  if (display.textContent !== paddedValue) {
+    display.classList.add('number-update');
     setTimeout(() => {
-      card.classList.remove('flip');
-    }, 600);
+      display.textContent = paddedValue;
+    }, 300); // Update at the midpoint of animation
+    
+    display.addEventListener('animationend', function() {
+      display.classList.remove('number-update');
+    }, { once: true });
   }
 }
 
@@ -180,10 +162,10 @@ var x = setInterval(function() {
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-  updateFlipCard('days-card', days);
-  updateFlipCard('hours-card', hours);
-  updateFlipCard('minutes-card', minutes);
-  updateFlipCard('seconds-card', seconds);
+  updateNumber('days-display', days);
+  updateNumber('hours-display', hours);
+  updateNumber('minutes-display', minutes);
+  updateNumber('seconds-display', seconds);
 
   if (distance < 0) {
     clearInterval(x);
