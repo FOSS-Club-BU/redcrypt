@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 {% load profile_tags %}
-
-{% block head_title %}Home{% endblock head_title %}
-
+{% block head_title %}
+  Home
+{% endblock head_title %}
 {% block head %}
-<style>
+  <style>
   .sponsor-logo {
     @apply max-h-24 filter grayscale hover:grayscale-0 transition-all duration-300 p-4 rounded-xl opacity-75 hover:opacity-100;
   }
@@ -21,184 +21,178 @@
   .checkmark {
     @apply w-4 h-4 mr-2;
   }
-</style>
+  </style>
 {% endblock head %}
-
 {% block content %}
-<!-- Hero Section -->
-<div class="min-h-[80vh] flex items-center justify-center relative">
-  <div class="rounded-xl lg:w-3/4 md:w-3/4 p-8">
-    <img src="{% static 'foss-bu-dark.png' %}"
-         alt="FOSS BU Logo"
-         class="py-6 w-2/3 md:w-1/4 px-6 h-auto mx-auto"
+  <!-- Hero Section -->
+  <div class="min-h-[80vh] flex items-center justify-center relative">
+    <div class="rounded-xl lg:w-3/4 md:w-3/4 p-8">
+      <img src="{% static 'foss-bu-dark.png' %}"
+           alt="FOSS BU Logo"
+           class="py-6 w-2/3 md:w-1/4 px-6 h-auto mx-auto"
+           data-aos="fade-up"
+           height="auto"
+           width="auto">
+      <p class="text-neutral-400 text-xl font-bold mt-4"
          data-aos="fade-up"
-         height="auto"
-         width="auto">
-    <p class="text-neutral-400 text-xl font-bold mt-4"
-       data-aos="fade-up"
-       data-aos-delay="100">Presents</p>
-    <img src="{% static 'logo_banner.svg' %}"
-         alt="Re-Dcrypt Logo"
-         class="pt-12 md:w-2/3 px-4 h-auto mx-auto mb-8"
-         data-aos="fade-up"
-         data-aos-delay="200"
-         height="auto"
-         width="auto">
-    
-    <div class="mt-8 space-y-4">
-      <h1 class="text-5xl font-black text-neutral-100 mb-6">11th & 12th January</h1>
-      <p class="text-xl text-neutral-300">
-        Re-Dcrypt Cryptic Hunt
-        <br>
-        Are you the one who can solve the cryptic questions?
-      </p>
-      <div class="button-container mt-12">
-        <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
-                onclick="window.location.href={% url 'rules' %}">Rules</button>
-        <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
-                onclick="window.location.href={% url 'faqs' %}">FAQs</button>
-        <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
-                onclick="window.location.href={% url 'about' %}">About</button>
-        <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
-                onclick="window.location.href={% url 'guidelines' %}">Guidelines</button>
-        <a href="/discord">
-          <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300">
-            Discord Server
-          </button>
-        </a>
+         data-aos-delay="100">Presents</p>
+      <img src="{% static 'logo_banner.svg' %}"
+           alt="Re-Dcrypt Logo"
+           class="pt-12 md:w-2/3 px-4 h-auto mx-auto mb-8"
+           data-aos="fade-up"
+           data-aos-delay="200"
+           height="auto"
+           width="auto">
+      <div class="mt-8 space-y-4">
+        <h1 class="text-5xl font-black text-neutral-100 mb-6">11th & 12th January</h1>
+        <p class="text-xl text-neutral-300">
+          Re-Dcrypt Cryptic Hunt
+          <br>
+          Are you the one who can solve the cryptic questions?
+        </p>
+        <div class="button-container mt-12">
+          <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
+                  onclick="window.location.href={% url 'rules' %}">Rules</button>
+          <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
+                  onclick="window.location.href={% url 'faqs' %}">FAQs</button>
+          <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
+                  onclick="window.location.href={% url 'about' %}">About</button>
+          <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300"
+                  onclick="window.location.href={% url 'guidelines' %}">Guidelines</button>
+          <a href="/discord">
+            <button class="bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300">
+              Discord Server
+            </button>
+          </a>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-<!-- Prizes Section -->
-<div data-aos="fade-up"
-     data-aos-delay="400"
-     class="rounded lg:w-3/4 md:w-3/4 w-[98%] p-5 mt-11 text-neutral-100 bg-clip-padding mb-10">
-  <span class="text-5xl font-black text-neutral-100 block mb-8">Prizes</span>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-    <!-- Top 3 Card -->
-    <div class="group bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800/80 transition-all duration-500 border border-transparent hover:border-green-600/50 text-left hover:shadow-lg hover:shadow-green-600/10 hover:-translate-y-1">
-      <div class="text-2xl font-bold mb-4 text-green-500 group-hover:text-green-400 transition-colors">Top 3</div>
-      <ul class="space-y-3 text-neutral-300">
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
-          </svg>
-          1 year of  
-          <span 
-            class="text-yellow-400 font-bold ml-1"
-            >
-            Linkedin Premium
-          </span>        </li>
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
-          </svg>
-          1 year <code class="text-green-400 px-1">.xyz</code> domain
-        </li>
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
-          </svg>
-          Certificate of appreciation
-        </li>
-      </ul>
-    </div>
-
-    <!-- Top 5 Card -->
-    <div class="group bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800/80 transition-all duration-500 border border-transparent hover:border-blue-600/50 text-left hover:shadow-lg hover:shadow-blue-600/10 hover:-translate-y-1">
-      <div class="text-2xl font-bold mb-4 text-blue-500 group-hover:text-blue-400 transition-colors">Top 5</div>
-      <ul class="space-y-3 text-neutral-300">
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
-          </svg>
-          6 months of  
-          <span 
-            class="text-yellow-400 font-bold ml-1"
-            >
-            Linkedin Premium
-          </span>
-        </li>
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
-          </svg>
-          1 year <code class="text-blue-400 px-1">.xyz</code> domain
-        </li>
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
-          </svg>
-          Certificate of participation
-        </li>
-      </ul>
-    </div>
-
-    <!-- Top 40 Card -->
-    <div class="group bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800/80 transition-all duration-500 border border-transparent hover:border-purple-600/50 text-left hover:shadow-lg hover:shadow-purple-600/10 hover:-translate-y-1">
-      <div class="text-2xl font-bold mb-4 text-purple-500 group-hover:text-purple-400 transition-colors">Top 40</div>
-      <ul class="space-y-3 text-neutral-300">
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
-          </svg>
-          1 year <code class="text-purple-400 px-1">.xyz</code> domain
-        </li>
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
-          </svg>
-          Certificate of participation
-        </li>
-      </ul>
-    </div>
-
-    <!-- Everyone Card -->
-    <div class="group bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800/80 transition-all duration-500 border border-transparent hover:border-amber-600/50 text-left hover:shadow-lg hover:shadow-amber-600/10 hover:-translate-y-1">
-      <div class="text-2xl font-bold mb-4 text-amber-500 group-hover:text-amber-400 transition-colors">Everyone</div>
-      <ul class="space-y-3 text-neutral-300">
-        <li class="flex items-center">
-          <svg class="w-4 h-4 mr-2 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
-          </svg>
-          Certificate of participation
-        </li>
-      </ul>
+  <!-- Prizes Section -->
+  <div data-aos="fade-up"
+       data-aos-delay="400"
+       class="rounded lg:w-3/4 md:w-3/4 w-[98%] p-5 mt-11 text-neutral-100 bg-clip-padding mb-10">
+    <span class="text-5xl font-black text-neutral-100 block mb-8">Prizes</span>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Top 3 Card -->
+      <div class="group bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800/80 transition-all duration-500 border border-transparent hover:border-green-600/50 text-left hover:shadow-lg hover:shadow-green-600/10 hover:-translate-y-1">
+        <div class="text-2xl font-bold mb-4 text-green-500 group-hover:text-green-400 transition-colors">Top 3</div>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-center">
+            <svg class="w-4 h-4 mr-2 text-green-500"
+                 fill="currentColor"
+                 viewBox="0 0 20 20">
+              <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+            </svg>
+            <div class="flex flex-col items-start">
+              1 year of
+              <span class="text-yellow-400 font-bold">Linkedin Premium</span>
+            </div>
+          </li>
+          <li class="flex items-center">
+            <svg class="w-4 h-4 mr-2 text-green-500"
+                 fill="currentColor"
+                 viewBox="0 0 20 20">
+              <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+            </svg>
+            1 year <code class="text-green-400 px-1">.xyz</code> domain
+          </li>
+          <li class="flex items-center">
+            <svg class="w-4 h-4 mr-2 text-green-500"
+                 fill="currentColor"
+                 viewBox="0 0 20 20">
+              <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+            </svg>
+            Certificate of appreciation
+          </li>
+        </ul>
+      </div>
+      <!-- Top 5 Card -->
+      <div class="group bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800/80 transition-all duration-500 border border-transparent hover:border-blue-600/50 text-left hover:shadow-lg hover:shadow-blue-600/10 hover:-translate-y-1">
+        <div class="text-2xl font-bold mb-4 text-blue-500 group-hover:text-blue-400 transition-colors">Top 5</div>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-center">
+            <svg class="w-4 h-4 mr-2 text-blue-500"
+                 fill="currentColor"
+                 viewBox="0 0 20 20">
+              <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+            </svg>
+            <div class="flex flex-col items-start">
+              6 months of
+              <span class="text-yellow-400 font-bold">Linkedin Premium</span>
+            </div>
+          </li>
+          <li class="flex items-center">
+            <svg class="w-4 h-4 mr-2 text-blue-500"
+                 fill="currentColor"
+                 viewBox="0 0 20 20">
+              <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+            </svg>
+            1 year <code class="text-blue-400 px-1">.xyz</code> domain
+          </li>
+          <li class="flex items-center">
+            <svg class="w-4 h-4 mr-2 text-blue-500"
+                 fill="currentColor"
+                 viewBox="0 0 20 20">
+              <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+            </svg>
+            Certificate of participation
+          </li>
+        </ul>
+      </div>
+      <!-- Top 40 Card -->
+      <div class="group bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800/80 transition-all duration-500 border border-transparent hover:border-purple-600/50 text-left hover:shadow-lg hover:shadow-purple-600/10 hover:-translate-y-1">
+        <div class="text-2xl font-bold mb-4 text-purple-500 group-hover:text-purple-400 transition-colors">Top 40</div>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-center">
+            <svg class="w-4 h-4 mr-2 text-purple-500"
+                 fill="currentColor"
+                 viewBox="0 0 20 20">
+              <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+            </svg>
+            1 year <code class="text-purple-400 px-1">.xyz</code> domain
+          </li>
+          <li class="flex items-center">
+            <svg class="w-4 h-4 mr-2 text-purple-500"
+                 fill="currentColor"
+                 viewBox="0 0 20 20">
+              <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+            </svg>
+            Certificate of participation
+          </li>
+        </ul>
+      </div>
+      <!-- Everyone Card -->
+      <div class="group bg-neutral-900/50 rounded-xl p-6 shadow-inset-white hover:bg-neutral-800/80 transition-all duration-500 border border-transparent hover:border-amber-600/50 text-left hover:shadow-lg hover:shadow-amber-600/10 hover:-translate-y-1">
+        <div class="text-2xl font-bold mb-4 text-amber-500 group-hover:text-amber-400 transition-colors">Everyone</div>
+        <ul class="space-y-3 text-neutral-300">
+          <li class="flex items-center">
+            <svg class="w-4 h-4 mr-2 text-amber-500"
+                 fill="currentColor"
+                 viewBox="0 0 20 20">
+              <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+            </svg>
+            Certificate of participation
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
-
-<!-- Sponsors Section -->
-<div data-aos="fade-up"
-     data-aos-delay="500"
-     class="rounded lg:w-3/4 md:w-3/4 w-[98%] p-5 mt-11 text-neutral-100 bg-clip-padding mb-10">
-  <span class="text-5xl font-black text-neutral-100 block mb-8">Sponsors</span>
-  <div class="flex flex-col md:flex-row items-center justify-center gap-8">
-
-    <a href="https://gen.xyz/"
-       class="transform transition-all duration-300 hover:scale-105">
-      <img src="/sponsors/xyz-logo-white.svg"
-           alt="gen.xyz"
-           class="max-h-24 filter grayscale hover:grayscale-0 transition-all duration-300 p-4 rounded-xl opacity-75 hover:opacity-100"
-           width="auto"
-           height="auto" />
-    </a>
+  <!-- Sponsors Section -->
+  <div data-aos="fade-up"
+       data-aos-delay="500"
+       class="rounded lg:w-3/4 md:w-3/4 w-[98%] p-5 mt-11 text-neutral-100 bg-clip-padding mb-10">
+    <span class="text-5xl font-black text-neutral-100 block mb-8">Sponsors</span>
+    <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+      <a href="https://gen.xyz/"
+         class="transform transition-all duration-300 hover:scale-105">
+        <img src="/sponsors/xyz-logo-white.svg"
+             alt="gen.xyz"
+             class="max-h-24 filter grayscale hover:grayscale-0 transition-all duration-300 p-4 rounded-xl opacity-75 hover:opacity-100"
+             width="auto"
+             height="auto" />
+      </a>
+    </div>
   </div>
-</div>
 
-<!-- Custom Toast -->
-<div id="custom_toast"
-     class="fixed bottom-0 text-sm rounded-2xl bg-neutral-900/70 backdrop-blur-xl shadow-inset-white text-neutral-100">
-  <svg xmlns="http://www.w3.org/2000/svg"
-       fill="none"
-       viewBox="0 0 24 24"
-       stroke-width="1.5"
-       stroke="currentColor"
-       class="w-6 h-6 text-amber-400">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-  </svg>
-  <span></span>
-</div>
 {% endblock content %}

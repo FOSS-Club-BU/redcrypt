@@ -207,7 +207,7 @@ $(document).ready(function(){
             url: '{% url "save_profile" %}',
             data: form.serialize(),
             success: function(data){
-                showToast("Profile updated successfully!", 3000, 'WARNING');
+                showToast("Profile updated successfully!", 3000, 'SUCCESS');
                 setTimeout(function(){
                     window.location.href = "{% url 'profile' %}";
                 }, 1500);

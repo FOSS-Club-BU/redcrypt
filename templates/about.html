@@ -23,8 +23,8 @@
 
 model-viewer {
   --poster-color: transparent;
-  --progress-bar-color: #08B74F;
-  --progress-bar-height: 4px;
+  --progress-bar-color: #00000000;
+  --progress-bar-height: 0px;
 }
   </style>
 {% endblock head %}
@@ -46,7 +46,7 @@ model-viewer {
         <!-- 3D Model Section -->
         <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl p-6 h-[400px] md:h-[500px]"
              data-aos="fade-up">
-          <model-viewer bounds="tight" enable-pan src="{% static 'scene.glb' %}" camera-controls environment-image="neutral" poster="{% static 'poster.png' %}" shadow-intensity="1" class="w-full h-full" style="background: transparent;">
+          <model-viewer bounds="tight" enable-pan src="{% static 'scene.glb' %}" camera-controls environment-image="neutral" poster="{% static 'poster.png' %}" shadow-intensity="1" class="w-full h-full rounded-xl" style="background: transparent;">
           </model-viewer>
         </div>
         <!-- Info Cards Section -->
