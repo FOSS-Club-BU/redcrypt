@@ -42,7 +42,7 @@ About</a>
          height="auto" />
     <div class="flex flex-col justify-center items-start">
       <span class="text-green-500 font-black">{{ user.username }}</span>
-      {% if profile.name %}<span class="text-neutral-200 text-xs">{{ profile.name }}</span>{% endif %}
+      {% if user.profile.name %}<span class="text-neutral-200 text-xs">{{ user.profile.name }}</span>{% endif %}
     </div>
   </div>
   <div class="flex flex-col gap-y-2 py-5">
