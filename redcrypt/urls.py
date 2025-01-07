@@ -26,7 +26,6 @@ from accounts import views
 
 urlpatterns = [
     path("", index, name="index"),
-    path("", include("pwa1.urls")),
     path("offline/", offline, name="offline"),
     path("offline", offline, name="offline"),
     path("admin/", include("admin_honeypot.urls", namespace="admin_honeypot")),
