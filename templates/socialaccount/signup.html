@@ -1,0 +1,156 @@
+{% extends "socialaccount/base_entrance.html" %}
+{% load i18n %}
+{% load allauth %}
+{% load static %}
+{% block head_title %}
+  Complete Signup
+{% endblock head_title %}
+{% block head %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+  <style>
+    .form-field {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-field input {
+      width: 100%;
+      background-color: rgba(23, 23, 23, 0.7);
+      box-shadow: inset 0 2px 0px -0.5px rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(13.5px);
+      color: #f1f1f1;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid transparent;
+      transition: all 0.3s;
+    }
+
+    .form-field input:focus {
+      border-color: rgba(8, 183, 79, 0.5);
+      outline: none;
+      background-color: rgba(23, 23, 23, 0.8);
+    }
+
+    .form-field label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #9ca3af;
+      margin-bottom: 0.25rem;
+    }
+
+    .welcome-card {
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border-right: 1px solid rgba(8, 183, 79, 0.2);
+      min-height: auto;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+  </style>
+{% endblock %}
+
+{% block content %}
+<div class="justify-center px-4 py-8 flex items-center">
+  <div class="max-w-5xl mx-auto flex items-stretch h-auto">
+    <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl overflow-hidden flex-1 flex flex-col md:flex-row shadow-md">
+      <div class="flex flex-col md:flex-row w-full">
+        <!-- Welcome Card -->
+        <div class="md:w-[400px] welcome-card hidden md:block" data-aos="fade-right" data-aos-duration="600">
+          <!-- Copy SVG and welcome card content from login.html -->
+          <div class="content">
+            <div class="logos">
+              <img src="{% static 'foss-bu-dark.png' %}" alt="FOSS BU" class="h-8 md:h-12 w-auto">
+              <img src="{% static 'logo.svg' %}" alt="Re-Dcrypt" class="h-8 md:h-12 w-auto">
+            </div>
+            <div class="welcome-text">
+              <h2>
+                <span class="block text-white/80">Complete</span>
+                <span class="block text-white/80">Your</span>
+                <span class="block text-white/80">Profile</span>
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="md:w-[500px] flex-1" data-aos="fade-up" data-aos-duration="600">
+          <div class="form-container h-full">
+            <form method="post" action="{% url 'socialaccount_signup' %}" class="h-full">
+              {% csrf_token %}
+              <div class="form-content p-6">
+                <div class="step-header flex flex-col items-center mb-8">
+                  <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
+                    <span class="material-symbols-outlined text-3xl">person</span>
+                  </span>
+                  <div class="text-center">
+                    <h2 class="text-xl font-bold text-green-500">One Last Step!</h2>
+                    <p class="text-neutral-400 text-sm mt-2">
+                      Complete your profile to continue with {{ account.get_provider.name }}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="form-fields" data-aos="fade-up" data-aos-delay="100" data-aos-duration="600">
+                  <div class="form-field">
+                    <label for="id_email">Email</label>
+                    <div class="relative">
+                      <input type="email" name="email" value="{{ form.email.value|default:'' }}" placeholder="Email address" id="id_email" required>
+                    </div>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="id_username">Username</label>
+                    <div class="relative">
+                      <input type="text" name="username" placeholder="Choose a username" id="id_username" required>
+                    </div>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="id_name">Full Name (Optional)</label>
+                    <div class="relative">
+                      <input type="text" name="name" id="id_name" placeholder="Your full name">
+                    </div>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="id_organization">College/Organization (Optional)</label>
+                    <div class="relative">
+                      <input type="text" name="organization" id="id_organization" placeholder="Your organization">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-buttons" data-aos="fade-up" data-aos-delay="200" data-aos-duration="600">
+                <button type="submit" class="w-full bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300 flex items-center justify-center gap-2">
+                  <span class="material-symbols-outlined">check_circle</span>
+                  <span class="button-text">Complete Signup</span>
+                </button>
+                <p class="text-neutral-400 text-xs mt-4 text-center">
+                  By signing up, you agree to Re-Dcrypt's 
+                  <a href="/terms-and-conditions/" class="text-green-500 hover:underline">Terms of Service</a> and
+                  <a href="/privacy-policy/" class="text-green-500 hover:underline">Privacy Policy</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if form.errors %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    {% for field in form %}
+      {% for error in field.errors %}
+        showToast("{{ error }}", 3000, "ERROR");
+      {% endfor %}
+    {% endfor %}
+  });
+</script>
+{% endif %}
+{% endblock %}

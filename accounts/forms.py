@@ -1,15 +1,47 @@
 from django import forms
-from allauth.account.forms import SignupForm, ResetPasswordForm
+from allauth.account.forms import SignupForm, ResetPasswordForm, LoginForm
+from allauth.socialaccount.forms import SignupForm as SocialSignupForm
 from accounts.models import Profile
 from hcaptcha.fields import hCaptchaField
 from datetime import datetime
+from allauth.socialaccount.adapter import get_adapter
+
 import pytz
 
 
+class MyCustomSocialSignupForm(SocialSignupForm):
+    name = forms.CharField(required=False, label="Name [Optional]")
+    organization = forms.CharField(required=False, label='College/Organization [Optional]')
+
+    def save(self, request):
+        adapter = get_adapter(request)
+        user = adapter.save_user(request, self.sociallogin, form=self)
+        self.custom_signup(request, user)
+        try:
+            avatar_url = self.sociallogin.account.get_avatar_url()
+        except:
+            avatar_url = f"https://api.dicebear.com/9.x/fun-emoji/svg?seed={user.username}&backgroundColor=059ff2,71cf62,d84be5,d9915b,f6d594,fcbc34,b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf&backgroundRotation[]"
+        profile = Profile.objects.create(
+            user=user,
+            name=self.cleaned_data['name'],
+            organization=self.cleaned_data['organization'],
+            avatar=avatar_url,
+            last_completed_time=datetime.now(pytz.timezone('Asia/Kolkata')))
+        profile.save()
+        return user
+
+    def validate_unique_email(self, value):
+        try:
+            return super(MyCustomSocialSignupForm, self).validate_unique_email(value)
+        except forms.ValidationError:
+            raise forms.ValidationError(
+                get_adapter().error_messages["email_taken"]
+                % self.sociallogin.account.get_provider().name
+            )
+
 class MyCustomSignupForm(SignupForm):
     name = forms.CharField(required=False, label="Name [Optional]")
-    organization = forms.CharField(required=False,
-                                   label='School/Organization [Optional]')
+    organization = forms.CharField(required=False, label='College/Organization [Optional]')
     hcaptcha = hCaptchaField(theme='dark')
 
     field_order = [
@@ -18,23 +50,18 @@ class MyCustomSignupForm(SignupForm):
     ]
 
     def save(self, request):
-        # Ensure you call the parent class's save.
-        # .save() returns a User object.
         user = super(MyCustomSignupForm, self).save(request)
 
         profile = Profile.objects.create(
             user=user,
             name=self.cleaned_data['name'],
             organization=self.cleaned_data['organization'],
-            avatar_url=
-            f"https://source.boringavatars.com/beam/512/{user.username}?colors=00D2D2,006D6D,002A2A,055D5D,074848&square",
+            avatar=f"https://api.dicebear.com/9.x/fun-emoji/svg?seed={user.username}&backgroundColor=059ff2,71cf62,d84be5,d9915b,f6d594,fcbc34,b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf&backgroundRotation[]",
             last_completed_time=datetime.now(pytz.timezone('Asia/Kolkata')))
         profile.save()
-
-        # Add your own processing here.
-
-        # You must return the original result.
         return user
+
+
 
 
 class CustomForgetPassword(ResetPasswordForm):
@@ -45,8 +72,8 @@ class ContactForm(forms.Form):
     subject = forms.CharField(
         required=True,
         max_length=150,
-        widget=forms.TextInput(attrs={'class': 'text-nblue p-2'}))
+        widget=forms.TextInput(attrs={'class': 'text-green-600 p-2'}))
     body = forms.CharField(
         required=True,
-        widget=forms.Textarea(attrs={'class': 'text-nblue p-2'}))
+        widget=forms.Textarea(attrs={'class': 'text-green-600 p-2'}))
     hCaptcha = hCaptchaField(theme='dark')

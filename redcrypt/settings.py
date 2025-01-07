@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-from django.core.management.utils import get_random_secret_key;
 # import sentry_sdk
 # from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -27,32 +26,35 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", get_random_secret_key())
+SECRET_KEY = os.environ.get("SECRET_KEY", '%^7w6=-k)c*od9w1ci*dj-3$+yg45(@g_+kxw==(3t3z+^s7gd')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-try:
-    if os.environ.get("DEBUG") == "True":
-        DEBUG = True
-    else:
-        DEBUG = False
-except:
-    DEBUG = False
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = [
-    'https://*.rachitkhurana.xyz',
-    'https://*.127.0.0.1',
-    'https://redcrypt.rachitkhurana.repl.co',
-    'https://*.redcrypt.xyz/']
+CSRF_TRUSTED_ORIGINS = []
+
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "http://localhost:8000").split(",")
+
+
+if DEBUG:
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
+    SECURE_SSL_REDIRECT = False
+
+else:
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
+
+
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-SECURE_SSL_REDIRECT = False
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
-# Application definition
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+SESSION_COOKIE_AGE = 86400
 
 INSTALLED_APPS = [
     'admin_interface',
@@ -60,7 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
-    'django.contrib.contenttypes',  # Add this line
+    'django.contrib.contenttypes', 
     'django.contrib.sessions',
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
@@ -69,6 +71,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.discord',
+    'allauth.socialaccount.providers.google',
     'hunt',
     'accounts',
     'extra_settings',
@@ -76,7 +79,8 @@ INSTALLED_APPS = [
     'url_shortner',
     'hcaptcha',
     'maintenance_mode',
-    'pwa'
+    'pwa',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
@@ -90,6 +94,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'redcrypt.middleware.CustomMiddleware',
     'maintenance_mode.middleware.MaintenanceModeMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
+
 ]
 
 ROOT_URLCONF = 'redcrypt.urls'
@@ -115,16 +121,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'redcrypt.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
+            'PORT': os.getenv('DB_PORT'),
+        }
+    }
+
+
 # sentry_sdk.init(
 #     dsn=os.getenv('SENTRY_DSN'),
 #     integrations=[DjangoIntegration()],
@@ -138,9 +154,6 @@ DATABASES = {
 #     # django.contrib.auth) you may enable sending PII data.
 #     send_default_pii=True
 # )
-
-# Password validation
-# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
 SITE_ID = 3
 
@@ -164,10 +177,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
@@ -175,7 +185,9 @@ ACCOUNT_FORMS = {
     'signup': 'accounts.forms.MyCustomSignupForm',
     'reset_password': 'accounts.forms.CustomForgetPassword'}
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SOCIALACCOUNT_FORMS = {
+    'signup': 'accounts.forms.MyCustomSocialSignupForm',
+}
 
 ACCOUNT_EMAIL_REQUIRED = True
 
@@ -183,10 +195,16 @@ ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_MAX_EMAIL_ADDRESSES = 1
 
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 
 LOGIN_REDIRECT_URL = '/profile/'
-# Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+SOCIALACCOUNT_AUTO_SIGNUP = False
+
+ACCOUNT_ADAPTER = 'accounts.adapter.CustomAccountAdapter'
+
+ACCOUNT_EMAIL_VERIFICATION = 'optional'  # Change to 'mandatory' if you want to enforce it when SMTP is configured
 
 LANGUAGE_CODE = 'en-us'
 
@@ -198,9 +216,13 @@ USE_TZ = True
 
 APPEND_SLASH = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+
 WHITENOISE_MANIFEST_STRICT = True
 WHITENOISE_ROOT = "static"
 STATIC_URL = 'static/'
@@ -209,85 +231,61 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+
+# Media files configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Email Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp-pulse.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", default=True)
+EMAIL_PORT = os.getenv("EMAIL_PORT", default=587)
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = "Re-Dcrypt <hunt@redcrypt.xyz>"
+EMAIL_SENDER = os.getenv('EMAIL_SENDER', EMAIL_HOST_USER)
+DEFAULT_FROM_EMAIL = f"Re-Dcrypt <{EMAIL_SENDER}>"
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "Re-Dcrypt - "
 ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 600
-SOCIALACCOUNT_AUTO_SIGNUP = False
+
 HCAPTCHA_SITEKEY = os.getenv('HCAPTCHA_SITEKEY')
 HCAPTCHA_SECRET = os.getenv('HCAPTCHA_SECRET')
 
-try:
-    if os.getenv("MAINTENANCE_MODE").lower() == "true":
-        MAINTENANCE_MODE = True
-    else:
-        MAINTENANCE_MODE = False
-except:
-    MAINTENANCE_MODE = False
+MAINTENANCE_MODE = os.getenv("MAINTENANCE_MODE", "false").lower() == "true"
 
 MAINTENANCE_MODE_IGNORE_ADMIN_SITE = True
 MAINTENANCE_MODE_IGNORE_SUPERUSER = True
 
+LOGIN_URL = 'account_login'
+ACCOUNT_LOGIN_ON_GET = True
 
-PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'serviceworker.js')
-PWA_APP_NAME = 'Re-Dcrypt'
-PWA_APP_DESCRIPTION = 'Re-Dcrypt Cryptic Hunt.'
-PWA_APP_THEME_COLOR = '#00d2d2'
-PWA_APP_BACKGROUND_COLOR = '#002a2a'
-PWA_APP_DISPLAY = 'standalone'
-PWA_APP_SCOPE = '/'
-PWA_APP_START_URL = '/'
-PWA_APP_HOME_PATH = '/'
-PWA_APP_STATUS_BAR_COLOR = 'default'
-PWA_APP_DEBUG_MODE = False
-PWA_APP_ICONS = [
-    {
-        'src': '/icons/maskable_icon_x192.png',
-        'sizes': '192x192',
-        'type': 'image/png',
-        "purpose": "maskable"
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
+            'secret': os.getenv('GOOGLE_CLIENT_SECRET'),
+        },
+        'FETCH_USERINFO' : True 
     },
-    {
-        'src': '/icons/maskable_icon_x192.png',
-        'sizes': '192x192',
-        'type': 'image/png',
-        "purpose": "any"
+}
+
+
+SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
     },
-    {
-        'src': '/icons/maskable_icon_x512.png',
-        'sizes': '512x512',
-        'type': 'image/png',
-        "purpose": "maskable"
-    }
-]
-PWA_APP_ICONS_APPLE = [
-    {
-        'src': '/icons/maskable_icon_x192.png',
-        'sizes': '192x192',
-        'type': 'image/png',
-        "purpose": "maskable",
+    'loggers': {
+        'accounts.adapter': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+        },
     },
-    {
-        'src': '/icons/maskable_icon_x192.png',
-        'sizes': '192x192',
-        'type': 'image/png',
-        "purpose": "any"
-    },
-    {
-        'src': '/icons/maskable_icon_x512.png',
-        'sizes': '512x512',
-        'type': 'image/png',
-        "purpose": "maskable"
-    }
-]
-PWA_APP_LANG = 'en-US'
+}

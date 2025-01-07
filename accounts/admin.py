@@ -31,7 +31,7 @@ class ProfileAdmin(admin.ModelAdmin):
                 ('name', 'is_public_name'),
                 ('organization', 'is_public_organization'),
                 ('discord_id'),
-                ('avatar_url')
+                ('avatar')
                 ]}),
         ('Hunt',
             {'fields': [
@@ -48,13 +48,13 @@ class ProfileAdmin(admin.ModelAdmin):
 
     def reset_profile_pic(self, request, queryset):
         for i in queryset:
-            i.avatar_url=f"https://source.boringavatars.com/beam/512/{i.user.username}?colors=00D2D2,006D6D,002A2A,055D5D,074848&square"
+            i.avatar_url=f"https://api.dicebear.com/9.x/fun-emoji/svg?seed={i.user.username}&backgroundColor=059ff2,71cf62,d84be5,d9915b,f6d594,fcbc34,b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf&backgroundRotation[]"
             i.save()
         self.message_user(
             request, "Updated URLs"
             )
 
-    reset_profile_pic.short_description="Reset Avatar URL"
+    reset_profile_pic.short_description = "Reset Avatar"
     actions=[reset_profile_pic]
 
 

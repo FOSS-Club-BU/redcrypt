@@ -1,11 +1,66 @@
 {% extends "base.html" %}
-
 {% load i18n %}
+{% load static %}
+
 {% block head_title %}Verification Email Sent{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+<style>
+.resend-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tooltip {
+  @apply invisible absolute;
+  width: max-content;
+}
+
+.has-tooltip:hover .tooltip {
+  @apply visible z-50;
+}
+</style>
+{% endblock head %}
+
 {% block content %}
-<div class="rounded lg:w-1/3  md:w-1/2 w-[98%] p-10 mt-16 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 bg-color-nblue-700 border border-nblue mb-10 text-nblue" style="background-color: rgba(0, 42, 42, .6);">
-    <h1 class="text-nblue focus:outline-none text-2xl font-extrabold leading-6">{% trans "Verify Your E-mail Address" %}</h1>
-    <hr class="mt-3 mb-3 border-nblue">
-    <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. <br>If you do not see the verification e-mail in your main inbox, check your spam folder.<br> Please contact us if you do not receive the verification e-mail within a few minutes.{% endblocktrans %}</p>
-<div>
+<div class="rounded lg:w-3/4 md:w-3/4 w-[98%] p-5 mt-24 bg-clip-padding mb-10">
+  <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl p-8" data-aos="fade-up" data-aos-duration="800">
+    <div class="flex flex-col items-center">
+      <div class="w-16 h-16 rounded-full bg-green-600/20 flex items-center justify-center mb-6">
+        <span class="material-symbols-outlined text-4xl text-green-500">mail</span>
+      </div>
+      
+      <h1 class="text-3xl font-bold text-neutral-100 mb-4">
+        {% trans "Verify Your Email Address" %}
+      </h1>
+      
+      <p class="text-neutral-400 text-center max-w-xl mb-8">
+        {% blocktrans %}
+        We have sent an email to you for verification. Follow the link provided to finalize the signup process.
+        <br/><br/>
+        If you do not see the verification email in your main inbox, check your spam folder.
+        <br/><br/>
+        Please contact us if you do not receive the verification email within a few minutes.
+        {% endblocktrans %}
+      </p>
+
+      <form method="post" action="{% url 'send_confirmation_email' %}" class="w-full max-w-md">
+        {% csrf_token %}
+        {% if cooldown %}
+        <div class="mb-4 text-center">
+          <p class="text-amber-500">Please wait {{ remaining_time }} before requesting another email.</p>
+        </div>
+        {% endif %}
+        <button type="submit" 
+                class="resend-btn w-full bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-full transition-all duration-300 flex items-center justify-center gap-2"
+                {% if cooldown %}disabled{% endif %}>
+          <span class="material-symbols-outlined">send</span>
+          Resend Verification Email
+        </button>
+      </form>
+
+    </div>
+  </div>
+</div>
 {% endblock %}

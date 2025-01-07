@@ -17,7 +17,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=150, blank=True)
     score = models.IntegerField(default=0)
-    last_completed_time = models.DateTimeField()
+    last_completed_time = models.DateTimeField(null=True, blank=True)
     is_public_name = models.BooleanField(default=False)
     current_level = models.IntegerField(default=0)
     discord_id = models.IntegerField(default=0)
@@ -27,12 +27,17 @@ class Profile(models.Model):
     banned_reason = models.CharField(max_length=150, blank=True)
     ip_address = models.JSONField(default=list)
     ip_address_count = models.IntegerField(default=0)
-    avatar_url = models.CharField(
-        max_length=150,
-        default="https://source.boringavatars.com/beam/512/redcrypt?colors=00D2D2,006D6D,002A2A,055D5D,074848&square"
-    )
+    avatar = models.URLField(default="https://api.dicebear.com/9.x/fun-emoji/svg?seed=Easton&backgroundColor=059ff2,71cf62,d84be5,d9915b,f6d594,fcbc34,b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf")
     stats = models.JSONField(default=dict, blank=True)
     rank = models.CharField(default='0', max_length=5, blank=True)
+    last_verification_email_sent = models.DateTimeField(null=True, blank=True)
+    verification_emails_sent = models.IntegerField(default=0)
+
+    @property
+    def avatar_url(self):
+        if self.avatar:
+            return self.avatar
+        return ''
 
     def __str__(self):
         return str(self.user)
@@ -58,34 +63,6 @@ class contact_form(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.CharField(max_length=150)
     body = models.TextField()
-
-
-@receiver(user_signed_up)
-def user_signed_up_(request, user, **kwargs):
-    profile = Profile.objects.get(user=user)
-    "Send  discord webhook after user signup"
-    name = profile.name if profile.name else "None"
-    organization = profile.organization if profile.organization else "None"
-    json_data = {"content": "New Signup", "embeds": [{
-        "title": "New User Signup", "color": 53970, "fields": [
-            {
-                "name": "Username",
-                "value": str(user.username)
-            },
-            {
-                "name": "Name",
-                "value": name
-            },
-            {
-                "name": "Email",
-                "value": str(user.email)
-            },
-            {
-                "name": "School/Organisation",
-                "value": organization
-            }]}]}
-    url = os.getenv("DISCORD_LOGGING_WEBHOOK")
-    requests.post(url, json=json_data)
 
 
 @receiver(social_account_added)

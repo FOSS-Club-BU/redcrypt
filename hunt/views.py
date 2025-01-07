@@ -34,7 +34,7 @@ def guidelines(request):
 def play(request):
     user = request.user
     profile = Profile.objects.get(user=user)
-    if profile.current_level > 21:
+    if profile.current_level == Question.objects.count():
         return render(request, 'complete.html')
     else:
         question = Question.objects.get(level=profile.current_level)
@@ -80,9 +80,9 @@ def check_ans(request):
             except Exception as e:
                 # capture_exception(e)
                 print(e)
-            url = f"{os.getenv('BOT_HOST')}/level/complete/{profile.discord_id}/{int(profile.current_level)-1}"
-            headers = {"Authorization": os.getenv("API_Authorization")}
-            request = requests.post(url, headers=headers)
+            # url = f"{os.getenv('BOT_HOST')}/level/complete/{profile.discord_id}/{int(profile.current_level)-1}"
+            # headers = {"Authorization": os.getenv("API_Authorization")}
+            # request = requests.post(url, headers=headers)
             return JsonResponse({'correct': True}, status=200)
         else:
             profile.save()
@@ -132,6 +132,10 @@ def terms_and_conditions(request):
 
 def privacy_policy(request):
     return render(request, 'privacy-policy.html', {'url_name': 'privacy_policy'})
+
+
+def help_center(request):
+    return render(request, 'help.html')
 
 
 @login_required

@@ -1,0 +1,16 @@
+<script src="//accounts.google.com/gsi/client" async></script>
+<div id="g_id_onload"
+    data-client_id="176912388003-058tnif1mif6nphv9qinc1jih3n964jv.apps.googleusercontent.com"
+    data-login_uri="https://redcrypt.fossbu.co{% url 'google_login_by_token' %}">
+</div>
+
+
+<!-- google oauth button -->
+<div class="flex items-center justify-center w-full">
+    <form id="google_login_form" action="{% url 'google_login' %}" method="post" class="w-full">
+        {% csrf_token %}
+        <button class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2" type="submit">
+            <span class="ph-bold ph-google-logo"></span>Continue with Google
+        </button>
+    </form>
+</div>

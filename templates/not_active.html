@@ -1,36 +1,184 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
-{% block head_title %}{{title}}{% endblock %}
+
+{% block head_title %} {{ title }} {% endblock head_title %}
+
+{% block head %}
+<style>
+.countdown-unit {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+  background: rgba(0, 42, 42, 0.6);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.number-display {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #08B74F;
+}
+
+@keyframes slideUpdate {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  51% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.number-update {
+  animation: slideUpdate 0.6s ease-in-out;
+}
+
+.unit-label {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.5rem;
+  color: #08B74F;
+}
+</style>
+{% endblock head %}
+
 {% block content %}
-<div class="justify-center">
-    <div class="rounded lg:w-1/3  md:w-1/2 w-[98%] p-10 mt-16 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 bg-color-nblue-700 border border-nblue mb-10" style="background-color: rgba(0, 42, 42, .6);"><i><p tabindex="0" class="text-nblue focus:outline-none text-2xl font-extrabold leading-6"><span class="text-4xl">{{heading}}</span><br>
-        <br><span>{{subheading}}</span></i>
-    </p>
+<div class="min-h-[80vh] flex items-center justify-center">
+  <div class="max-w-4xl mx-auto px-4 py-10" data-aos="fade-up" data-aos-duration="800">
+    <!-- Header Section -->
+    <div class="text-center">
+      <div class="w-20 h-20 mx-auto rounded-full bg-green-600/20 flex items-center justify-center mb-6 animate-pulse">
+        <i class="ph-fill ph-timer text-4xl text-green-500"></i>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-black text-neutral-100 mb-4">{{ heading }}</h1>
+      <p class="text-xl text-neutral-400 max-w-2xl mx-auto">{{ subheading }}</p>
+    </div>
+
     {% if time %}
-    <hr class="mt-3 mb-3 border-nblue">
-    <p class="text-nblue text-lg font-medium leading-6"><br>
-        <span id="countdown_d" class="inline-block mt-2 text-2xl bg-nblue-800 border border-nblue rounded mr-3 p-3"></span><span id="countdown_h" class="inline-block mt-2 text-2xl bg-nblue-800 border border-nblue rounded mr-3 p-3"></span><span id="countdown_m" class="inline-block mt-2 text-2xl bg-nblue-800 border border-nblue rounded mr-3 p-3"></span><span id="countdown_s" class="inline-block mt-2 text-2xl bg-nblue-800 border border-nblue rounded mr-3 p-3"></span>
-        <script>
-            var countDownDate = new Date("{{time}}").getTime();
-            console.log(countDownDate);
-            console.log("{{time}}")
-            var x = setInterval(function() {
-              var now = new Date().getTime();
-              var distance = countDownDate - now;
-              var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-              var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-              var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-              var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-              document.getElementById("countdown_d").innerHTML = days + "d "
-              document.getElementById("countdown_h").innerHTML = hours + "h "
-              document.getElementById("countdown_m").innerHTML = minutes + "m "
-                document.getElementById("countdown_s").innerHTML = seconds + "s ";
-              if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("countdown").innerHTML = "Hunt Started";
-              }
-            }, 1000);
-            </script>
+    <!-- Countdown Section -->
+    <div class="rounded-2xl p-8">
+      <div class="flex flex-wrap justify-center gap-4" id="countdown-container">
+        <!-- Days -->
+        <div class="text-center">
+          <div class="countdown-unit">
+            <div class="number-display" id="days-display">00</div>
+          </div>
+          <div class="unit-label">Days</div>
+        </div>
+
+        <!-- Hours -->
+        <div class="text-center">
+          <div class="countdown-unit">
+            <div class="number-display" id="hours-display">00</div>
+          </div>
+          <div class="unit-label">Hours</div>
+        </div>
+
+        <!-- Minutes -->
+        <div class="text-center">
+          <div class="countdown-unit">
+            <div class="number-display" id="minutes-display">00</div>
+          </div>
+          <div class="unit-label">Minutes</div>
+        </div>
+
+        <!-- Seconds -->
+        <div class="text-center">
+          <div class="countdown-unit">
+            <div class="number-display" id="seconds-display">00</div>
+          </div>
+          <div class="unit-label">Seconds</div>
+        </div>
+      </div>
+
+      <div class="mt-12 text-center">
+        <div class="inline-flex items-center gap-2 bg-green-600/20 px-6 py-3 rounded-full text-green-500">
+          <i class="ph-fill ph-calendar text-xl"></i>
+          <span class="text-sm font-medium" id="formatted-date">Starting {{ time }}</span>
+        </div>
+      </div>
+    </div>
     {% endif %}
+  </div>
 </div>
+
+<script>
+function updateNumber(displayId, value) {
+  const display = document.querySelector(`#${displayId}`);
+  const paddedValue = value.toString().padStart(2, '0');
+  
+  if (display.textContent !== paddedValue) {
+    display.classList.add('number-update');
+    setTimeout(() => {
+      display.textContent = paddedValue;
+    }, 300); // Update at the midpoint of animation
+    
+    display.addEventListener('animationend', function() {
+      display.classList.remove('number-update');
+    }, { once: true });
+  }
+}
+
+var countDownDate = new Date("{{time}}").getTime();
+
+// Format date for display
+function formatDate(date) {
+  const options = { 
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric',
+    hour: '2-digit', 
+    minute: '2-digit',
+  };
+  return new Date(date).toLocaleDateString('en-US', options);
+}
+
+// Set formatted date in pill
+document.getElementById('formatted-date').textContent = `Starting ${formatDate(countDownDate)}`;
+
+var x = setInterval(function() {
+  var now = new Date().getTime();
+  var distance = countDownDate - now;
+
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  updateNumber('days-display', days);
+  updateNumber('hours-display', hours);
+  updateNumber('minutes-display', minutes);
+  updateNumber('seconds-display', seconds);
+
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("countdown-container").innerHTML = `
+      <div class="text-center p-8">
+        <i class="ph-fill ph-confetti text-5xl text-green-500 mb-4"></i>
+        <h2 class="text-2xl font-bold text-green-500">Hunt Started!</h2>
+      </div>
+    `;
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+  }
+}, 1000);
+</script>
 {% endblock content %}

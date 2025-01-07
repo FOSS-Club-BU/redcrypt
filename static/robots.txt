@@ -2,5 +2,3 @@
 
 User-agent: *
 Disallow: /play
-
-🥚: sophia

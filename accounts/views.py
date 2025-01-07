@@ -1,6 +1,15 @@
+import json
+import logging
+from django.http import HttpResponse
+import json
+import logging
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from accounts.models import Profile, contact_form
+from django.contrib import messages
+
+logger = logging.getLogger(__name__)
 from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -10,14 +19,50 @@ from django.core.exceptions import ObjectDoesNotExist
 from hunt.utils import get_rank
 # from sentry_sdk import capture_exception
 from accounts.forms import ContactForm
+import requests
+from django.conf import settings
+from django.utils import timezone
+from .utils import can_send_verification_email, get_next_available_time
 
 
 @login_required
 @not_banned
+def verify_captcha(request):
+    if request.method == "POST":
+        try:
+            # Get hCaptcha response token from form
+            captcha_response = request.POST.get('h-captcha-response')
+            
+            # Verify with hCaptcha API
+            data = {
+                'secret': settings.HCAPTCHA_SECRET,
+                'response': captcha_response
+            }
+            response = requests.post('https://hcaptcha.com/siteverify', data=data)
+            result = response.json()
+            print(type(result.get('success')))
+            return JsonResponse({
+                'captchaValid': result.get('success')
+            })
+            
+        except Exception as e:
+            logger.error(f"Captcha verification error: {str(e)}")
+            return JsonResponse({
+                'captchaValid': False,
+                'error': 'Verification failed'
+            }, status=400)
+            
+    return JsonResponse({
+        'captchaValid': False,
+        'error': 'Invalid request method'
+    }, status=405)
+
+@login_required(login_url='account_login')
+@not_banned
 def profile(request):
     user = request.user
     profile = Profile.objects.get(user=user)
-    k = SocialAccount.objects.filter(user=request.user)
+    k = SocialAccount.objects.filter(user=request.user).filter(provider='discord')
     rank = get_rank(request.user)
     if len(k) > 0:
         connected = True
@@ -37,7 +82,7 @@ def profile(request):
         })
 
 
-@login_required
+@login_required(login_url='account_login')
 @not_banned
 def edit_profile(request):
     user = request.user
@@ -51,7 +96,7 @@ def edit_profile(request):
         })
 
 
-@login_required
+@login_required(login_url='account_login')
 @not_banned
 def save_profile(request):
     if request.method == "POST":
@@ -108,13 +153,50 @@ def connect(request):
 @login_required
 @not_banned
 def send_confirmation_email(request):
-    send_email_confirmation(request, request.user)
+    profile = request.user.profile
+    
+    if not can_send_verification_email(request.user):
+        next_time = get_next_available_time(request.user)
+        remaining = next_time - timezone.now()
+        hours = remaining.seconds // 3600
+        minutes = (remaining.seconds % 3600) // 60
+        
+        messages.error(
+            request, 
+            f"You've exceeded the maximum number of verification email attempts. Please wait {hours}h {minutes}m before requesting another."
+        )
+        return redirect('verification-sent')
+        
+    try:
+        send_email_confirmation(request, request.user, signup=False)
+        profile.verification_emails_sent += 1
+        profile.last_verification_email_sent = timezone.now()
+        profile.save()
+        messages.success(request, f"Verification email sent successfully!")
+            
+    except Exception as e:
+        logger.error(f"Failed to send verification email: {str(e)}")
+        messages.error(request, "Failed to send verification email. Please try again or contact support.")
     return redirect('verification-sent')
 
 
 @login_required
 def verification_sent(request):
-    return render(request, 'verification_sent.html')
+    # Check if email is already verified
+    if request.user.emailaddress_set.filter(verified=True).exists():
+        messages.info(request, "Your email is already verified!")
+        return redirect('profile')
+        
+    context = {}
+    if not can_send_verification_email(request.user):
+        next_time = get_next_available_time(request.user)
+        remaining = next_time - timezone.now()
+        hours = remaining.seconds // 3600
+        minutes = (remaining.seconds % 3600) // 60
+        context['cooldown'] = True
+        context['remaining_time'] = f"{hours}h {minutes}m"
+        
+    return render(request, 'verification_sent.html', context)
 
 
 def contact_form_view(request):
@@ -138,15 +220,67 @@ def submit_contact_form(request):
                 return JsonResponse({'saved': True}, status=200)
         except Exception as e:
             # capture_exception(e)
-            return JsonResponse(
-                {'saved': False, 'message': str(e)},
-                status=400)
+            return JsonResponse({'saved': False, 'message': str(e)}, status=400)
 
+def check_unique(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        email = data.get('email')
+        username = data.get('username')
+
+        email_exists = User.objects.filter(email=email).exists()
+        username_exists = User.objects.filter(username=username).exists()
+
+        return JsonResponse({'emailExists': email_exists, 'usernameExists': username_exists})
     else:
-        return JsonResponse(
-            {'saved': False, 'message': "Some Error Occured"},
-            status=400)
-
+        return HttpResponse(status=405)
 
 def e500(request):
     return render(request, '500.html', status=500)
+
+def verify_captcha(request):
+    if request.method == "POST":
+        try:
+            # Get hCaptcha response token from form
+            captcha_response = request.POST.get('h-captcha-response')
+            
+            # Verify with hCaptcha API
+            data = {
+                'secret': settings.HCAPTCHA_SECRET,
+                'response': captcha_response
+            }
+            response = requests.post('https://hcaptcha.com/siteverify', data=data)
+            result = response.json()
+            print(type(result.get('success')))
+            return JsonResponse({
+                'captchaValid': result.get('success')
+            })
+            
+        except Exception as e:
+            logger.error(f"Captcha verification error: {str(e)}")
+            return JsonResponse({
+                'captchaValid': False,
+                'error': 'Verification failed'
+            }, status=400)
+            
+    return JsonResponse({
+        'captchaValid': False,
+        'error': 'Invalid request method'
+    }, status=405)
+
+def check_email(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        email = data.get('email')
+        exists = User.objects.filter(email=email).exists()
+        return JsonResponse({'exists': exists})
+    return HttpResponse(status=405)
+
+def check_username(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        username = data.get('username')
+        # Using iexact for case-insensitive comparison
+        exists = User.objects.filter(username__iexact=username).exists()
+        return JsonResponse({'exists': exists})
+    return HttpResponse(status=405)

@@ -1,69 +1,795 @@
 {% extends "base.html" %}
-{% block head_title %}Signup{% endblock %}
-{% block head %} 
-<style>
-.errorlist{
-    color:red;
-}
-label{
-  display:block;
-  margin-bottom:5px;
-  color:#00D2D2;
-}
-label[for="id_hcaptcha"]{
-  display:none;
-}
-#id_hcaptcha{
-  margin-top:20px;
-}
-input,input#id_name,input#id_organization,input#id_username,input#id_email,input#id_password1,input#id_password2,button#submit{
-    border: 2px solid #00D2D2;
-    border-radius: 5px;
-    placeholder-color: #00D2D2;
-    background: rgba( 0, 0, 0, 0.3 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 13.5px );
-    -webkit-backdrop-filter: blur( 13.5px );
-    color: #00D2D2;
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 7px;
-  }
-  input:focus{
-    outline: 2px solid black;
-    background: #00D2D2;
-    color: black;
-  }
-  input::placeholder{
+{% load static %}
+{% block head_title %}
+  Sign Up
+{% endblock head_title %}
+{% block head %}
+  <style>
+@keyframes fadeIn {
+  from {
     opacity: 0;
-    color: #002A2A;
+    transform: translateY(10px);
   }
-  button#submit:hover{
-    background: #00D2D2;
-    color: black;
-    border: 2px solid black;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-hr{
-  border-top: 2px solid #00D2D2;
 }
-</style>
-{% endblock %}
+  
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeOut {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes wave {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(-20deg); }
+  40% { transform: rotate(10deg); }
+  60% { transform: rotate(-10deg); }
+  80% { transform: rotate(5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.strength-ring circle {
+  stroke-linecap: round;
+  transform-origin: center;
+  transform: rotate(-90deg);
+}
+
+.strength-ring.strength-weak circle { 
+  stroke: rgb(239 68 68);
+}
+
+.strength-ring.strength-medium circle { 
+  stroke: rgb(245 158 11);
+}
+
+.strength-ring.strength-strong circle { 
+  stroke: rgb(16 185 129);
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out forwards;
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.3s ease-out;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-fadeOut {
+  animation: fadeOut 0.3s ease-out forwards;
+}
+
+.animate-wave {
+  animation: wave 2s ease-in-out infinite;
+  transform-origin: 70% 70%;
+}
+  </style>
+  <script>
+    // Set welcome message before page loads
+    const messages = [
+      "Ready to start the hunt?",
+      "Your journey begins here",
+      "Time to join the elite",
+      "Prepare for the challenge",
+      "Welcome, future cryptographer",
+      "The puzzle awaits you",
+      "Ready to decode reality?",
+      "Join the cipher society",
+      "Your first puzzle: signup",
+      "Begin your quest",
+      "Challenge accepted?",
+      "Initiate sequence...",
+      "Access granted... almost",
+      "Identity verification required",
+      "Encryption in progress..."
+    ];
+    const welcomeMessage = messages[Math.floor(Math.random() * messages.length)];
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('welcomeText').textContent = welcomeMessage;
+      document.getElementById('welcomeTextMobile').textContent = welcomeMessage;
+    });
+  </script>
+{% endblock head %}
 {% block content %}
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-    {% csrf_token %}
-<div class="container flex justify-center">
-
-<div class="rounded lg:w-1/3  md:w-1/2 w-[98%] p-10 mt-16 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 border border-nblue mb-10 -z-1" style="background-color: rgba(0, 42, 42, .6);">
-    <center><p tabindex="0" class="focus:outline-none text-2xl font-extrabold leading-6 text-nblue">Sign Up</p>
-    <div class="w-full flex items-center justify-between py-5">
-         <hr class="w-full bg-nblue-500">
+  <div class="justify-center px-4 pb-8 md:pt-4 flex items-center">
+    <div class="max-w-5xl mx-auto flex items-stretch h-auto">
+      <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl overflow-hidden flex-1 flex flex-col md:flex-row">
+        <div class="flex flex-col md:flex-row w-full">
+          <!-- Welcome Card -->
+          <div class="md:w-[400px] min-h-[490px] relative overflow-hidden h-full bg-black/30 animate-fadeIn hidden md:block">
+            <svg width="100%"
+                 height="100%"
+                 viewBox="0 0 800 800"
+                 class="absolute top-0 left-0 z-0">
+              <defs>
+              <filter id="bb-filter" x="-100%" y="-100%" width="400%" height="400%">
+              <feGaussianBlur stdDeviation="105" in="SourceGraphic" result="blur"></feGaussianBlur>
+              </filter>
+              </defs>
+              <g filter="url(#bb-filter)">
+              <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f"></ellipse>
+              <ellipse rx="500" ry="70.5" cx="0" cy="800" fill="#2e90fa"></ellipse>
+              </g>
+            </svg>
+            <div class="relative z-10 h-full flex flex-col justify-between">
+              <div class="flex justify-between items-start p-12">
+                <img src="{% static 'foss-bu-dark.png' %}"
+                     alt="FOSS BU"
+                     class="h-8 md:h-12 w-auto"
+                     width="48"
+                     height="48">
+                <img src="{% static 'logo.svg' %}"
+                     alt="Re-Dcrypt"
+                     class="h-8 md:h-12 w-auto"
+                     width="48"
+                     height="48">
+              </div>
+              <div>
+                <h2 class="text-5xl font-black leading-tight text-white text-start p-8">
+                  <span class="text-white/80" id="welcomeText"></span>
+                </h2>
+              </div>
+            </div>
+          </div>
+          <!-- Mobile Welcome Card -->
+          <div class="md:hidden relative overflow-hidden h-full bg-black/30 animate-fadeIn">
+            <svg width="100%"
+                 height="100%"
+                 viewBox="0 0 800 800"
+                 class="absolute top-0 left-0 z-0">
+              <defs>
+              <filter id="bb-filter-mobile" x="-100%" y="-100%" width="400%" height="400%">
+              <feGaussianBlur stdDeviation="105" in="SourceGraphic" result="blur"></feGaussianBlur>
+              </filter>
+              </defs>
+              <g filter="url(#bb-filter-mobile)">
+              <ellipse rx="277.5" ry="70.5" cx="374" cy="152" fill="#08b74f"></ellipse>
+              <ellipse rx="277.5" ry="70.5" cx="609" cy="577" fill="#2e90fa"></ellipse>
+              </g>
+            </svg>
+            <div class="relative z-10 h-full flex flex-col justify-between">
+              <div class="flex justify-between items-start px-12 pt-12 pb-6">
+                <img src="{% static 'foss-bu-dark.png' %}"
+                     alt="FOSS BU"
+                     class="h-8 md:h-12 w-auto"
+                     width="48"
+                     height="48">
+                <img src="{% static 'logo.svg' %}"
+                     alt="Re-Dcrypt"
+                     class="h-8 md:h-12 w-auto"
+                     width="48"
+                     height="48">
+              </div>
+              <div class="p-6">
+                <h2 class="text-4xl md:text-6xl font-black leading-tight text-white text-center md:text-left">
+                  <span class="block text-white/80" id="welcomeTextMobile"></span>
+                </h2>
+              </div>
+            </div>
+          </div>
+          <!-- Form Section -->
+          <div class="md:w-[500px] flex-1">
+            <div class="flex flex-col min-h-full">
+              <div class="min-h-[425px]">
+                <form method="post"
+                      action="{% url 'account_signup' %}"
+                      class="h-full"
+                      id="signup_form">
+                  {% csrf_token %}
+                  <!-- Form Steps -->
+                  <div class="flex-1 animate-slideUp px-6 pt-6 min-h-[320px]">
+                    <!-- Step 1: Email -->
+                    <div data-step="1"
+                         data-active="true"
+                         class="data-[active=true]:block hidden animate-fadeIn">
+                      <div class="flex flex-col items-center mb-8">
+                        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
+                          <i class="ph-fill ph-hand-waving text-2xl animate-wave"></i>
+                        </span>
+                        <div class="text-center">
+                          <h2 class="text-xl font-bold text-green-500">Join Re-Dcypt</h2>
+                          <p class="text-neutral-400 text-sm mt-2">
+                            Already have an account?
+                            <a href="{% url 'account_login' %}"
+                               class="text-green-500 hover:underline">Login</a>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="space-y-6">
+                        <div class="flex flex-col gap-y-2">
+                          <label for="id_email"
+                                 class="text-sm font-medium text-gray-400 text-start mx-1">Email</label>
+                          <input type="email"
+                                 name="email"
+                                 id="id_email"
+                                 placeholder="Enter your email"
+                                 class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
+                        </div>
+                      </div>
+                      <div class="mt-6">
+                        <button type="button"
+                                class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold next-btn-email flex flex-row items-center justify-center gap-x-2">
+                          <i class="ph-bold ph-paper-plane-tilt"></i>
+                          Continue with E-mail
+                        </button>
+                      </div>
+                    </div>
+                    <!-- Step 2: Username & Password -->
+                    <div data-step="2"
+                         data-active="false"
+                         class="data-[active=true]:block hidden">
+                      <div class="flex flex-col items-center mb-8">
+                        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
+                          <i class="ph-fill ph-gear text-2xl animate-spin"></i>
+                        </span>
+                        <div class="text-center">
+                          <h2 class="text-xl font-bold text-green-500">Set Up Your Account</h2>
+                          <p class="text-neutral-400 text-sm mt-2">Choose a unique username and a strong password.</p>
+                        </div>
+                      </div>
+                      <div class="space-y-6">
+                        <div class="flex flex-col gap-y-2">
+                          <label for="id_username"
+                                 class="text-sm font-medium text-gray-400 text-start mx-1">Username</label>
+                          <input type="text"
+                                 name="username"
+                                 id="id_username"
+                                 required
+                                 placeholder="Choose a username"
+                                 class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
+                        </div>
+                        <div class="flex flex-col gap-y-2">
+                          <label for="id_password"
+                                 class="text-sm font-medium text-gray-400 text-start mx-1">Password</label>
+                          <div class="relative">
+                            <input type="password"
+                                   name="password1"
+                                   id="id_password"
+                                   required
+                                   placeholder="Enter password"
+                                   class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 pr-16 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
+                            <div class="absolute right-10 top-1/2 -translate-y-1/2 z-20">
+                              <div class="relative">
+                                <svg width="20"
+                                     height="20"
+                                     viewBox="0 0 24 24"
+                                     class="strength-ring cursor-pointer text-neutral-400"
+                                     id="strengthIndicator">
+                                  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5" class="text-neutral-700/50"></circle>
+                                  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5" class="transition-all duration-300" style="stroke-dasharray: 63; stroke-dashoffset: 63"></circle>
+                                </svg>
+                                <!-- Password Requirements Popup -->
+                                <div class="absolute -right-2 top-7 w-64 bg-neutral-900/95 border border-neutral-800 rounded-xl backdrop-blur-md shadow-lg transform opacity-0 scale-95 transition-all duration-200 pointer-events-none z-50"
+                                     id="passwordRequirements">
+                                  <div class="p-4">
+                                    <h3 class="text-sm text-neutral-300 mb-3 font-bold">Password Requirements</h3>
+                                    <div class="space-y-2 text-xs requirements-list"></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <i class="ph-fill ph-eye cursor-pointer text-xl absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400"
+                               id="togglePassword"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Step Indicator -->
+                      <div class="flex justify-center gap-4 mt-8">
+                        <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
+                        <div class="w-2 h-2 rounded-full bg-green-500 scale-125"></div>
+                        <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
+                      </div>
+                      <!-- Form Navigation -->
+                      <div class="mt-6 flex flex-col md:flex-row gap-4">
+                        <button type="button"
+                                class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2 back-btn">
+                          <i class="ph-bold ph-arrow-left"></i>
+                          <span>Back</span>
+                        </button>
+                        <button type="button"
+                                class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2 next-btn">
+                          <i class="ph-bold ph-arrow-right"></i>
+                          <span>Continue</span>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- Step 3: Profile Details -->
+                    <div data-step="3"
+                         data-active="false"
+                         class="data-[active=true]:block hidden">
+                      <div class="flex flex-col items-center mb-8">
+                        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
+                          <i class="ph-fill ph-identification-card text-2xl"></i>
+                        </span>
+                        <div class="text-center">
+                          <h2 class="text-xl font-bold text-green-500">Complete Your Profile</h2>
+                          <p class="text-neutral-400 text-sm mt-2">Just a few more details to get you started</p>
+                        </div>
+                      </div>
+                      <div class="space-y-6">
+                        <div class="flex flex-col gap-y-2">
+                          <label for="id_name"
+                                 class="text-sm font-medium text-gray-400 text-start mx-1">Full Name</label>
+                          <input type="text"
+                                 name="name"
+                                 id="id_name"
+                                 placeholder="Enter your full name"
+                                 class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
+                        </div>
+                        <div class="flex flex-col gap-y-2">
+                          <label for="id_organization"
+                                 class="text-sm font-medium text-gray-400 text-start mx-1">College/Organization</label>
+                          <input type="text"
+                                 name="organization"
+                                 id="id_organization"
+                                 placeholder="Enter your College/School or organization"
+                                 class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-3 px-4 transition-all duration-300 hover:ring hover:ring-green-500 focus:ring focus:ring-green-500 focus:outline-none">
+                        </div>
+                        <div class="flex justify-center mt-4">
+                          <div>{{ form.hcaptcha }}</div>
+                        </div>
+                      </div>
+                      <!-- Step Indicator -->
+                      <div class="flex justify-center gap-4 mt-8">
+                        <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
+                        <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
+                        <div class="w-2 h-2 rounded-full bg-green-500 scale-125"></div>
+                      </div>
+                      <!-- Form Navigation -->
+                      <div class="mt-6 flex flex-col md:flex-row gap-4">
+                        <button type="button"
+                                class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2 back-btn">
+                          <i class="ph-bold ph-arrow-left"></i>
+                          <span>Back</span>
+                        </button>
+                        <button type="submit"
+                                id="signupSubmitBtn"
+                                class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2">
+                          <i class="ph-bold ph-user-plus"></i>
+                          <span class="button-text">Complete Signup</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div id="googleAuthSection" class="px-6 hidden opacity-0">
+                  <div class="my-4 flex items-center">
+                    <div class="flex-grow border-t border-neutral-700"></div>
+                    <span class="mx-4 flex-shrink text-neutral-400 text-sm">OR</span>
+                    <div class="flex-grow border-t border-neutral-700"></div>
+                  </div>
+                  <div class="flex items-center justify-center w-full">{% include "components/google_onetap.html" %}</div>
+                </div>
+              </div>
+              <div class="px-6">
+                <p class="text-neutral-400 text-xs py-6 text-center">
+                  By signing up, you agree to Re-Dcrypt's
+                  <a href="{% url 'terms_and_conditions' %}"
+                     class="text-green-500 hover:underline">Terms of Service</a> and
+                  <a href="{% url 'privacy_policy' %}"
+                     class="text-green-500 hover:underline">Privacy Policy</a>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+  {% if form.errors %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          {% for field in form %}
+            {% for error in field.errors %}showToast("{{ error|escapejs }}", 3000, "ERROR");{% endfor %}
+            {% if field.errors %}console.log("{{ field.name }}");{% endif %}
+          {% endfor %}
+        });
+    </script>
+  {% endif %}
+  <script>
+// Welcome Messages
+const signupMessages = [
+  "Ready to start the hunt?",
+  "Your journey begins here",
+  "Time to join the elite",
+  "Prepare for the challenge",
+  "Welcome, future cryptographer",
+  "The puzzle awaits you",
+  "Ready to decode reality?",
+  "Join the cipher society",
+  "Your first puzzle: signup",
+  "Begin your quest",
+  "Challenge accepted?",
+  "Initiate sequence...",
+  "Access granted... almost",
+  "Identity verification required",
+  "Encryption in progress..."
+];
 
-        {{ form.as_p }}</center>
-        <div class="mt-8">
-            <button role="button" id="submit" class="border border-nblue focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 text-sm font-semibold leading-none text-white focus:outline-none rounded hover:bg-nblue-500 hover:text-black py-4 w-full">Sign Up</button>
-            <p class="text-nblue text-xs">By clicking the "Sign up" button, you are creating an account, and agree to Re-Dcrypt's <a href="/terms-and-conditions/">Terms of Service</a> and <a href = "/privacy-policy/">Privacy Policy </a></p>
-        </div>
+// Function to check if email/username exists
+async function checkEmail(email) {
+  try {
+    const response = await fetch('/check-email/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+      },
+      body: JSON.stringify({ email })
+    });
+    
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error checking email:', error);
+    return { exists: false };
+  }
+}
 
-</div></div></form>
-{% endblock %}
+async function checkUsername(username) {
+  try {
+    const response = await fetch('/check-username/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+      },
+      body: JSON.stringify({ username })
+    });
+    
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Error checking username:', error);
+    return { exists: false };
+  }
+}
+
+// Function to check password strength
+function checkPasswordStrength(password) {
+  // Simple password strength check
+  let score = 0;
+  
+  // Length check
+  if (password.length >= 8) score++;
+  
+  // Contains number
+  if (/\d/.test(password)) score++;
+  
+  // Contains lowercase
+  if (/[a-z]/.test(password)) score++;
+  
+  // Contains uppercase
+  if (/[A-Z]/.test(password)) score++;
+  
+  // Contains special character
+  if (/[^A-Za-z0-9]/.test(password)) score++;
+  
+  return { score };
+}
+
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function setButtonLoading(button, isLoading) {
+  const icon = button.querySelector('i');
+  const text = button.querySelector('.button-text');
+  
+  if (isLoading) {
+    button.disabled = true;
+    icon.className = 'ph-bold ph-circle-notch animate-spin';
+    text.textContent = 'Creating Account...';
+  } else {
+    button.disabled = false;
+    icon.className = 'ph-bold ph-user-plus';
+    text.textContent = 'Complete Signup';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('signup_form');
+  const nextBtnEmail = form.querySelector('.next-btn-email');
+  const nextBtn = form.querySelector('.next-btn');
+  const backBtns = form.querySelectorAll('.back-btn');  // Select all back buttons
+  let currentStep = 1;
+
+  // Show/hide elements based on current step
+  function updateFormNavigation() {
+    const steps = form.querySelectorAll('[data-step]');
+    const oldStep = [...steps].find(s => s.dataset.active === 'true');
+    const googleAuthSection = document.getElementById('googleAuthSection');
+    
+    if (oldStep) {
+      oldStep.classList.remove('animate-fadeIn');
+      oldStep.classList.add('animate-fadeOut');
+      oldStep.dataset.active = 'false';
+    }
+
+    // Show Google auth section immediately if on step 1
+    if (currentStep === 1) {
+      googleAuthSection.classList.remove('hidden');
+      // Small delay to ensure smooth animation
+      setTimeout(() => {
+        googleAuthSection.classList.remove('opacity-0');
+        googleAuthSection.classList.add('animate-fadeIn');
+      }, 50);
+    } else {
+      googleAuthSection.classList.add('opacity-0');
+      googleAuthSection.classList.remove('animate-fadeIn');
+      // Hide after animation
+      setTimeout(() => {
+        googleAuthSection.classList.add('hidden');
+      }, 300);
+    }
+
+    setTimeout(() => {
+      steps.forEach(step => {
+        if (parseInt(step.dataset.step) === currentStep) {
+          step.classList.remove('hidden', 'animate-fadeOut');
+          step.classList.add('animate-fadeIn');
+          step.dataset.active = 'true';
+        } else {
+          step.classList.add('hidden');
+        }
+      });
+    }, 300);
+  }
+
+  // Handle back button clicks
+  backBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (currentStep > 1) {
+        currentStep--;
+        updateFormNavigation();
+      }
+    });
+  });
+
+  // Handle email button click
+  nextBtnEmail.addEventListener('click', async () => {
+    const email = form.querySelector('[name="email"]').value;
+    if (!validateEmail(email)) {
+      showToast('Please enter a valid email address', 3000, 'ERROR');
+      return;
+    }
+    
+    // Check if email exists
+    const emailCheck = await checkEmail(email);
+    if (emailCheck.exists) {
+      showToast('This email is already registered', 3000, 'ERROR');
+      return;
+    }
+
+    currentStep = 2;
+    updateFormNavigation();
+  });
+
+  // Handle next/submit button click
+  nextBtn.addEventListener('click', async () => {
+    if (currentStep === 2) {
+      const username = form.querySelector('[name="username"]').value;
+      const password = form.querySelector('[name="password1"]').value;
+
+      if (!username || !password) {
+        showToast('Please fill in all required fields', 3000, 'ERROR');
+        return;
+      }
+
+      // Check username availability
+      const usernameCheck = await checkUsername(username);
+      if (usernameCheck.exists) {
+        showToast('This username is already taken', 3000, 'ERROR');
+        return;
+      }
+
+      // Check password strength
+      const { score } = checkPasswordStrength(password);
+      if (score < 3) {
+        showToast('Password is not strong enough', 3000, 'ERROR');
+        return;
+      }
+
+      currentStep = 3;
+      updateFormNavigation();
+    }
+  });
+
+  // Update the form submit handler
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const captchaResponse = document.querySelector('[name="h-captcha-response"]')?.value;
+    const submitButton = document.getElementById('signupSubmitBtn');
+
+    if (!captchaResponse) {
+      showToast('Please complete the captcha', 3000, 'ERROR');
+      return;
+    }
+
+    // Set loading state
+    setButtonLoading(submitButton, true);
+
+    // Small delay to ensure the loading state is visible
+    setTimeout(() => {
+      form.submit();
+    }, 100);
+  });
+
+  // Initialize form navigation
+  updateFormNavigation();
+  
+  // Add this to your existing script section
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordInput = document.getElementById('id_password');
+  const strengthRing = document.querySelector('.strength-ring');
+
+  // Update password strength ring
+  passwordInput.addEventListener('input', function() {
+    const { score } = checkPasswordStrength(this.value);
+    const circle = strengthRing.querySelector('circle');
+    
+    // Remove existing strength classes
+    strengthRing.classList.remove('strength-weak', 'strength-medium', 'strength-strong');
+    
+    if (this.value.length === 0) {
+      circle.style.strokeDasharray = '63';
+      circle.style.strokeDashoffset = '63';
+      return;
+    }
+    
+    // Calculate circumference percentage based on score
+    const circumference = 63;
+    const offset = circumference - (score / 5) * circumference;
+    circle.style.strokeDasharray = circumference;
+    circle.style.strokeDashoffset = offset;
+    
+    // Add appropriate strength class
+    if (score <= 2) {
+      strengthRing.classList.add('strength-weak');
+    } else if (score <= 3) {
+      strengthRing.classList.add('strength-medium');
+    } else {
+      strengthRing.classList.add('strength-strong');
+    }
+  });
+
+  togglePassword.addEventListener('click', function() {
+      // Toggle the password visibility
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      
+      // Toggle the icon
+      if (type === 'password') {
+          this.classList.remove('ph-eye-slash');
+          this.classList.add('ph-eye');
+      } else {
+          this.classList.remove('ph-eye');
+          this.classList.add('ph-eye-slash');
+      }
+  });
+
+  // Strength ring and requirements popup handling
+  const strengthIndicator = document.getElementById('strengthIndicator');
+  const passwordRequirements = document.getElementById('passwordRequirements');
+  
+  function showRequirements() {
+    passwordRequirements.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+    passwordRequirements.classList.add('opacity-100', 'scale-100');
+  }
+
+  function hideRequirements() {
+    passwordRequirements.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+    passwordRequirements.classList.remove('opacity-100', 'scale-100');
+  }
+
+  // Toggle requirements on ring click
+  strengthIndicator.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (passwordRequirements.classList.contains('opacity-0')) {
+      showRequirements();
+    } else {
+      hideRequirements();
+    }
+  });
+
+  // Close on click outside
+  document.addEventListener('click', (e) => {
+    if (!passwordRequirements.contains(e.target) && e.target !== strengthIndicator) {
+      hideRequirements();
+    }
+  });
+
+  // Initialize requirements list
+  const requirementsList = passwordRequirements.querySelector('.requirements-list');
+  const requirements = [
+    { test: (p) => p.length >= 8, text: 'At least 8 characters' },
+    { test: (p) => /[A-Z]/.test(p), text: 'One uppercase letter' },
+    { test: (p) => /[a-z]/.test(p), text: 'One lowercase letter' },
+    { test: (p) => /\d/.test(p), text: 'One number' },
+    { test: (p) => /[^A-Za-z0-9]/.test(p), text: 'One special character' }
+  ];
+
+  // Populate requirements
+  requirementsList.innerHTML = requirements.map(req => `
+    <div class="flex items-center gap-2 requirement">
+      <i class="ph-bold ph-x-circle text-red-500"></i>
+      <span class="text-neutral-400">${req.text}</span>
+    </div>
+  `).join('');
+
+  // Update requirements in realtime
+  passwordInput.addEventListener('input', function() {
+    const password = this.value;
+    const { score } = checkPasswordStrength(password);
+    
+    // Update requirements list
+    requirementsList.querySelectorAll('.requirement').forEach((req, i) => {
+      const icon = req.querySelector('i');
+      const passed = requirements[i].test(password);
+      icon.className = passed ? 
+        'ph-bold ph-check-circle text-green-500' : 
+        'ph-bold ph-x-circle text-red-500';
+    });
+
+    // Update strength ring
+    const circle = strengthIndicator.querySelector('circle:last-child');
+    circle.style.strokeDasharray = '63';
+    
+    if (password.length === 0) {
+      circle.style.strokeDashoffset = '63';
+      strengthIndicator.classList.remove('text-red-500', 'text-yellow-500', 'text-green-500');
+      strengthIndicator.classList.add('text-neutral-400');
+      return;
+    }
+
+    const offset = 63 - (score / 5) * 63;
+    circle.style.strokeDashoffset = offset;
+
+    // Update ring color
+    strengthIndicator.classList.remove('text-neutral-400', 'text-red-500', 'text-yellow-500', 'text-green-500');
+    if (score <= 2) {
+      strengthIndicator.classList.add('text-red-500');
+    } else if (score <= 3) {
+      strengthIndicator.classList.add('text-yellow-500');
+    } else {
+      strengthIndicator.classList.add('text-green-500');
+    }
+  });
+
+  document.getElementById('welcomeText').textContent =
+    signupMessages[Math.floor(Math.random() * signupMessages.length)];
+  document.getElementById('welcomeTextMobile').textContent =
+    signupMessages[Math.floor(Math.random() * signupMessages.length)];
+});
+  </script>
+{% endblock content %}

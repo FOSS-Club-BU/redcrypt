@@ -1,64 +1,205 @@
 {% load static %}
 {% load profile_tags %}
-<header class="sticky top-0 text-gray-400 bg-nblue-800 body-font z-10">
-  <div
-    class="container mx-auto flex flex-wrap p-5 mt-0 mb-0 flex-col md:flex-row items-center"
-  >
-    <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto">
-      <a href="{% url 'play' %}" class="mr-5 {% if url_name == 'play' %}text-nblue-100{% else %}text-nblue{% endif %} hover:text-nblue-200">Play</a>
-      <a href="{% url 'leaderboard' %}" class="mr-5  {% if url_name == 'leaderboard' %}text-nblue-100{% else %}text-nblue{% endif %} hover:text-nblue-200">Leaderboard</a>
-      <a href="{% url 'rules' %}" class="mr-5 {% if url_name == 'rules' %}text-nblue-100{% else %}text-nblue{% endif %} hover:text-nblue-200">Rules</a>
-      <a href="{% url 'about' %}" class="{% if url_name == 'about' %}text-nblue-100{% else %}text-nblue{% endif %} hover:text-nblue-200">About</a>
-    </nav>
-    <a href="/" class="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-white lg:items-center lg:justify-center mb-4 md:mb-0">
-      <img src="{% static 'logo_banner.svg' %}" class="h-12 -m-2">
-    </a>
-    <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
-      <div class="flex justify-center  content-center items-center">
-
-
-            <div class="flex group relative z-1  content-center items-center">
-              <span class="text-nblue mr-3  content-center items-center">{{user.username}}</span>
-                <button class="text-nblue"> <img src="{% avatar user %}" alt="avatar" class="w-11 h-11 rounded-full mr-3 border border-2 border-nblue-500 lg:-mt-5 lg:-mb-5"></button>
-                
-                <nav tabindex="0" class="border border-2 bg-nblue-800 invisible border-nblue-400 rounded w-60 absolute right-0 top-full transition-all opacity-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-1" style="z-index: 5" id="drop">
-                    <ul class="py-1">
-                      {% if user.is_staff %}
-                      <li>
-                          <a href="/honeypot/" class="block px-4 py-2 text-nblue hover:bg-nblue-500 hover:text-black">
-                              <center>Admin Panel</center>
-                          </a>
-                      </li>
-                      {% endif %}
-                        <li>
-                            <a href="{% url 'profile' %}" class="block px-4 py-2 text-nblue hover:bg-nblue-500 hover:text-black">
-                                <center>Profile</center>
-                            </a>
-                        </li>
-                        <li>
-                              <form action="{% url 'account_logout' %}" method="POST">
-                                {% csrf_token %}
-                              <button type="submit" class="block px-4 py-2 text-nblue hover:bg-nblue-500 hover:text-black w-full ">Sign Out</button>
-                              </form>
-                        </li>
-                        <li>
-                          <div id='install'>
-                            <button type="submit" id="installapp" class="block px-4 py-2 text-nblue hover:bg-nblue-500 hover:text-black w-full ">Install App</button>
-                          </div>
-                      </li>
-                      {% if user.is_superuser %}
-                      <li>
-                        <a href="{% url 'update_rank' %}" class="block px-4 py-2 text-nblue hover:bg-nblue-500 hover:text-black w-full">
-                          <center>Update Ranks</center>
+<!-- Mobile Navbar -->
+<nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-neutral-900/80 backdrop-blur-md md:hidden shadow-inset-white rounded-full m-3">
+  <a href="{% url 'index' %}">
+    <img src="{% static 'logo_banner.svg' %}"
+         alt="Re-Decrypt Logo"
+         width="auto"
+         height="auto"
+         class="h-6" />
+  </a>
+  <button id="mobile-menu-button"
+          class="p-2 rounded-lg flex flex-col justify-between h-[1.87rem]">
+    <span class="block w-6 h-0.5 bg-neutral-100 transition-transform origin-center"></span>
+    <span class="block w-6 h-0.5 bg-neutral-100 transition-transform origin-center"></span>
+  </button>
+</nav>
+<!-- Mobile Menu Dropdown -->
+<div id="mobile-menu"
+     class="fixed inset-x-0 top-[76px] bg-neutral-900/80 transform -translate-y-[150%] transition-transform duration-500 ease-in-out backdrop-blur-md z-40 md:hidden rounded-3xl m-4 shadow-inset-white">
+  <div class="flex flex-col p-6">
+    <nav class="flex flex-col space-y-2">
+    <a href="{% url 'play' %}"
+       class="text-neutral-900 font-black hover:text-neutral-200 hover:bg-green-800 py-2 text-left bg-green-500 rounded-full px-4 flex items-center gap-x-3"><i class="ph-fill ph-play"></i>
+  Play</a>
+<a href="{% url 'leaderboard' %}"
+   class="text-neutral-100 font-black hover:text-neutral-200 py-2 text-left rounded-full px-4 flex items-center gap-x-3"><i class="ph-fill ph-ranking"></i>
+Leaderboard</a>
+<a href="{% url 'help' %}"
+   class="text-neutral-100 font-black hover:text-neutral-200 py-2 text-left rounded-full px-4 flex items-center gap-x-3"><i class="ph-fill ph-question"></i>
+Help</a>
+<a href="{% url 'about' %}"
+   class="text-neutral-100 font-black hover:text-neutral-200 py-2 text-left rounded-full px-4 flex items-center gap-x-3"><i class="ph-fill ph-info"></i>
+About</a>
+</nav>
+<div class="bg-green-600/20 px-4 pt-5 mt-3 rounded-2xl">
+  <div class="flex items-center gap-x-3 mx-2">
+    <img src="{% avatar user %}"
+         alt="avatar"
+         class="w-8 h-8 rounded-full border border-green-600"
+         width="auto"
+         height="auto" />
+    <div class="flex flex-col justify-center items-start">
+      <span class="text-green-500 font-black">{{ user.username }}</span>
+      {% if user.profile.name %}<span class="text-neutral-200 text-xs">{{ user.profile.name }}</span>{% endif %}
+    </div>
+  </div>
+  <div class="flex flex-col gap-y-2 py-5">
+    {% if user.is_staff %}
+    <a href="/honeypot/"
+       class="text-start font-bold transition-all ease-in shadow-inset-white bg-neutral-900/70 duration-75 hover:bg-neutral-700 text-neutral-100 rounded-full px-4 py-2 flex items-center gap-x-3"><i class="ph-fill ph-gear"></i>
+  Admin Panel</a>
+{% endif %}
+<a href="{% url 'profile' %}"
+   class="text-start font-bold transition-all ease-in shadow-inset-white bg-neutral-900/70 duration-75 hover:bg-neutral-700 text-neutral-100 rounded-full px-4 py-2 flex items-center gap-x-3"><i class="ph-fill ph-user"></i>
+Profile</a>
+<form action="{% url 'account_logout' %}" method="post" class="contents">
+  {% csrf_token %}
+  <button type="submit"
+          class="text-start font-bold transition-all ease-in shadow-inset-white bg-neutral-900/70 duration-75 hover:bg-neutral-700 text-neutral-100 rounded-full px-4 py-2 flex items-center gap-x-3">
+    <i class="ph-fill ph-sign-out"></i>
+    Sign Out
+  </button>
+</form>
+</div>
+</div>
+</div>
+</div>
+<!-- Desktop Navigation -->
+<div class="w-full fixed top-0 hidden items-start justify-center z-30 md:flex">
+  <header class="relative text-neutral-400 body-font w-2/3 bg-neutral-950/60 mx-auto mt-4 rounded-full backdrop-blur-lg shadow-inset-white px-3 py-3.5">
+    <div class="container mx-auto flex items-center justify-between">
+      <!-- Left Nav -->
+      <nav class="flex-1 flex justify-start items-center gap-5">
+        <a href="{% url 'leaderboard' %}"
+           class="text-neutral-100 hover:text-neutral-200 font-bold ml-4">Leaderboard</a>
+        <a href="{% url 'help' %}"
+           class="text-neutral-100 hover:text-neutral-200 font-bold">Help</a>
+        <a href="{% url 'about' %}"
+           class="text-neutral-100 hover:text-neutral-200 font-bold">About</a>
+      </nav>
+      <!-- Center Logo -->
+      <div class="flex-none flex justify-center">
+        <a href="{% url 'index' %}">
+          <img src="{% static 'logo_banner.svg' %}"
+               alt="Re-Dcrypt Logo"
+               width="auto"
+               height="auto"
+               class="h-6" />
+        </a>
+      </div>
+      <!-- Right Side with Avatar -->
+      <div class="flex-1 flex justify-end items-center flex-row gap-x-3">
+        <a href="{% url 'play' %}">
+          <span class="px-5 py-1.5 transition-all ease-in duration-300 bg-green-600 font-black hover:bg-green-800 text-neutral-100 hover:text-neutral-100 rounded-full items-center justify-center flex gap-x-3"><i class="ph-fill ph-play"></i>
+            Play
+          </span>
+        </a>
+        <!-- Avatar and Dropdown -->
+        <div class="group relative h-full flex items-center"
+             x-data="{ open: false }">
+          <button class="text-neutral-100 hover:opacity-80 transition-opacity h-full px-1 flex items-center"
+                  @click="open = !open"
+                  @click.outside="open = false">
+            <img src="{% avatar user %}"
+                 alt="avatar"
+                 class="w-9 h-9 rounded-full border-2 border-green-600"
+                 width="auto"
+                 height="auto" />
+          </button>
+          {% if user.is_staff %}
+            <!-- Staff Dropdown Menu -->
+            <nav tabindex="0"
+                 class="shadow-inset-white bg-neutral-950 invisible rounded-2xl w-64 absolute -right-3 top-full mt-1 transition-all opacity-0"
+                 :class="{ 'invisible opacity-0 translate-y-0': !open, 'visible opacity-100 translate-y-5': open }"
+                 style="z-index: 5">
+              <!-- User Info Section -->
+              <div class="px-2 pt-2">
+                <a href="{% url 'profile' %}"
+                   class="flex items-center gap-3 group/profile hover:bg-green-600/10 p-2 rounded-lg transition-all duration-200">
+                  <img src="{% avatar user %}"
+                       alt="avatar"
+                       class="w-10 h-10 rounded-full border border-green-600"
+                       width="auto"
+                       height="auto" />
+                  <div class="flex flex-col">
+                    <span class="text-neutral-100 font-bold group-hover/profile:text-green-500 transition-colors">{{ user.username }}</span>
+                    <span class="text-neutral-400 text-sm">View profile</span>
+                  </div>
+                </a>
+              </div>
+              <!-- Menu Items -->
+              <div class="p-2">
+                <ul class="space-y-1">
+                  {% if user.is_staff %}
+                    <li>
+                      <a href="/honeypot/"
+                         class="flex items-center gap-3 p-2 rounded-lg text-neutral-100 hover:bg-green-600/20 transition-all duration-200 bg-neutral-800/40">
+                        <span class="ph-fill ph-gear text-purple-500 text-xl"></span>
+                        <span class="font-medium">Admin Panel</span>
                       </a>
-                      </li>
-                      {% endif %}
-                    </ul>
-                </nav>
-            </div>
-        </div>
+                    </li>
+                  {% endif %}
+                  {% if user.is_superuser %}
+                    <li>
+                      <a href="{% url 'update_rank' %}"
+                         class="flex items-center gap-3 p-2 rounded-lg text-neutral-100 hover:bg-green-600/20 transition-all duration-200 bg-neutral-800/40">
+                        <span class="ph-fill ph-clock-clockwise text-xl text-green-500"></span>
+                        <span class="font-medium">Update Ranks</span>
+                      </a>
+                    </li>
+                  {% endif %}
+                </ul>
+              </div>
+              <!-- Sign Out Section -->
+              <div class="p-2">
+                <form action="{% url 'account_logout' %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit"
+                          class="w-full flex items-center gap-3 p-2 rounded-lg text-red-400 hover:bg-red-600/10 transition-all duration-200 bg-neutral-800/40">
+                    <span class="ph-fill ph-sign-out text-xl"></span>
+                    <span class="font-medium">Sign Out</span>
+                  </button>
+                </form>
+              </div>
+            </nav>
+          {% else %}
+            <!-- Regular User Dropdown Menu -->
+            <nav tabindex="0"
+                 class="shadow-inset-white bg-neutral-950 invisible rounded-2xl w-64 absolute -right-3 top-full mt-1 transition-all opacity-0"
+                 :class="{ 'invisible opacity-0 translate-y-0': !open, 'visible opacity-100 translate-y-5': open }"
+                 style="z-index: 5">
+              <!-- User Info Section -->
+              <div class="px-2 pt-2">
+                <a href="{% url 'profile' %}"
+                   class="flex items-center gap-3 group/profile hover:bg-green-600/10 p-2 rounded-lg transition-all duration-200">
+                  <img src="{% avatar user %}"
+                       alt="avatar"
+                       class="w-10 h-10 rounded-full border border-green-600"
+                       width="auto"
+                       height="auto" />
+                  <div class="flex flex-col">
+                    <span class="text-neutral-100 font-bold group-hover/profile:text-green-500 transition-colors">{{ user.username }}</span>
+                    <span class="text-neutral-400 text-sm">View profile</span>
+                  </div>
+                </a>
+              </div>
+              <!-- Sign Out Section -->
+              <div class="p-2">
+                <form action="{% url 'account_logout' %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit"
+                          class="w-full flex items-center gap-3 p-2 rounded-lg text-red-400 hover:bg-red-600/10 transition-all duration-200 bg-neutral-800/40">
+                    <span class="ph-fill ph-sign-out text-xl"></span>
+                    <span class="font-medium">Sign Out</span>
+                  </button>
+                </form>
+              </div>
+            </nav>
+          {% endif %}
         </div>
       </div>
     </div>
-  </div>
-</header>
+  </header>
+</div>
