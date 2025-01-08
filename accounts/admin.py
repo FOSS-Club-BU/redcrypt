@@ -20,6 +20,7 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = [
         'user',
         'score',
+        'organization',
         'current_level',
         'ip_address_count'
     ]
