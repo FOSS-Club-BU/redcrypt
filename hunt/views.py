@@ -139,48 +139,6 @@ def help_center(request):
 
 
 @login_required
-def sample_questions_play(request):
-    user = request.user
-    sample_questions = SampleQuestion.objects.all()
-    if len(sample_questions) == 0:
-        return render(
-            request,
-            'shortner.html',
-            {
-                'content': "No sample questions available",
-                'urlname': "Sample"})
-    for i in sample_questions:
-        if user in i.completed_by.all():
-            pass
-        else:
-            return render(
-                request,
-                'sample_questions.html',
-                {'question': i})
-        return render(
-            request,
-            'shortner.html',
-            {
-                'content': "You have completed all sample questions",
-                'urlname': "Sample"})
-
-
-@login_required
-def sample_checkans(request):
-    if request.method == "POST":
-        user = request.user
-        sample_question = SampleQuestion.objects.get(
-            level=request.POST['level'])
-        answer = request.POST['answer']
-        if match_answer(sample_question.answer, answer):
-            sample_question.completed_by.add(user)
-            sample_question.save()
-            return JsonResponse({'correct': True}, status=200)
-        else:
-            return JsonResponse({'correct': False}, status=400)
-
-
-@login_required
 def update_rank(request):
     if request.user.is_superuser:
         t = threading.Thread(target=update_rank_all, args=(), kwargs={})

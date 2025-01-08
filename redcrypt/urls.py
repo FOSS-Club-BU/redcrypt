@@ -16,8 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from hunt.views import index, offline, play, check_ans, leaderboard, rules
-from hunt.views import faqs, sample_questions_play, update_rank
-from hunt.views import sample_checkans, about, guidelines
+from hunt.views import faqs, update_rank
+from hunt.views import about, guidelines
 from hunt.views import privacy_policy, terms_and_conditions, help_center
 from accounts import views as accounts_views
 from django.conf import settings
@@ -49,8 +49,6 @@ urlpatterns = [
         "verification-sent", accounts_views.verification_sent, name="verification-sent"
     ),
     path("play/", play, name="play"),
-    path("play/sample_questions", sample_questions_play, name="sample_questions_play"),
-    path("play/sample_check_ans", sample_checkans, name="sample_checkans"),
     path("leaderboard/", leaderboard, name="leaderboard"),
     path("faqs/", faqs, name="faqs"),
     path("rules/", rules, name="rules"),
