@@ -61,7 +61,6 @@
 {% block content %}
 <div class="min-h-[80vh] flex items-center justify-center">
   <div class="max-w-4xl mx-auto px-4 py-10" data-aos="fade-up" data-aos-duration="800">
-    <!-- Header Section -->
     <div class="text-center">
       <div class="w-20 h-20 mx-auto rounded-full bg-green-600/20 flex items-center justify-center mb-6 animate-pulse">
         <i class="ph-fill ph-timer text-4xl text-green-500"></i>
@@ -71,10 +70,8 @@
     </div>
 
     {% if time %}
-    <!-- Countdown Section -->
     <div class="rounded-2xl p-8">
       <div class="flex flex-wrap justify-center gap-4" id="countdown-container">
-        <!-- Days -->
         <div class="text-center">
           <div class="countdown-unit">
             <div class="number-display" id="days-display">00</div>
@@ -82,7 +79,6 @@
           <div class="unit-label">Days</div>
         </div>
 
-        <!-- Hours -->
         <div class="text-center">
           <div class="countdown-unit">
             <div class="number-display" id="hours-display">00</div>
@@ -90,7 +86,6 @@
           <div class="unit-label">Hours</div>
         </div>
 
-        <!-- Minutes -->
         <div class="text-center">
           <div class="countdown-unit">
             <div class="number-display" id="minutes-display">00</div>
@@ -98,7 +93,6 @@
           <div class="unit-label">Minutes</div>
         </div>
 
-        <!-- Seconds -->
         <div class="text-center">
           <div class="countdown-unit">
             <div class="number-display" id="seconds-display">00</div>
@@ -127,7 +121,7 @@ function updateNumber(displayId, value) {
     display.classList.add('number-update');
     setTimeout(() => {
       display.textContent = paddedValue;
-    }, 300); // Update at the midpoint of animation
+    }, 300);
     
     display.addEventListener('animationend', function() {
       display.classList.remove('number-update');
@@ -137,7 +131,6 @@ function updateNumber(displayId, value) {
 
 var countDownDate = new Date("{{time}}").getTime();
 
-// Format date for display
 function formatDate(date) {
   const options = { 
     weekday: 'long', 
@@ -150,7 +143,6 @@ function formatDate(date) {
   return new Date(date).toLocaleDateString('en-US', options);
 }
 
-// Set formatted date in pill
 document.getElementById('formatted-date').textContent = `Starting ${formatDate(countDownDate)}`;
 
 var x = setInterval(function() {

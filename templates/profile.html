@@ -48,21 +48,17 @@
 {% block content %}
   <div class="container mx-auto px-4 my-8">
     <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="800">
-      <!-- Profile Card -->
-      <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl overflow-visible">
-        <!-- Header Banner -->
-        <div class="h-24 md:h-32 bg-gradient-to-r from-green-600/20 to-blue-600/20 relative rounded-t-2xl">
+      <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-3xl overflow-visible">
+        <div class="h-24 md:h-32 bg-gradient-to-r from-green-600/20 to-blue-600/20 relative rounded-t-3xl">
           <div class="absolute -bottom-5 right-6 z-10 hidden md:block">
             <a href="{% url 'edit_profile' %}"
                class="flex items-center gap-2 bg-neutral-900/50 hover:bg-green-600 text-neutral-100 px-4 py-2 rounded-full transition-all duration-300 shadow-inset-white backdrop-blur-xl">
-              <span class="material-symbols-outlined text-lg">edit</span>
+                <span class="ph-fill ph-pencil-simple text-lg"></span>
               <span class="font-medium">Edit Profile</span>
             </a>
           </div>
         </div>
-        <!-- Profile Info -->
-        <div class="px-4 md:px-8 pb-6 md:pb-8 pt-8">
-          <!-- Avatar -->
+        <div class="px-4 md:px-8 pb-6 md:pb-8 pt-8 md:pt-0">
           <div class="flex justify-center">
             <div class="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-4 border-green-600/50 shadow-lg hover:scale-105 transition-transform duration-300 -mt-16 md:-mt-12 bg-neutral-900">
               <img src="{% avatar user %}"
@@ -72,33 +68,31 @@
                    height="auto">
             </div>
           </div>
-          <!-- Basic Info -->
           <div class="text-center mt-4 space-y-1">
             <div class="w-full justify-center items-center flex flex-row gap-x-2">
               <h1 class="text-3xl font-bold text-neutral-100">{{ user.username }}</h1>
               {% if user.emailaddress_set.all.0.verified %}
-                <span class="material-symbols-outlined text-green-500 cursor-pointer"
-                      title="Email Verified">verified_user</span>
+                <span class="ph-fill ph-shield-check text-green-500 cursor-pointer text-xl"
+                      title="Email Verified"></span>
               {% else %}
-                <span class="material-symbols-outlined text-amber-500 cursor-pointer"
-                      title="Email Pending Verification">warning</span>
+                <span class="ph-fill ph-warning text-xl text-amber-500 cursor-pointer"
+                      title="Email Pending Verification"></span>
               {% endif %}
             </div>
             <div class="md:hidden pt-6">
               <a href="{% url 'edit_profile' %}"
                  class="inline-flex items-center gap-2 bg-neutral-900/50 hover:bg-green-600 text-neutral-100 px-4 py-2 rounded-full transition-all duration-300 shadow-inset-white backdrop-blur-xl">
-                <span class="material-symbols-outlined text-base">edit</span>
+                <span class="ph-fill ph-pencil-simple text-base"></span>
                 <span class="font-medium">Edit Profile</span>
               </a>
             </div>
           </div>
-          <!-- Stats Grid -->
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mt-6 md:mt-8">
             <div class="bg-neutral-900/50 rounded-xl p-4 md:p-6 shadow-inset-white hover:bg-neutral-800/80 transition-all duration-500 border border-transparent hover:border-purple-600/50 text-left hover:shadow-lg hover:shadow-purple-600/10 stat-card-hover-effect"
                  data-aos="fade-up"
                  data-aos-delay="100">
               <div class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-600/20 text-purple-500 mb-4">
-                <span class="material-symbols-outlined text-2xl">military_tech</span>
+                <span class="ph-fill ph-medal-military text-2xl"></span>
               </div>
               <p class="text-neutral-400 text-sm">Current Rank</p>
               <p class="text-2xl font-bold text-neutral-100">{{ rank|safe }}</p>
@@ -107,7 +101,7 @@
                  data-aos="fade-up"
                  data-aos-delay="200">
               <div class="flex items-center justify-center w-12 h-12 rounded-full bg-green-600/20 text-green-500 mb-4">
-                <span class="material-symbols-outlined text-2xl">score</span>
+                <span class="ph-fill ph-chart-line-up text-2xl"></span>
               </div>
               <p class="text-neutral-400 text-sm">Total Score</p>
               <p class="text-2xl font-bold text-neutral-100">{{ profile.score }}</p>
@@ -116,46 +110,46 @@
                  data-aos="fade-up"
                  data-aos-delay="300">
               <div class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600/20 text-blue-500 mb-4">
-                <span class="material-symbols-outlined text-2xl">trending_up</span>
+                <span class="ph-fill ph-trend-up text-2xl"></span>
               </div>
               <p class="text-neutral-400 text-sm">Current Level</p>
               <p class="text-2xl font-bold text-neutral-100">{{ profile.current_level }}</p>
             </div>
           </div>
-          <!-- Contact & Personal Info -->
           <div class="mt-6 md:mt-8 space-y-4">
-            <!-- Personal Info Section -->
-            <div class="bg-neutral-900/50 rounded-xl p-4"
+            <h3 class="text-neutral-400 text-sm mb-4 flex items-center gap-2">
+              <span class="ph-fill ph-user-gear text-xl"></span>
+              User Actions
+            </h3>
+            <div class="bg-neutral-800/50 rounded-xl px-4 py-1"
                  data-aos="fade-up"
                  data-aos-delay="400">
-              <!-- Email Row -->
-              <div class="flex flex-col sm:flex-row sm:items-center gap-1">
+              <div class="flex flex-col sm:flex-row sm:items-center gap-3 py-3">
                 <div class="flex items-center gap-2 min-w-0 flex-1">
-                  <span class="material-symbols-outlined text-green-500">mail</span>
+                  <span class="ph-fill ph-envelope text-xl text-green-500">mail</span>
                   <span class="text-neutral-100 truncate">{{ user.email }}</span>
                 </div>
                 {% if user.emailaddress_set.all.0.verified %}
-                  <span class="w-full sm:w-auto inline-flex items-center gap-1 text-green-500 text-sm bg-green-500/10 px-4 py-1 rounded-full hover:bg-green-500/20 transition-colors justify-center mb-2 mt-2 md:mt-0">
-                    <span class="material-symbols-outlined text-base">verified</span>
+                  <span class="w-full sm:w-auto inline-flex items-center gap-1 text-green-500 text-sm bg-green-500/10 px-4 py-1 rounded-full hover:bg-green-500/20 transition-colors justify-center">
+                    <span class="ph-fill ph-seal-check text-base"></span>
                     Verified
                   </span>
                 {% else %}
                   <form action="{% url 'send_confirmation_email' %}"
                         method="post"
-                        class="flex-shrink-0 w-full sm:w-auto py-2">
+                        class="flex-shrink-0 w-full sm:w-auto py-3">
                     {% csrf_token %}
                     <button type="submit"
-                            class="w-full sm:w-auto inline-flex items-center gap-1 text-amber-500 text-sm bg-amber-500/10 px-4 py-2 rounded-full hover:bg-amber-500/20 transition-colors justify-center">
-                      <span class="material-symbols-outlined text-base">mark_email_unread</span>
+                            class="w-full sm:w-auto inline-flex items-center gap-1 text-amber-500 text-sm bg-amber-500/10 px-4 py-1 rounded-full hover:bg-amber-500/20 transition-colors justify-center">
+                      <span class="ph-fill ph-paper-plane-tilt text-base"></span>
                       Verify Email
                     </button>
                   </form>
                 {% endif %}
               </div>
-              <!-- Name Row -->
-              <div class="flex flex-col sm:flex-row sm:items-center gap-3 py-2 border-t border-neutral-800">
+              <div class="flex flex-col sm:flex-row sm:items-center gap-3 py-3 border-t border-neutral-700">
                 <div class="flex items-center gap-2 min-w-0 flex-1">
-                  <span class="material-symbols-outlined text-purple-500">person</span>
+                  <span class="ph-fill ph-user text-xl text-purple-500"></span>
                   {% if profile.name %}
                     <span class="text-neutral-100">{{ profile.name }}</span>
                   {% else %}
@@ -164,16 +158,15 @@
                 </div>
                 {% if not profile.name %}
                   <a href="{% url 'edit_profile' %}"
-                     class="w-full sm:w-auto inline-flex items-center gap-1 text-purple-500 text-sm bg-purple-500/10 px-4 py-2 rounded-full hover:bg-purple-500/20 transition-colors justify-center">
-                    <span class="material-symbols-outlined text-base">edit</span>
+                     class="w-full sm:w-auto inline-flex items-center gap-1 text-purple-500 text-sm bg-purple-500/10 px-4 py-1 rounded-full hover:bg-purple-500/20 transition-colors justify-center">
+                    <span class="ph-fill ph-pencil-simple text-base"></span>
                     Set Name
                   </a>
                 {% endif %}
               </div>
-              <!-- Organization Row -->
-              <div class="flex flex-col sm:flex-row sm:items-center gap-3 py-2 border-t border-neutral-800">
+              <div class="flex flex-col sm:flex-row sm:items-center gap-3 py-3 border-t border-neutral-700">
                 <div class="flex items-center gap-2 min-w-0 flex-1">
-                  <span class="material-symbols-outlined text-blue-500">school</span>
+                  <span class="ph-fill ph-graduation-cap text-blue-500 text-xl"></span>
                   {% if profile.organization %}
                     <span class="text-neutral-100">{{ profile.organization }}</span>
                   {% else %}
@@ -182,61 +175,32 @@
                 </div>
                 {% if not profile.organization %}
                   <a href="{% url 'edit_profile' %}"
-                     class="w-full sm:w-auto inline-flex items-center gap-1 text-blue-500 text-sm bg-blue-500/10 px-4 py-2 rounded-full hover:bg-blue-500/20 transition-colors justify-center">
-                    <span class="material-symbols-outlined text-base">edit</span>
+                     class="w-full sm:w-auto inline-flex items-center gap-1 text-blue-500 text-sm bg-blue-500/10 px-4 py-1 rounded-full hover:bg-blue-500/20 transition-colors justify-center">
+                    <span class="ph-fill ph-pencil-simple text-base"></span>
                     Set Organization
                   </a>
                 {% endif %}
               </div>
             </div>
-            <!-- Discord Section -->
-            {% if connected %}
-              <div class="flex items-center gap-3 bg-neutral-900/50 rounded-xl p-4">
-                <svg class="w-6 h-6 text-indigo-500"
-                     viewBox="0 0 71 55"
-                     fill="currentColor">
-                  <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z" fill="#ffffff" />
-                </svg>
-                <span class="text-neutral-100">{{ discord }}</span>
-              </div>
-            {% else %}
-              <!-- <form action="{ provider_login_url 'discord' process='connect' }"
-                    method="post"> -->
-              <form action="/"
-                    method="post">
-                {% csrf_token %}
-                <input type="hidden" name="process" value="connect">
-                <button type="submit"
-                        class="w-full bg-[#5865F2] hover:bg-[#4752C4] text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 71 55">
-                    <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z" fill="#ffffff" />
-                  </svg>
-                  <span>Connect Discord</span>
-                </button>
-              </form>
-            {% endif %}
-            <!-- Account Actions -->
             <div class="mt-6 md:mt-8">
-              <div class="bg-neutral-900/50 rounded-xl p-4">
-                <h3 class="text-neutral-400 text-sm mb-4 flex items-center gap-2">
-                  <span class="material-symbols-outlined">settings</span>
-                  Account Actions
-                </h3>
-                <div class="space-y-2">
-                  <a href="{% url 'account_change_password' %}"
-                     class="w-full flex items-center gap-2 px-4 py-3 text-neutral-100 bg-neutral-800/50 hover:bg-neutral-700/50 rounded-lg transition-colors">
-                    <span class="material-symbols-outlined">password</span>
-                    Change Password
-                  </a>
-                  <form action="{% url 'account_logout' %}" method="post" class="w-full">
-                    {% csrf_token %}
-                    <button type="submit"
-                            class="w-full flex items-center gap-2 px-4 py-3 text-red-500 bg-neutral-800/50 hover:bg-red-500/10 rounded-lg transition-colors">
-                      <span class="material-symbols-outlined">logout</span>
-                      Logout
-                    </button>
-                  </form>
-                </div>
+              <h3 class="text-neutral-400 text-sm mb-4 flex items-center gap-2">
+                <span class="ph-fill ph-gear text-xl"></span>
+                Account Actions
+              </h3>
+              <div class="space-y-2">
+                <a href="{% url 'account_change_password' %}"
+                   class="w-full flex items-center gap-2 px-4 py-3 text-neutral-100 bg-neutral-800/50 hover:bg-neutral-700/50 rounded-lg transition-colors">
+                  <span class="ph-bold ph-password text-xl"></span>
+                  Change Password
+                </a>
+                <form action="{% url 'account_logout' %}" method="post" class="w-full">
+                  {% csrf_token %}
+                  <button type="submit"
+                          class="w-full flex items-center gap-2 px-4 py-3 text-red-500 bg-neutral-800/50 hover:bg-red-500/10 rounded-lg transition-colors">
+                    <span class="ph-bold ph-sign-out text-xl"></span>
+                    Sign Out
+                  </button>
+                </form>
               </div>
             </div>
           </div>
