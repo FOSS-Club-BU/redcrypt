@@ -12,6 +12,7 @@ import os
 import requests
 from datetime import datetime
 import pytz
+from extra_settings.models import Setting
 
 # Create your views here.
 
@@ -90,28 +91,41 @@ def check_ans(request):
 
 
 def leaderboard(request):
-    staff = Profile.objects.filter(
-        user__is_staff=True).order_by(
-            '-score',
-            'last_completed_time')
-    profiles = Profile.objects.all().exclude(
-        is_banned=True).exclude(
+    hunt_status = Setting.get('HUNT_STATUS', default="not started")
+    context = {
+        'hunt_status': hunt_status,
+    }
+    
+    if hunt_status == 'not started':
+        context['start_time'] = Setting.get('HUNT_START_TIME').strftime("%B %d, %Y at %I:%M %p")
+    elif hunt_status == 'paused':
+        context['resume_time'] = Setting.get('HUNT_RESUME_TIME').strftime("%B %d, %Y at %I:%M %p")
+    elif hunt_status in ['active', 'ended']:  # Show leaderboard for both active and ended states
+        staff = Profile.objects.filter(
             user__is_staff=True).order_by(
                 '-score',
                 'last_completed_time')
-    banned = Profile.objects.filter(
-        is_banned=True).order_by(
-            'last_completed_time')
-    if request.user.is_authenticated:
-        rank = get_rank(request.user)
-    else:
-        rank = 'unauthorised'
-    return render(request, 'leaderboard.html', {
-        'staff': staff,
-        'players': profiles,
-        'rank': rank,
-        'banned': banned,
-        'url_name': 'leaderboard'})
+        profiles = Profile.objects.all().exclude(
+            is_banned=True).exclude(
+                user__is_staff=True).order_by(
+                    '-score',
+                    'last_completed_time')
+        banned = Profile.objects.filter(
+            is_banned=True).order_by(
+                'last_completed_time')
+        if request.user.is_authenticated:
+            rank = get_rank(request.user)
+        else:
+            rank = 'unauthorised'
+        context.update({
+            'staff': staff,
+            'players': profiles,
+            'rank': rank,
+            'banned': banned,
+            'url_name': 'leaderboard'
+        })
+        
+    return render(request, 'leaderboard.html', context)
 
 
 def faqs(request):

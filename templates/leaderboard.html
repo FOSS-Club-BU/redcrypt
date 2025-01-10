@@ -26,6 +26,7 @@
   </style>
 {% endblock head %}
 {% block content %}
+  {% if hunt_status == 'active' or hunt_status == 'ended' %}
   <div class="justify-center px-4 pb-8 md:pt-4">
     <div class="max-w-5xl mx-auto mb-8" data-aos="fade-up">
       <div class="flex flex-col items-center gap-4 mb-8">
@@ -207,4 +208,38 @@
       </div>
     </div>
   </div>
+  {% else %}
+    <div class="min-h-[80vh] flex items-center justify-center">
+      <div class="max-w-4xl mx-auto px-4 py-10" data-aos="fade-up" data-aos-duration="800">
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto rounded-full bg-amber-600/20 flex items-center justify-center mb-6">
+            <i class="ph-fill ph-timer text-4xl text-amber-500"></i>
+          </div>
+          
+          {% if hunt_status == 'not started' %}
+            <h1 class="text-5xl md:text-6xl font-black text-neutral-100 mb-4">Hunt Hasn't Started Yet</h1>
+            <p class="text-xl text-neutral-400 max-w-2xl mx-auto mb-8">The leaderboard will be available once the hunt begins.</p>
+            <div class="inline-flex items-center gap-2 bg-amber-600/20 px-6 py-3 rounded-full text-amber-500">
+              <i class="ph-fill ph-calendar text-xl"></i>
+              <span class="text-sm font-medium">Starting {{ start_time }}</span>
+            </div>
+          {% elif hunt_status == 'paused' %}
+            <h1 class="text-5xl md:text-6xl font-black text-neutral-100 mb-4">Hunt is Paused</h1>
+            <p class="text-xl text-neutral-400 max-w-2xl mx-auto mb-8">The leaderboard will be available once the hunt resumes.</p>
+            <div class="inline-flex items-center gap-2 bg-amber-600/20 px-6 py-3 rounded-full text-amber-500">
+              <i class="ph-fill ph-calendar text-xl"></i>
+              <span class="text-sm font-medium">Resuming {{ resume_time }}</span>
+            </div>
+          {% endif %}
+
+          <div class="mt-8">
+            <a href="{% url 'play' %}" class="inline-flex items-center gap-2 bg-neutral-900/70 shadow-inset-white hover:bg-green-600 text-neutral-100 hover:text-neutral-50 font-bold py-3 px-6 rounded-xl transition-all duration-300">
+              <i class="ph-bold ph-game-controller"></i>
+              Go to Hunt
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
 {% endblock content %}

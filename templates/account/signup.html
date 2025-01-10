@@ -88,7 +88,6 @@
 }
   </style>
   <script>
-    // Set welcome message before page loads
     const messages = [
       "Ready to start the hunt?",
       "Your journey begins here",
@@ -118,7 +117,6 @@
     <div class="max-w-5xl mx-auto flex items-stretch h-auto">
       <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl overflow-hidden flex-1 flex flex-col md:flex-row">
         <div class="flex flex-col md:flex-row w-full">
-          <!-- Welcome Card -->
           <div class="md:w-[400px] min-h-[490px] relative overflow-hidden h-full bg-black/30 animate-fadeIn hidden md:block">
             <svg width="100%"
                  height="100%"
@@ -154,7 +152,6 @@
               </div>
             </div>
           </div>
-          <!-- Mobile Welcome Card -->
           <div class="md:hidden relative overflow-hidden h-full bg-black/30 animate-fadeIn">
             <svg width="100%"
                  height="100%"
@@ -190,7 +187,6 @@
               </div>
             </div>
           </div>
-          <!-- Form Section -->
           <div class="md:w-[500px] flex-1">
             <div class="flex flex-col min-h-full">
               <div class="min-h-[425px]">
@@ -199,9 +195,7 @@
                       class="h-full"
                       id="signup_form">
                   {% csrf_token %}
-                  <!-- Form Steps -->
                   <div class="flex-1 animate-slideUp px-6 pt-6 min-h-[320px]">
-                    <!-- Step 1: Email -->
                     <div data-step="1"
                          data-active="true"
                          class="data-[active=true]:block hidden animate-fadeIn">
@@ -237,7 +231,6 @@
                         </button>
                       </div>
                     </div>
-                    <!-- Step 2: Username & Password -->
                     <div data-step="2"
                          data-active="false"
                          class="data-[active=true]:block hidden">
@@ -281,7 +274,6 @@
                                   <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5" class="text-neutral-700/50"></circle>
                                   <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5" class="transition-all duration-300" style="stroke-dasharray: 63; stroke-dashoffset: 63"></circle>
                                 </svg>
-                                <!-- Password Requirements Popup -->
                                 <div class="absolute -right-2 top-7 w-64 bg-neutral-900/95 border border-neutral-800 rounded-xl backdrop-blur-md shadow-lg transform opacity-0 scale-95 transition-all duration-200 pointer-events-none z-50"
                                      id="passwordRequirements">
                                   <div class="p-4">
@@ -296,13 +288,11 @@
                           </div>
                         </div>
                       </div>
-                      <!-- Step Indicator -->
                       <div class="flex justify-center gap-4 mt-8">
                         <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
                         <div class="w-2 h-2 rounded-full bg-green-500 scale-125"></div>
                         <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
                       </div>
-                      <!-- Form Navigation -->
                       <div class="mt-6 flex flex-col md:flex-row gap-4">
                         <button type="button"
                                 class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2 back-btn">
@@ -316,7 +306,6 @@
                         </button>
                       </div>
                     </div>
-                    <!-- Step 3: Profile Details -->
                     <div data-step="3"
                          data-active="false"
                          class="data-[active=true]:block hidden">
@@ -352,13 +341,11 @@
                           <div>{{ form.hcaptcha }}</div>
                         </div>
                       </div>
-                      <!-- Step Indicator -->
                       <div class="flex justify-center gap-4 mt-8">
                         <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
                         <div class="w-2 h-2 rounded-full bg-green-600/20"></div>
                         <div class="w-2 h-2 rounded-full bg-green-500 scale-125"></div>
                       </div>
-                      <!-- Form Navigation -->
                       <div class="mt-6 flex flex-col md:flex-row gap-4">
                         <button type="button"
                                 class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm rounded-xl transition-all duration-200 text-sm py-3 px-6 hover:bg-green-500 hover:-translate-y-0.5 text-neutral-100 hover:text-neutral-50 font-bold flex items-center justify-center gap-2 back-btn">
@@ -410,7 +397,6 @@
     </script>
   {% endif %}
   <script>
-// Welcome Messages
 const signupMessages = [
   "Ready to start the hunt?",
   "Your journey begins here",
@@ -429,7 +415,6 @@ const signupMessages = [
   "Encryption in progress..."
 ];
 
-// Function to check if email/username exists
 async function checkEmail(email) {
   try {
     const response = await fetch('/check-email/', {
@@ -474,26 +459,13 @@ async function checkUsername(username) {
   }
 }
 
-// Function to check password strength
 function checkPasswordStrength(password) {
-  // Simple password strength check
   let score = 0;
-  
-  // Length check
   if (password.length >= 8) score++;
-  
-  // Contains number
   if (/\d/.test(password)) score++;
-  
-  // Contains lowercase
   if (/[a-z]/.test(password)) score++;
-  
-  // Contains uppercase
   if (/[A-Z]/.test(password)) score++;
-  
-  // Contains special character
   if (/[^A-Za-z0-9]/.test(password)) score++;
-  
   return { score };
 }
 
@@ -520,10 +492,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('signup_form');
   const nextBtnEmail = form.querySelector('.next-btn-email');
   const nextBtn = form.querySelector('.next-btn');
-  const backBtns = form.querySelectorAll('.back-btn');  // Select all back buttons
+  const backBtns = form.querySelectorAll('.back-btn'); 
   let currentStep = 1;
 
-  // Show/hide elements based on current step
   function updateFormNavigation() {
     const steps = form.querySelectorAll('[data-step]');
     const oldStep = [...steps].find(s => s.dataset.active === 'true');
@@ -535,10 +506,8 @@ document.addEventListener('DOMContentLoaded', function() {
       oldStep.dataset.active = 'false';
     }
 
-    // Show Google auth section immediately if on step 1
     if (currentStep === 1) {
       googleAuthSection.classList.remove('hidden');
-      // Small delay to ensure smooth animation
       setTimeout(() => {
         googleAuthSection.classList.remove('opacity-0');
         googleAuthSection.classList.add('animate-fadeIn');
@@ -546,7 +515,6 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       googleAuthSection.classList.add('opacity-0');
       googleAuthSection.classList.remove('animate-fadeIn');
-      // Hide after animation
       setTimeout(() => {
         googleAuthSection.classList.add('hidden');
       }, 300);
@@ -565,7 +533,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 300);
   }
 
-  // Handle back button clicks
   backBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       if (currentStep > 1) {
@@ -575,7 +542,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Handle email button click
   nextBtnEmail.addEventListener('click', async () => {
     const email = form.querySelector('[name="email"]').value;
     if (!validateEmail(email)) {
@@ -583,7 +549,6 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
     
-    // Check if email exists
     const emailCheck = await checkEmail(email);
     if (emailCheck.exists) {
       showToast('This email is already registered', 3000, 'ERROR');
@@ -594,7 +559,6 @@ document.addEventListener('DOMContentLoaded', function() {
     updateFormNavigation();
   });
 
-  // Handle next/submit button click
   nextBtn.addEventListener('click', async () => {
     if (currentStep === 2) {
       const username = form.querySelector('[name="username"]').value;
@@ -605,14 +569,12 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      // Check username availability
       const usernameCheck = await checkUsername(username);
       if (usernameCheck.exists) {
         showToast('This username is already taken', 3000, 'ERROR');
         return;
       }
 
-      // Check password strength
       const { score } = checkPasswordStrength(password);
       if (score < 3) {
         showToast('Password is not strong enough', 3000, 'ERROR');
@@ -624,7 +586,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Update the form submit handler
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -636,29 +597,23 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    // Set loading state
     setButtonLoading(submitButton, true);
 
-    // Small delay to ensure the loading state is visible
     setTimeout(() => {
       form.submit();
     }, 100);
   });
 
-  // Initialize form navigation
   updateFormNavigation();
   
-  // Add this to your existing script section
   const togglePassword = document.getElementById('togglePassword');
   const passwordInput = document.getElementById('id_password');
   const strengthRing = document.querySelector('.strength-ring');
 
-  // Update password strength ring
   passwordInput.addEventListener('input', function() {
     const { score } = checkPasswordStrength(this.value);
     const circle = strengthRing.querySelector('circle');
     
-    // Remove existing strength classes
     strengthRing.classList.remove('strength-weak', 'strength-medium', 'strength-strong');
     
     if (this.value.length === 0) {
@@ -667,13 +622,11 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
     
-    // Calculate circumference percentage based on score
     const circumference = 63;
     const offset = circumference - (score / 5) * circumference;
     circle.style.strokeDasharray = circumference;
     circle.style.strokeDashoffset = offset;
     
-    // Add appropriate strength class
     if (score <= 2) {
       strengthRing.classList.add('strength-weak');
     } else if (score <= 3) {
@@ -684,11 +637,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   togglePassword.addEventListener('click', function() {
-      // Toggle the password visibility
       const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
       passwordInput.setAttribute('type', type);
       
-      // Toggle the icon
       if (type === 'password') {
           this.classList.remove('ph-eye-slash');
           this.classList.add('ph-eye');
@@ -698,7 +649,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   });
 
-  // Strength ring and requirements popup handling
   const strengthIndicator = document.getElementById('strengthIndicator');
   const passwordRequirements = document.getElementById('passwordRequirements');
   
@@ -712,7 +662,6 @@ document.addEventListener('DOMContentLoaded', function() {
     passwordRequirements.classList.remove('opacity-100', 'scale-100');
   }
 
-  // Toggle requirements on ring click
   strengthIndicator.addEventListener('click', (e) => {
     e.stopPropagation();
     if (passwordRequirements.classList.contains('opacity-0')) {
@@ -722,14 +671,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Close on click outside
   document.addEventListener('click', (e) => {
     if (!passwordRequirements.contains(e.target) && e.target !== strengthIndicator) {
       hideRequirements();
     }
   });
 
-  // Initialize requirements list
   const requirementsList = passwordRequirements.querySelector('.requirements-list');
   const requirements = [
     { test: (p) => p.length >= 8, text: 'At least 8 characters' },
@@ -739,7 +686,6 @@ document.addEventListener('DOMContentLoaded', function() {
     { test: (p) => /[^A-Za-z0-9]/.test(p), text: 'One special character' }
   ];
 
-  // Populate requirements
   requirementsList.innerHTML = requirements.map(req => `
     <div class="flex items-center gap-2 requirement">
       <i class="ph-bold ph-x-circle text-red-500"></i>
@@ -747,12 +693,10 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
   `).join('');
 
-  // Update requirements in realtime
   passwordInput.addEventListener('input', function() {
     const password = this.value;
     const { score } = checkPasswordStrength(password);
     
-    // Update requirements list
     requirementsList.querySelectorAll('.requirement').forEach((req, i) => {
       const icon = req.querySelector('i');
       const passed = requirements[i].test(password);
@@ -761,7 +705,6 @@ document.addEventListener('DOMContentLoaded', function() {
         'ph-bold ph-x-circle text-red-500';
     });
 
-    // Update strength ring
     const circle = strengthIndicator.querySelector('circle:last-child');
     circle.style.strokeDasharray = '63';
     
@@ -775,7 +718,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const offset = 63 - (score / 5) * 63;
     circle.style.strokeDashoffset = offset;
 
-    // Update ring color
     strengthIndicator.classList.remove('text-neutral-400', 'text-red-500', 'text-yellow-500', 'text-green-500');
     if (score <= 2) {
       strengthIndicator.classList.add('text-red-500');
