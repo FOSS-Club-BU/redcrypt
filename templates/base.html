@@ -296,44 +296,15 @@
       {% endblock content %}
     </center>
     <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
-    {% if user.is_authenticated %}
-      <script>
-      let deferredPrompt;
-      const addBtn = document.getElementById('installapp');
-      addBtn.classList.add("hidden")
-      window.addEventListener('beforeinstallprompt', function (e) {
-        deferredPrompt = e;
-        addBtn.classList.remove("hidden")
-      });
-
-      addBtn.addEventListener('click', async () => {
-        console.log(deferredPrompt)
-        if (deferredPrompt !== undefined) {
-          deferredPrompt.prompt();
-          const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === 'accepted') {
-            showToast('Installing Re-Dcrypt', 2000)
-            deferredPrompt = undefined;
-          }
-          else {
-            showToast('Installation cancelled ', 2000)
-            deferredPrompt = undefined;
-          }
-        } else {
-          showToast('Re-Dcrypt App may be already installed or could not be installed. Please try again later or contact the admin', 2500)
-        }
-      });
-      {% endif %}
-      </script>
-      {% block scripts %}
-      {% endblock scripts %}
-      <script>
+    {% block scripts %}
+    {% endblock scripts %}
+    <script>
       const options = { color: 'rgb(0, 210, 210)', zIndex: '-1' };
       {% if user.is_authenticated %}
       webpushr('attributes', { "username": "{{user.username}}" });
       {% endif %}
-      </script>
-      <script>
+    </script>
+    <script>
       const mobileMenuButton = document.getElementById("mobile-menu-button");
       const mobileMenu = document.getElementById("mobile-menu");
       const menuIconLines = mobileMenuButton.querySelectorAll("span");
@@ -364,8 +335,8 @@
           menuIconLines[1].classList.remove("-rotate-45", "-translate-y-1.5");
         }
       });
-      </script>
-      <script>
+    </script>
+    <script>
       AOS.init({
         offset: 50,
         delay: 0,
@@ -375,8 +346,8 @@
         mirror: false,
         anchorPlacement: "top-bottom",
       });
-      </script>
-      <script>
+    </script>
+    <script>
       function showToast(message, time, type = "INFO") {
         const toastVariants = {
           DEBUG: {
@@ -447,15 +418,15 @@
           "WARNING"
         );
       }
-      </script>
-      {% if messages %}
-        <script>
+    </script>
+    {% if messages %}
+      <script>
       document.addEventListener('DOMContentLoaded', function() {
         {% for msg in messages %}
           showToast("{{ msg|escapejs }}", 3000, "{{ msg.tags }}");
         {% endfor %}
       });
-        </script>
-      {% endif %}
-    </body>
-  </html>
+      </script>
+    {% endif %}
+  </body>
+</html>

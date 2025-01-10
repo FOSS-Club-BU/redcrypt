@@ -32,6 +32,7 @@ class Profile(models.Model):
     rank = models.CharField(default='0', max_length=5, blank=True)
     last_verification_email_sent = models.DateTimeField(null=True, blank=True)
     verification_emails_sent = models.IntegerField(default=0)
+    last_activity = models.DateTimeField(auto_now=True)
 
     @property
     def avatar_url(self):

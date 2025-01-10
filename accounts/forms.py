@@ -12,6 +12,7 @@ import pytz
 class MyCustomSocialSignupForm(SocialSignupForm):
     name = forms.CharField(required=False, label="Name [Optional]")
     organization = forms.CharField(required=False, label='College/Organization [Optional]')
+    email = forms.EmailField(required=False) 
 
     def save(self, request):
         adapter = get_adapter(request)
@@ -21,12 +22,15 @@ class MyCustomSocialSignupForm(SocialSignupForm):
             avatar_url = self.sociallogin.account.get_avatar_url()
         except:
             avatar_url = f"https://api.dicebear.com/9.x/fun-emoji/svg?seed={user.username}&backgroundColor=059ff2,71cf62,d84be5,d9915b,f6d594,fcbc34,b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf&backgroundRotation[]"
+        
+        current_time = datetime.now(pytz.timezone('Asia/Kolkata'))
         profile = Profile.objects.create(
             user=user,
             name=self.cleaned_data['name'],
             organization=self.cleaned_data['organization'],
             avatar=avatar_url,
-            last_completed_time=datetime.now(pytz.timezone('Asia/Kolkata')))
+            last_completed_time=current_time,
+            last_activity=current_time)
         profile.save()
         return user
 

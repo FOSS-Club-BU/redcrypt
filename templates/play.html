@@ -1,190 +1,396 @@
 {% extends "base.html" %}
-{% block head_title %}Level {{ question.level }}{% endblock %}
+{% block head_title %}
+  Level {{ question.level }}
+{% endblock head_title %}
 {% block head %}
-    <style>
-    input{
-        background: rgba( 0, 0, 0, 0.3 );
-        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-        backdrop-filter: blur( 13.5px );
-        -webkit-backdrop-filter: blur( 13.5px );
-    }
-    div[modal-backdrop]{
-        background: rgba(0,42,42,0.3);
-        backdrop-filter: blur( 13.5px );
-        -webkit-backdrop-filter: blur( 13.5px );
-    }
-    #close_modal:hover{
-        fill: black;
-    }
-    </style>
-{% endblock %}
-{% block content %}
-    <div class="container flex justify-center">
-        <div class="rounded lg:w-1/3  md:w-1/2 w-[98%] p-10 mt-16 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60 bg-color-nblue-700 border border-nblue mb-10"
-             style="background-color: rgba(0, 42, 42, .6)">
-            <p tabindex="0"
-               class="inline text-nblue focus:outline-none text-m font-extrabold leading-6 self-start place-self-start">
-                <span class="border border-nblue rounded"><span class="ml-3 mr-3">Level: {{ question.level }}</span></span>
-            </p>
-            <p tabindex="0"
-               class="inline text-nblue focus:outline-none text-m font-extrabold leading-6 self-start place-self-start">
-                <span class="border border-nblue rounded"><span class="ml-3 mr-3">Points: {{ question.points }}</span></span>
-            </p>
-            <br>
-            <center>
-                <p tabindex="0"
-                   class="text-nblue focus:outline-none text-2xl font-extrabold leading-6 mt-7">
-                    {{ question.question_text | safe }}
-                </p>
-                <div class="w-full flex items-center justify-between py-5">
-                    <!-- <hr class="w-full border border-nblue">-->
-                    {% if question.img_url %}
-                        <div class="flex w-full justify-center">
-                            <a href="{{ question.img_url }}" target="_blank">
-                                <img src="{{ question.img_url }}" class="w-1/2" style="cursor: zoom-in;">
-                            </a>
-                        </div>
-                    {% endif %}
-                </div>
-                {% if additionalhints %}
-                    <button id="hints_button"
-                            class="inline text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-nblue-800 hover:bg-nblue hover:text-black border border-double border-4 border-nblue hover:border-nblue-800 mb-10"
-                            type="button"
-                            data-modal-toggle="popup-modal">Hints</button>
-                {% endif %}
-                <form id="answer_form" action="{% url 'check_ans' %}" method="POST">
-                    {% csrf_token %}
-                    <input id="answer"
-                           name="answer"
-                           type="text"
-                           class="block mr-3 rounded border border-nblue w-full text-nblue p-3"
-                           required>
-                    <div class="mt-8">
-                        <button role="button"
-                                id="submit"
-                                class="border border-nblue focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 text-sm font-semibold leading-none text-white focus:outline-none rounded hover:bg-nblue-500 hover:text-black py-4 w-1/2">
-                            Check
-                        </button>
-                    </div>
-                </form>
-            </center>
-        </div>
-    </div>
-    {% if additionalhints %}
-        <div id="popup-modal"
-             tabindex="-1"
-             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full justify-center items-center bg-nblue-800/[.0]"
-             aria-hidden="true">
-            <div class="relative p-4 w-full max-w-md h-full md:h-auto bg-transparent">
-                <div class="relative rounded-lg shadow bg-nblue-800 border border-nblue">
-                    <button type="button"
-                            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-nblue-500 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center "
-                            data-modal-toggle="popup-modal">
-                        <svg id="close_modal"
-                             class="w-5 h-5"
-                             fill="#00D2D2"
-                             viewBox="0 0 20 20"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd">
-                            </path>
-                        </svg>
-                    </button>
-                    <div class="p-6 text-center">
-                        <h3 class="mb-5 text-lg font-normal text-nblue underline">Hints:</h3>
-                        {% for hint in additionalhints %}
-                            <span class="text-nblue">{{ forloop.counter }}: {{ hint.hint_text | safe }}</span>
-                            <br>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-{% endblock %}
-{% block scripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
+  <style>
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    $("#answer_form").submit(function (e){
-        e.preventDefault();
-        var button = document.getElementById("submit");
-        button.disabled = true;
-        button.classList.add("hover:bg-nblue-700");
-        button.innerHTML = "<img src='https://static.redcrypt.ml/loading1.svg' class='inline h-8'>"
-        var serializedData = $(this).serialize();
-        $.ajax({
-            type:'POST',
-            url:"{% url 'check_ans' %}",
-            data:serializedData,
-            success:function(response){
-                if (response.correct===true){
-                    showToast("Correct 🎉",1000)
-                    var ansinput = document.getElementById("answer");
-                    ansinput.value = "";
-                    setTimeout(function(){
-                    button.disabled = false;
-                    button.classList.remove("hover:bg-nblue-700");
-                    button.innerHTML = "Check";
-                    location.reload();},1000)
-                }
-                else if (response.correct===false){
-                    var ansinput = document.getElementById("answer");
-                    ansinput.value = "";
-                    showToast("Incorrect 😢",1000, "ERROR");
-                    setTimeout(function(){
-                        button.disabled = false;
-                        button.classList.remove("hover:bg-nblue-700");
-                        button.innerHTML = "Check";
-                    },1000);
-                }
-            },
-            error : function(response) {
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out forwards;
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes backdropFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-open {
+  overflow: hidden;
+}
+
+.modal-backdrop {
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.modal-backdrop.show {
+  opacity: 1;
+}
+
+.modal-content {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease-out;
+}
+
+.modal-content.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stylized-quote {
+  position: relative;
+  padding: 1rem 3rem;
+}
+
+.stylized-quote::before,
+.stylized-quote::after {
+  position: absolute;
+  font-size: 4rem;
+  line-height: 1;
+  opacity: 0.2;
+  transition: all 0.3s ease;
+  font-family: serif;
+  color: #08B74F;
+}
+
+.stylized-quote::before {
+  content: '"';
+  left: 0;
+  top: -1rem;
+}
+
+.stylized-quote::after {
+  content: '"';
+  right: 0;
+  bottom: -2rem;
+}
+
+.stylized-quote:hover::before,
+.stylized-quote:hover::after {
+  opacity: 0.5;
+  transform: scale(1.2);
+  color: #08B74F;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+.animate-float {
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes rubberBand {
+  from { transform: scale3d(1, 1, 1); }
+  30% { transform: scale3d(1.25, 0.75, 1); }
+  40% { transform: scale3d(0.75, 1.25, 1); }
+  50% { transform: scale3d(1.15, 0.85, 1); }
+  65% { transform: scale3d(0.95, 1.05, 1); }
+  75% { transform: scale3d(1.05, 0.95, 1); }
+  to { transform: scale3d(1, 1, 1); }
+}
+
+.animate-rubberBand {
+  animation: rubberBand 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15%, 45%, 75% { transform: translateX(-6px); }
+  30%, 60%, 90% { transform: translateX(6px); }
+}
+
+.animate-shake {
+  animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+  </style>
+{% endblock head %}
+{% block content %}
+  <div class="justify-center">
+    <div class="p-5 bg-clip-padding mx-auto animate-[fadeIn_0.6s_ease-out]"
+         data-aos="fade-up"
+         data-aos-duration="800">
+      <div class="flex flex-col items-center gap-4">
+        <div class="w-20 h-20 rounded-full bg-green-600/20 flex items-center justify-center">
+          <span class="ph-fill ph-question text-4xl text-green-500"></span>
+        </div>
+        <div class="text-center">
+          <h1 class="text-5xl md:text-6xl font-black text-neutral-100">Level {{ question.level }}</h1>
+          <p class="text-xl text-neutral-400 mt-2">{{ question.short_name|default:"Time to solve this puzzle" }}</p>
+        </div>
+        <div class="flex gap-3">
+          <div class="bg-green-600/20 backdrop-blur-md px-4 py-2 rounded-xl border-2 border-green-600 flex items-center gap-2 text-green-500">
+            <i class="ph-fill ph-plus-circle"></i>
+            <span>{{ question.points }} Points</span>
+          </div>
+          {% if additionalhints %}
+            <button id="hints_button"
+                    class="bg-amber-700/20 backdrop-blur-md px-4 py-2 rounded-xl border-2 border-amber-500/50 text-amber-500 hover:bg-amber-800/30 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    type="button">
+              <span class="flex items-center gap-2">
+                <i class="ph-fill ph-lightbulb"></i>
+                <span>View Hints</span>
+              </span>
+            </button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="md:w-1/2 p-5 mx-auto animate-[fadeIn_0.8s_ease-out]">
+      <div class="bg-neutral-900/70 backdrop-blur-md shadow-inset-white rounded-2xl transition-all duration-300 hover:bg-neutral-800/70">
+        <div class="p-6 pb-0">
+          <div class="stylized-quote">
+            <div class="max-w-none text-xl text-neutral-100 leading-relaxed font-black">{{ question.question_text | safe }}</div>
+          </div>
+          {% if question.img_url %}
+            <div class="mt-6">
+              <a href="{{ question.img_url }}"
+                 target="_blank"
+                 class="block group relative rounded-xl overflow-hidden">
+                <img src="{{ question.img_url }}"
+                     alt="Question Image"
+                     class="max-w-full h-auto rounded-xl shadow-lg transition-all duration-300"
+                     style="max-height: 400px;
+                            object-fit: contain"
+                     width="auto"
+                     height="auto">
+                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <span class="text-white/90 flex items-center gap-2">
+                    <i class="ph-bold ph-magnifying-glass-plus text-xl"></i>
+                    <span>Click to enlarge</span>
+                  </span>
+                </div>
+              </a>
+            </div>
+          {% endif %}
+        </div>
+        <div class="p-6 pt-4 border-t border-neutral-800/50 mt-6">
+          <form id="answer_form" action="{% url 'check_ans' %}" method="post">
+            {% csrf_token %}
+            <div class="flex flex-col gap-3">
+              <input id="answer"
+                     name="answer"
+                     type="text"
+                     class="w-full bg-neutral-900/70 shadow-inset-white backdrop-blur-sm text-gray-100 rounded-xl py-4 px-5 transition-all duration-300 hover:ring-2 hover:ring-green-500 focus:ring-2 focus:ring-green-500 focus:outline-none placeholder-white/30 focus:placeholder-white/10"
+                     placeholder="Enter your answer"
+                     required>
+              <button type="submit"
+                      id="submit"
+                      class="w-full bg-green-500/20 hover:bg-green-500 text-green-500 hover:text-white px-6 py-3 rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group">
+                <div class="flex items-center justify-center gap-2">
+                  <i class="ph-bold ph-check text-xl transition-transform group-hover:scale-110"></i>
+                  <span class="whitespace-nowrap">Submit</span>
+                </div>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if additionalhints %}
+    <div id="hints-modal"
+         role="dialog"
+         aria-labelledby="modal-title"
+         aria-modal="true"
+         class="fixed inset-0 z-50 hidden">
+      <div class="modal-backdrop fixed inset-0 bg-black/30 backdrop-blur-md"></div>
+      <div class="fixed inset-0 flex items-center justify-center p-4">
+        <div class="modal-content relative w-full max-w-md">
+          <div class="relative rounded-2xl bg-neutral-900/95 shadow-inset-white">
+            <button type="button"
+                    id="close-modal"
+                    class="absolute top-4 right-4 text-gray-400 hover:text-gray-200 transition-colors p-2 rounded-lg focus:outline-none"
+                    aria-label="Close modal">
+              <i class="ph-bold ph-x text-2xl"></i>
+            </button>
+            <div class="p-6 overflow-y-auto max-h-[calc(100vh-8rem)]">
+              <div class="flex items-center gap-3 mb-5">
+                <span class="flex items-center justify-center w-10 h-10 rounded-full bg-green-500/20 text-green-500">
+                  <i class="ph-fill ph-lightbulb text-xl"></i>
+                </span>
+                <h3 id="modal-title" class="text-xl font-bold text-gray-200">Available Hints</h3>
+              </div>
+              <div class="space-y-4">
+                {% for hint in additionalhints %}
+                  <div class="bg-neutral-800/50 p-4 rounded-xl">
+                    <div class="flex items-start gap-3">
+                      <span class="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-green-500/20 text-green-500 text-sm">
+                        {{ forloop.counter }}
+                      </span>
+                      <p class="text-gray-300">{{ hint.hint_text | safe }}</p>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+const modal = document.getElementById('hints-modal');
+const modalContent = modal.querySelector('.modal-content');
+const modalBackdrop = modal.querySelector('.modal-backdrop');
+const openModalBtn = document.getElementById('hints_button');
+const closeModalBtn = document.getElementById('close-modal');
+
+function openModal() {
+  modal.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+  requestAnimationFrame(() => {
+    modalBackdrop.classList.add('show');
+    modalContent.classList.add('show');
+  });
+  closeModalBtn.focus();
+}
+
+function closeModal() {
+  modalBackdrop.classList.remove('show');
+  modalContent.classList.remove('show');
+  setTimeout(() => {
+    modal.classList.add('hidden');
+    document.body.classList.remove('modal-open');
+  }, 200);
+  openModalBtn.focus();
+}
+openModalBtn.addEventListener('click', openModal);
+closeModalBtn.addEventListener('click', closeModal);
+
+modalBackdrop.addEventListener('click', closeModal);
+
+modalContent.addEventListener('click', e => e.stopPropagation());
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+    closeModal();
+  }
+});
+    </script>
+  {% endif %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+$("#answer_form").submit(function (e){
+    e.preventDefault();
+    var button = document.getElementById("submit");
+    var buttonContent = button.querySelector('div');
+    var icon = buttonContent.querySelector('i');
+    var text = buttonContent.querySelector('span');
+    
+    button.disabled = true;
+    icon.className = "ph-bold ph-circle-notch text-xl animate-spin";
+    text.textContent = "Checking...";
+    
+    var serializedData = $(this).serialize();
+    $.ajax({
+        type:'POST',
+        url:"{% url 'check_ans' %}",
+        data:serializedData,
+        success:function(response){
+            if (response.correct===true){
+                icon.className = "ph-bold ph-check-circle text-xl animate-float";
+                text.textContent = "Correct!";
+                
                 var ansinput = document.getElementById("answer");
                 ansinput.value = "";
-                showToast("Some error occured, try again. If Problem persists, contact us.",1500)
+                
+                setTimeout(function(){
+                    location.reload();
+                }, 1000);
+            }
+            else if (response.correct===false){
+                icon.className = "ph-bold ph-x-circle text-xl";
+                text.textContent = "Try Again";
+                button.classList.add("!bg-red-500/20", "!text-red-500");
+                
+                buttonContent.classList.add('animate-shake');
+                
+                var ansinput = document.getElementById("answer");
+                ansinput.value = "";
+                
+                buttonContent.addEventListener('animationend', () => {
+                    buttonContent.classList.remove('animate-shake');
+                }, {once: true});
+                
                 setTimeout(function(){
                     button.disabled = false;
-                    button.classList.remove("hover:bg-nblue-700");
-                    button.innerHTML = "Check";
-                },1500);
+                    button.classList.remove("!bg-red-500/20", "!text-red-500");
+                    icon.className = "ph-bold ph-check text-xl";
+                    text.textContent = "Submit";
+                },1000);
+            }
+        },
+        error : function(response) {
+            icon.className = "ph-bold ph-warning text-xl";
+            text.textContent = "Error";
+            button.classList.add("!bg-amber-500/20", "!text-amber-500");
+            
+            var ansinput = document.getElementById("answer");
+            ansinput.value = "";
+            
+            setTimeout(function(){
+                button.disabled = false;
+                button.classList.remove("!bg-amber-500/20", "!text-amber-500");
+                icon.className = "ph-bold ph-check text-xl";
+                text.textContent = "Submit";
+            },1500);
         }
-        });
     });
-    </script>
-    <script>
-      window.chatwootSettings = {"position":"right","type":"standard","launcherTitle":"Lead Confirmation"};
-      (function(d,t) {
-        var BASE_URL="https://chat.fossbu.co";
-        var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=BASE_URL+"/packs/js/sdk.js";
-        g.defer = true;
-        g.async = true;
-        s.parentNode.insertBefore(g,s);
-        g.onload=function(){
-          window.chatwootSDK.run({
-            websiteToken: '27GNBdL4h2TbebVDB5TjpjTy',
-            baseUrl: BASE_URL
-          })
-        }
-      })(document,"script");
-    </script>
-    {% if user.is_authenticated %}
-        <script type="text/javascript">
-      window.addEventListener("chatwoot:ready", function () {
-      window.$chatwoot.setUser("{{ user.username }}", {
-        email: "{{ user.email }}",
-        {% if user.profile.name %}
-        name: "{{ user.profile.name }}",
-        {% else %}
-        name: "{{ user.username }}",
-        {% endif %}
-        avatar_url: "{{ user.profile.avatar }}",
-        company: "{{ user.profile.current_level }}",
-      });
-      window.$chatwoot.setCustomAttributes({
-        current_level: "{{ user.profile.current_level }}",
-      });
-      });
-        </script>
+});
+  </script>
+  <script>
+  window.chatwootSettings = {"position":"right","type":"standard","launcherTitle":"Lead Confirmation"};
+  (function(d,t) {
+    var BASE_URL="https://chat.fossbu.co";
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=BASE_URL+"/packs/js/sdk.js";
+    g.defer = true;
+    g.async = true;
+    s.parentNode.insertBefore(g,s);
+    g.onload=function(){
+      window.chatwootSDK.run({
+        websiteToken: '27GNBdL4h2TbebVDB5TjpjTy',
+        baseUrl: BASE_URL
+      })
+    }
+  })(document,"script");
+  </script>
+  {% if user.is_authenticated %}
+    <script type="text/javascript">
+  window.addEventListener("chatwoot:ready", function () {
+  window.$chatwoot.setUser("{{ user.username }}", {
+    email: "{{ user.email }}",
+    {% if user.profile.name %}
+    name: "{{ user.profile.name }}",
+    {% else %}
+    name: "{{ user.username }}",
     {% endif %}
-{% endblock %}
+    avatar_url: "{{ user.profile.avatar }}",
+    company: "{{ user.profile.current_level }}",
+  });
+  window.$chatwoot.setCustomAttributes({
+    current_level: "{{ user.profile.current_level }}",
+  });
+  });
+    </script>
+  {% endif %}
+{% endblock content %}
