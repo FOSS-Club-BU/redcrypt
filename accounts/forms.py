@@ -29,8 +29,7 @@ class MyCustomSocialSignupForm(SocialSignupForm):
             name=self.cleaned_data['name'],
             organization=self.cleaned_data['organization'],
             avatar=avatar_url,
-            last_completed_time=current_time,
-            last_activity=current_time)
+            last_completed_time=current_time)
         profile.save()
         return user
 
