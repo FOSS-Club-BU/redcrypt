@@ -289,6 +289,8 @@ document.addEventListener('keydown', e => {
   {% endif %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
+  let incorrectAttempts = 0; 
+
 $("#answer_form").submit(function (e){
     e.preventDefault();
     var button = document.getElementById("submit");
@@ -318,6 +320,12 @@ $("#answer_form").submit(function (e){
                 }, 1000);
             }
             else if (response.correct===false){
+                incorrectAttempts++;
+                if (incorrectAttempts === 5 && document.getElementById('hints_button')) {
+                    showToast("Having trouble? Don't forget to check the available hints!", 5000, "INFO");
+                    incorrectAttempts = 0;
+                }
+                
                 icon.className = "ph-bold ph-x-circle text-xl";
                 text.textContent = "Try Again";
                 button.classList.add("!bg-red-500/20", "!text-red-500");

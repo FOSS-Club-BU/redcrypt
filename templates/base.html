@@ -386,8 +386,10 @@
           "transition-all",
           "duration-500",
           "justify-center",
-          "toast-enter"
+          "toast-enter",
+          "cursor-pointer" 
         );
+
         let variant = toastVariants[type] || toastVariants["INFO"];
         toast.classList.add(...variant.colorClass.split(" "));
         toast.classList.add("border", "border-2"); 
@@ -395,6 +397,17 @@
             ${variant.svg}
           <span>${message}</span>
         `;
+
+        toast.addEventListener('click', () => {
+          setTimeout(() => {
+            toast.classList.remove("toast-enter");
+            toast.classList.add("toast-exit");
+            toast.addEventListener("animationend", () => {
+              toast.remove();
+            });
+          }, 100); 
+        });
+
         container.appendChild(toast);
         setTimeout(() => {
           toast.classList.remove("toast-enter");
