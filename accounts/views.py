@@ -152,31 +152,9 @@ def connect(request):
 
 @login_required
 @not_banned
-def send_confirmation_email(request):
-    profile = request.user.profile
-    
-    if not can_send_verification_email(request.user):
-        next_time = get_next_available_time(request.user)
-        remaining = next_time - timezone.now()
-        hours = remaining.seconds // 3600
-        minutes = (remaining.seconds % 3600) // 60
-        
-        messages.error(
-            request, 
-            f"You've exceeded the maximum number of verification email attempts. Please wait {hours}h {minutes}m before requesting another."
-        )
-        return redirect('verification-sent')
-        
-    try:
-        send_email_confirmation(request, request.user, signup=False)
-        profile.verification_emails_sent += 1
-        profile.last_verification_email_sent = timezone.now()
-        profile.save()
-        messages.success(request, f"Verification email sent successfully!")
-            
-    except Exception as e:
-        logger.error(f"Failed to send verification email: {str(e)}")
-        messages.error(request, "Failed to send verification email. Please try again or contact support.")
+def send_confirmation_email(request):    
+    send_email_confirmation(request, request.user, signup=False)
+    messages.success(request, f"Verification email sent successfully!")
     return redirect('verification-sent')
 
 
