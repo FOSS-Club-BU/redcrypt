@@ -22,6 +22,9 @@ def get_rank(user):
     elif user_profile.user.is_staff:
         return '🛡'
     else:
+        if user_profile.last_completed_time is None:
+            user_profile.last_completed_time = user_profile.user.date_joined
+            user_profile.save()
         above_players = Profile.objects.filter(score__gt=user_profile.score).exclude(is_banned=True).exclude(user__is_staff=True) | Profile.objects.filter(score=user_profile.score, last_completed_time__lt=user_profile.last_completed_time).exclude(is_banned=True).exclude(user__is_staff=True)
         above = above_players.count()
         return above+1
