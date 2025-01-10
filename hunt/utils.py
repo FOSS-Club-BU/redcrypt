@@ -11,8 +11,10 @@ def simplify(text):
 
 def match_answer(actual_answer, submitted_answer):
     submitted_answer = simplify(submitted_answer)
+    actual_answer = simplify(actual_answer)
     submitted_answer_filtered = re.sub('[\W_]+', '', submitted_answer.lower().replace(' ', '').strip())
-    return submitted_answer_filtered == actual_answer
+    actual_answer_filtered = re.sub('[\W_]+', '', actual_answer.lower().replace(' ', '').strip())
+    return submitted_answer_filtered == actual_answer_filtered
 
 
 def get_rank(user):
