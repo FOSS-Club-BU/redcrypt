@@ -5,9 +5,9 @@ from accounts.models import Profile
 from discord_webhook import DiscordWebhook
 
 def simplify(text):
-	import unicodedata
-	text = unicodedata.normalize('NFD', text).encode('ascii', 'ignore').decode("utf-8")
-	return str(text)
+    import unicodedata
+    text = unicodedata.normalize('NFD', text).encode('ascii', 'ignore').decode("utf-8")
+    return str(text)
 
 def match_answer(actual_answer, submitted_answer):
     submitted_answer = simplify(submitted_answer)
@@ -40,16 +40,16 @@ def update_rank(user):
 
 
 def backup_db():
-	inpt = "db.sqlite3"
-	oupt = "db.zip"
-	pwd = os.getenv('PWD_zip')
-	webhook_url = os.getenv('Discord_backup_webhook')
-	pyminizip.compress(
-		inpt,
-		None,
-		oupt,
+    inpt = "db.sqlite3"
+    oupt = "db.zip"
+    pwd = os.getenv('PWD_zip')
+    webhook_url = os.getenv('Discord_backup_webhook')
+    pyminizip.compress(
+        inpt,
+        None,
+        oupt,
         pwd,1)
-	webhook = DiscordWebhook(url=webhook_url, rate_limit_retry=True)
-	with open("db.zip", "rb") as f:
-	    webhook.add_file(file=f.read(), filename='db.zip')	
-	webhook.execute()
+    webhook = DiscordWebhook(url=webhook_url, rate_limit_retry=True)
+    with open("db.zip", "rb") as f:
+        webhook.add_file(file=f.read(), filename='db.zip')    
+    webhook.execute()
