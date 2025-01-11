@@ -51,6 +51,8 @@ def check_ans(request):
     if request.method == "POST":
         user = request.user
         profile = Profile.objects.get(user=user)
+        if profile.is_banned:
+            return JsonResponse({'banned': True}, status=403)
         question = Question.objects.get(level=profile.current_level)
         answer = request.POST['answer']
         try:
