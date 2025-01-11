@@ -26,6 +26,22 @@
   -webkit-text-fill-color: transparent;
   animation: glow 2s ease-in-out infinite;
 }
+.heyform__trigger-button {
+  padding: 0.75rem 1.25rem !important;
+  border-radius: 0.75rem !important;
+  transition: all 0.3s !important;
+  font-size: 1rem !important;
+  line-height: 1.5rem !important;
+  font-weight: 700 !important;
+  background-color: rgba(23, 23, 23, 0.7) !important;
+  box-shadow: inset 0 2px 0px -0.5px rgba(255, 255, 255, 0.1) !important;
+}
+
+.heyform__trigger-button:hover {
+  background-color: #08b74f !important;
+  opacity: 1 !important;
+  color: #171717 !important;
+}
   </style>
 {% endblock head %}
 {% block content %}
@@ -44,6 +60,29 @@
           <br>
           <span class="font-black text-green-500">Re-Dcrypt Cryptic Hunt.</span>
         </p>
+        <div class="text-xl text-neutral-200 font-bold max-w-2xl mx-auto"
+             data-aos="fade-up"
+             data-aos-delay="400">Please take a moment to fill out the feedback form below.</div>
+        <div data-heyform-id="sVvK1ozU"
+             data-heyform-type="modal"
+             data-heyform-custom-url="https://forms.fossbu.co/form/"
+             data-heyform-size="medium"
+             data-heyform-open-trigger="click"
+             data-heyform-open-delay="5"
+             data-heyform-open-scroll-percent="30"
+             data-heyform-trigger-background="#1d4ed8"
+             data-heyform-trigger-text="Open Form"
+             data-heyform-hide-after-submit="true"
+             data-heyform-auto-close="5"
+             data-heyform-username="{{ user.username }}"
+             data-heyform-lvl="{{ user.profile.current_level }}"
+             data-aos="fade-up"
+             data-aos-delay="400">
+          <button class="heyform__trigger-button my-4 bg-green-400"
+                  type="button"
+                  onclick="HeyForm.openModal('sVvK1ozU')">Feedback Form</button>
+        </div>
+        <script src="https://www.unpkg.com/@heyform-inc/embed@latest/dist/index.umd.js"></script>
       </div>
       <div class="flex justify-center mb-12"
            data-aos="fade-up"
