@@ -11,6 +11,7 @@ class AnswerAttemptAdmin(admin.ModelAdmin):
         'level',
         'user',
         'time']
+    search_fields = ['answer', 'user__username']
 
 
 class LevelTrackingAdmin(admin.ModelAdmin):
